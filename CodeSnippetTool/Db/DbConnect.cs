@@ -9,7 +9,7 @@ namespace CodeSnippetTool.Db
     class DbConnect
     {
 
-        string Conn = "datasource=127.0.0.1;port=3306;username=root;password=;dtbse=snippet_db";
+        string Conn = "datasource=127.0.0.1;port=3306;username=root;password=;database=snippet_db";
         MySqlConnection databaseConnection;
 
         public DbConnect()
@@ -52,9 +52,9 @@ namespace CodeSnippetTool.Db
         {
             string query = "SELECT * FROM snippets";
 
-            SqlCommand check = new SqlCommand(query);
+            MySqlCommand check = new MySqlCommand(query);
 
-            SqlDataReader dr = check.ExecuteReader();
+            MySqlDataReader dr = check.ExecuteReader();
 
             MySqlCommand commandDatabase = new MySqlCommand(query);
             
@@ -84,9 +84,8 @@ namespace CodeSnippetTool.Db
         public void testInsert()
         {
             databaseConnection.Open();
-            string query = "INSERT INTO ´snippets´ (snippet_text, lang) VALUES ('I am a test snippet text', 'Java')";
-            MySqlCommand cmd = new MySqlCommand(query);
-            //startConnection();
+            string query = "INSERT INTO snippets (snippet_text, lang) VALUES ('I am a test snippet text', 'Java')";
+            MySqlCommand cmd = new MySqlCommand(query, databaseConnection);
             cmd.ExecuteNonQuery();
             Console.WriteLine("insert complete");
             databaseConnection.Close();

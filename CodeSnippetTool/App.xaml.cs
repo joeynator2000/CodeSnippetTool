@@ -13,5 +13,14 @@ namespace CodeSnippetTool
     /// </summary>
     public partial class App : Application
     {
+        public static void Main()
+        {
+            Console.WriteLine("Hello world!");
+            //DbManager db = new DbManager();
+
+            Db.DbConnect connect = new Db.DbConnect();
+
+            connect.testInsert();
+        }
     }
 }
