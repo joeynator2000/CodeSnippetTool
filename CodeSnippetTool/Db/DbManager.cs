@@ -4,6 +4,8 @@ using System.Text;
 
 namespace CodeSnippetTool.Db
 {
+    
+
     class DbManager
     {
         public DbInsert adder;
@@ -16,7 +18,10 @@ namespace CodeSnippetTool.Db
 
         public DbManager()
         {
-
+            this.adder = new DbInsert();
+            this.deleter = new DbDelete();
+            this.updater = new DbUpdate();
+            this.db = new DbConnect();
         }
 
         private bool add()
@@ -31,6 +36,12 @@ namespace CodeSnippetTool.Db
 
         private bool delete()
         {
+            return false;
+        }
+
+        private bool select() 
+        {
+
             return false;
         }
     }
