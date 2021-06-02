@@ -49,7 +49,8 @@ namespace CodeSnippetTool.Db
         public string select() 
         {
 
-            return this.selecter.selectSnippet(1,db.databaseConnection);
+            //return this.selecter.selectSnippet(1,db.databaseConnection);
+            return "";
         }
 
     }

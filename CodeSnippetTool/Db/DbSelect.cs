@@ -18,12 +18,12 @@ namespace CodeSnippetTool.Db
 
 
                                                                   
-        public string selectSnippet(int id, MySqlConnection databaseConnection)
+        public string selectSnippet(int id)
         {
             string snippet = "";
-            databaseConnection.Open();
+            this.connection.Open();
             string query = "SELECT snippet_text FROM snippets WHERE id=@id";
-            using (var cmd = new MySqlCommand(query, databaseConnection))
+            using (var cmd = new MySqlCommand(query, this.connection))
             {
                 cmd.Parameters.AddWithValue("@id", id);
 
@@ -39,16 +39,17 @@ namespace CodeSnippetTool.Db
                 }
             }
             Console.WriteLine("select complete");
-            databaseConnection.Close();
+            this.connection.Close();
             return snippet;
         }
 
-        public string selectFavourite(int favourite, MySqlConnection databaseConnection)
+        public List<string> selectFavourite(int favourite)
         {
-            string snippet = "";
-            databaseConnection.Open();
+            List<string> snippets = new List<string>();
+
+            this.connection.Open();
             string query = "SELECT snippet_text FROM snippets WHERE favourite=@favourite";
-            using (var cmd = new MySqlCommand(query, databaseConnection))
+            using (var cmd = new MySqlCommand(query, this.connection))
             {
                 cmd.Parameters.AddWithValue("@id", favourite);
 
@@ -58,24 +59,25 @@ namespace CodeSnippetTool.Db
                     {
                         var snippetText = reader.GetString(0);
 
-                        snippet = snippetText;
+                        snippets.Add(snippetText);
                         Console.WriteLine($"{snippetText}");
                     }
                 }
             }
             Console.WriteLine("select complete");
-            databaseConnection.Close();
-            return snippet;
+            this.connection.Close();
+            return snippets;
         }
 
-        public string selectLanguage(int id, MySqlConnection databaseConnection)
+        public List<string> selectLanguage(string language)
         {
-            string snippet = "";
-            databaseConnection.Open();
-            string query = "SELECT snippet_text FROM snippets WHERE favourite=@favourite";
-            using (var cmd = new MySqlCommand(query, databaseConnection))
+            List<string> snippets = new List<string>();
+
+            this.connection.Open();
+            string query = "SELECT snippet_text FROM snippets WHERE lang=@lang";
+            using (var cmd = new MySqlCommand(query, this.connection))
             {
-                //cmd.Parameters.AddWithValue("@id", favourite);
+                cmd.Parameters.AddWithValue("@lang", language);
 
                 using (var reader = cmd.ExecuteReader())
                 {
@@ -83,28 +85,85 @@ namespace CodeSnippetTool.Db
                     {
                         var snippetText = reader.GetString(0);
 
-                        snippet = snippetText;
+                        snippets.Add(snippetText);
                         Console.WriteLine($"{snippetText}");
                     }
                 }
             }
             Console.WriteLine("select complete");
-            databaseConnection.Close();
-            return snippet;
+            this.connection.Close();
+            return snippets;
         }
 
-        public string selectDescription(int id, string selectQuery)
+        public string selectDescription(int id)
         {
-            return "";
+            string description = "";
+            this.connection.Open();
+            string query = "SELECT snippet_text FROM snippets WHERE lang=@language";
+            using (var cmd = new MySqlCommand(query, this.connection))
+            {
+                cmd.Parameters.AddWithValue("@id", id);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var snippetText = reader.GetString(0);
+
+                        description = snippetText;
+                        Console.WriteLine($"{snippetText}");
+                    }
+                }
+            }
+            Console.WriteLine("select complete");
+            this.connection.Close();
+            return description;
         }
 
-        public string selectDate(int id, string selectQuery)
+        public List<string> selectAddDate(string date)
         {
-            return "";
+            List<string> snippets = new List<string>();
+            this.connection.Open();
+            string query = "SELECT snippet_text FROM snippets WHERE date_added=@date";
+            using (var cmd = new MySqlCommand(query, this.connection))
+            {
+                cmd.Parameters.AddWithValue("@date", date);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var snippetText = reader.GetString(0);
+
+                        snippets.Add(snippetText);
+                        Console.WriteLine($"{snippetText}");
+                    }
+                }
+            }
+            Console.WriteLine("select complete");
+            this.connection.Close();
+            return snippets;
         }
 
-        public string selectAll(string selectQuery)
+        public string selectAll()
         {
+            this.connection.Open();
+            string query = "SELECT * FROM snippets";
+            using (var cmd = new MySqlCommand(query, this.connection))
+            {
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var snippetText = reader.GetString(0);
+
+                        Console.WriteLine($"{snippetText}");
+                    }
+                }
+            }
+            Console.WriteLine("select complete");
+            this.connection.Close();
             return "";
         }
 
