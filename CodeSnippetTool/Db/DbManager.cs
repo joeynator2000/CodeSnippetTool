@@ -23,11 +23,11 @@ namespace CodeSnippetTool.Db
 
         public DbManager()
         {
+            this.db = new DbConnect();
             this.adder = new DbInsert();
             this.deleter = new DbDelete();
-            this.selecter = new DbSelect();
+            this.selecter = new DbSelect(this.db.databaseConnection);
             this.updater = new DbUpdate();
-            this.db = new DbConnect();
         }
 
 

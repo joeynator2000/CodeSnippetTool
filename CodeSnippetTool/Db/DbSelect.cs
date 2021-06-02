@@ -8,12 +8,14 @@ namespace CodeSnippetTool.Db
     class DbSelect
     {
 
-        public delegate void SelectDelegate(int id, MySqlConnection databaseConnection);
+        public MySqlConnection connection;
 
-        public DbSelect()
+        public DbSelect(MySqlConnection connection)
         {
-
+            this.connection = connection;
         }
+
+
 
                                                                   
         public string selectSnippet(int id, MySqlConnection databaseConnection)
@@ -41,14 +43,54 @@ namespace CodeSnippetTool.Db
             return snippet;
         }
 
-        public int selectFavourite(int id, string selectQuery)
+        public string selectFavourite(int favourite, MySqlConnection databaseConnection)
         {
-            return 0;
+            string snippet = "";
+            databaseConnection.Open();
+            string query = "SELECT snippet_text FROM snippets WHERE favourite=@favourite";
+            using (var cmd = new MySqlCommand(query, databaseConnection))
+            {
+                cmd.Parameters.AddWithValue("@id", favourite);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var snippetText = reader.GetString(0);
+
+                        snippet = snippetText;
+                        Console.WriteLine($"{snippetText}");
+                    }
+                }
+            }
+            Console.WriteLine("select complete");
+            databaseConnection.Close();
+            return snippet;
         }
 
-        public string selectCategory(int id, string selectQuery)
+        public string selectLanguage(int id, MySqlConnection databaseConnection)
         {
-            return "";
+            string snippet = "";
+            databaseConnection.Open();
+            string query = "SELECT snippet_text FROM snippets WHERE favourite=@favourite";
+            using (var cmd = new MySqlCommand(query, databaseConnection))
+            {
+                //cmd.Parameters.AddWithValue("@id", favourite);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var snippetText = reader.GetString(0);
+
+                        snippet = snippetText;
+                        Console.WriteLine($"{snippetText}");
+                    }
+                }
+            }
+            Console.WriteLine("select complete");
+            databaseConnection.Close();
+            return snippet;
         }
 
         public string selectDescription(int id, string selectQuery)
