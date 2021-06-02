@@ -19,6 +19,8 @@ namespace CodeSnippetTool.Db
 
         public DbConnect db;
 
+        public delegate void SelectDelegate(int id, MySqlConnection databaseConnection);
+
         public DbManager()
         {
             this.adder = new DbInsert();
@@ -27,6 +29,7 @@ namespace CodeSnippetTool.Db
             this.updater = new DbUpdate();
             this.db = new DbConnect();
         }
+
 
         private bool add()
         {
@@ -46,12 +49,8 @@ namespace CodeSnippetTool.Db
         public string select() 
         {
 
-            return this.selecter.selectSnippet(1,getConnection());
+            return this.selecter.selectSnippet(1,db.databaseConnection);
         }
 
-        public MySqlConnection getConnection()
-        {
-            return this.db.getConnection();
-        }
     }
 }

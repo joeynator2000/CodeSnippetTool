@@ -7,11 +7,19 @@ namespace CodeSnippetTool.Db
 {
     class DbSelect
     {
+
+        public delegate void SelectDelegate(int id, MySqlConnection databaseConnection);
+
         public DbSelect()
         {
 
         }
 
+        public string runMethod(Func<int,MySqlConnection,string> methoToRun) 
+        {
+
+            return methodToRun;
+        }
         public string selectSnippet(int id, MySqlConnection databaseConnection)
         {
             string snippet = "";
