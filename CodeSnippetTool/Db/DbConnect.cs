@@ -90,6 +90,12 @@ namespace CodeSnippetTool.Db
             Console.WriteLine("insert complete");
             databaseConnection.Close();
         }
+
+        public MySqlConnection getConnection()
+        {
+            return this.databaseConnection;
+        }
+
     }
 
 

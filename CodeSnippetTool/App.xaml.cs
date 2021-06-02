@@ -20,7 +20,12 @@ namespace CodeSnippetTool
 
             Db.DbConnect connect = new Db.DbConnect();
 
-            connect.testInsert();
+            Db.DbManager manager = new Db.DbManager();
+            Console.WriteLine(
+             manager.select());
+
+            //connect.testInsert();
+
         }
     }
 }

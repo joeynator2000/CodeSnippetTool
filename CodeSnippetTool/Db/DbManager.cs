@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,6 +13,8 @@ namespace CodeSnippetTool.Db
 
         public DbDelete deleter;
 
+        public DbSelect selecter;
+
         public DbUpdate updater;
 
         public DbConnect db;
@@ -20,6 +23,7 @@ namespace CodeSnippetTool.Db
         {
             this.adder = new DbInsert();
             this.deleter = new DbDelete();
+            this.selecter = new DbSelect();
             this.updater = new DbUpdate();
             this.db = new DbConnect();
         }
@@ -39,10 +43,15 @@ namespace CodeSnippetTool.Db
             return false;
         }
 
-        private bool select() 
+        public string select() 
         {
 
-            return false;
+            return this.selecter.selectSnippet(1,getConnection());
+        }
+
+        public MySqlConnection getConnection()
+        {
+            return this.db.getConnection();
         }
     }
 }
