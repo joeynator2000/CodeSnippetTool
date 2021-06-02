@@ -10,22 +10,26 @@ namespace CodeSnippetTool.Db
 
         public delegate void SelectDelegate(int id, MySqlConnection databaseConnection);
 
-        public DbSelect()
-        {
+        public MySqlConnection connection;
 
+        public DbSelect(MySqlConnection connection)
+        {
+            this.connection = connection;
         }
 
-        public string runMethod(Func<int,MySqlConnection,string> methoToRun) 
+        public string runMethod(Func<int,string,string> methodToRun) 
         {
 
-            return methodToRun;
+           //string result= methodToRun.Invoke();
+            return methodToRun(2,"cos");
+            //return result;
         }
-        public string selectSnippet(int id, MySqlConnection databaseConnection)
+        public string selectSnippet(int id)
         {
             string snippet = "";
-            databaseConnection.Open();
+           this.connection.Open();
             string query = "SELECT snippet_text FROM snippets WHERE id=@id";
-            using (var cmd = new MySqlCommand(query, databaseConnection))
+            using (var cmd = new MySqlCommand(query, this.connection))
             {
                 cmd.Parameters.AddWithValue("@id", id);
 
@@ -45,14 +49,54 @@ namespace CodeSnippetTool.Db
             return snippet;
         }
 
-        public int selectFavourite(int id, string selectQuery)
+        public string selectFavourite(int favourite, MySqlConnection databaseConnection)
         {
-            return 0;
+            string snippet = "";
+            databaseConnection.Open();
+            string query = "SELECT snippet_text FROM snippets WHERE favourite=@favourite";
+            using (var cmd = new MySqlCommand(query, databaseConnection))
+            {
+                cmd.Parameters.AddWithValue("@id", favourite);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var snippetText = reader.GetString(0);
+
+                        snippet = snippetText;
+                        Console.WriteLine($"{snippetText}");
+                    }
+                }
+            }
+            Console.WriteLine("select complete");
+            databaseConnection.Close();
+            return snippet;
         }
 
-        public string selectCategory(int id, string selectQuery)
+        public string selectLanguage(int id, MySqlConnection databaseConnection)
         {
-            return "";
+            string snippet = "";
+            databaseConnection.Open();
+            string query = "SELECT snippet_text FROM snippets WHERE favourite=@favourite";
+            using (var cmd = new MySqlCommand(query, databaseConnection))
+            {
+                cmd.Parameters.AddWithValue("@id", favourite);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var snippetText = reader.GetString(0);
+
+                        snippet = snippetText;
+                        Console.WriteLine($"{snippetText}");
+                    }
+                }
+            }
+            Console.WriteLine("select complete");
+            databaseConnection.Close();
+            return snippet;
         }
 
         public string selectDescription(int id, string selectQuery)
