@@ -41,9 +41,9 @@ namespace CodeSnippetTool.Db
             return false;
         }
 
-        private bool delete()
+        public void delete()
         {
-            return false;
+            this.deleter.DeleteSnippet(db.databaseConnection);
         }
 
         public string select() 
