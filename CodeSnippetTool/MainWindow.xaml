@@ -15,6 +15,5 @@
         <!--binding the command or method to the button by opening button properties > command > create data binding > bindingType:static Resource > command method you want to bind-->
         <!--command is binding to simple command from the source viewModel, defined in window.resource above.-->
         <Button Content="simple command" Command="{Binding SimpleCommand, Source={StaticResource viewModel}}"/>
-        <Button Content="what ever method"/>
     </Grid>
 </Window>
