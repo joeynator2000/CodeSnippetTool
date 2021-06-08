@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodeSnippetTool.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,12 @@ namespace CodeSnippetTool
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            SearchPageView sp = new SearchPageView();
+            this.Content = sp;
         }
     }
 }
