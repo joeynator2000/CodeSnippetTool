@@ -4,9 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CodeSnippetTool"
+        xmlns:vm="clr-namespace:CodeSnippetTool.View_Models.Commands" 
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
+    <!-- The vm in line 7 is the connection to the commands folder!! creates reference to viewmodel base as vm: to create key see below-->
+    <Window.Resources>
+        <vm:ViewModelBase x:Key="viewModel"/>
+    </Window.Resources>
+    <Grid Margin="0,101,0,165">
+        <!--binding the command or method to the button by opening button properties > command > create data binding > bindingType:static Resource > command method you want to bind-->
+        <!--command is binding to simple command from the source viewModel, defined in window.resource above.-->
+        <Button Content="simple command" Command="{Binding SimpleCommand, Source={StaticResource viewModel}}"/>
+        <Button Content="what ever method"/>
     </Grid>
 </Window>
