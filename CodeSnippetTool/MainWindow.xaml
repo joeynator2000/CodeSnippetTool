@@ -11,9 +11,11 @@
     <Window.Resources>
         <vm:ViewModelBase x:Key="viewModel"/>
     </Window.Resources>
-    <Grid Margin="0,101,0,165">
+    <Grid >
         <!--binding the command or method to the button by opening button properties > command > create data binding > bindingType:static Resource > command method you want to bind-->
         <!--command is binding to simple command from the source viewModel, defined in window.resource above.-->
-        <Button Content="simple command" Command="{Binding SimpleCommand, Source={StaticResource viewModel}}"/>
+        <Button Content="simple command" HorizontalAlignment="Left" Command="{Binding SimpleCommand, Source={StaticResource viewModel}}"/>
+        <Button Content="Search Page" HorizontalAlignment="Left" Margin="619,31,0,0" VerticalAlignment="Top" Height="54" Width="99"/>
+
     </Grid>
 </Window>
