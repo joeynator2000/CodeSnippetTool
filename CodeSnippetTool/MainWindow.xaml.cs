@@ -1,4 +1,5 @@
 ﻿using CodeSnippetTool.Views;
+using CodeSnippetTool.Hotkeys;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,36 @@ namespace CodeSnippetTool
         public MainWindow()
         {
             InitializeComponent();
+
+            //Setup for the hook
+            HotkeyManager.SetupSystemHook();
+
+            // Create hotkey Enter Control + Whatever letter and it recognizes it in the main window, see the listbox @ hotkeys fired.
+            HotkeyListener saveHotkey = new HotkeyListener(ModifierKeys.Control, Key.K, saveFileExample);
+
+
+            //Add hotkey
+            HotkeyManager.AddHotkey(saveHotkey);
+
+
+
+            //Shut down hook when exit app
+            Closing += MainWindow_Closing;
+        }
+
+        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            HotkeyManager.ShutdownSystemHook();
+        }
+
+        public void AddToList(string text)
+        {
+            hotkeysFired.Items.Add(text);
+        }
+
+        public void saveFileExample()
+        {
+            AddToList("Tried to save using Ctrl + K");
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
