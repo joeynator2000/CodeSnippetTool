@@ -10,7 +10,7 @@ namespace CodeSnippetTool.ViewModels
 {
     public class DisplayViewModel : ViewModelBase
     {
-        public ICommand NavigateAddingCommand { get; }
+        public ICommand NavigateAddingCommand { get; set; }
 
         public DisplayViewModel(NavigationStore navigationStore) 
         {

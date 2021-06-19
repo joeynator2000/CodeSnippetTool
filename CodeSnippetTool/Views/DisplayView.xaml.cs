@@ -18,9 +18,30 @@ namespace CodeSnippetTool.Views
     /// </summary>
     public partial class DisplayView : UserControl
     {
+
+
+        public ICommand LoadCommand
+        {
+            get { return (ICommand)GetValue(LoadCommandProperty); }
+            set { SetValue(LoadCommandProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty LoadCommandProperty =
+            DependencyProperty.Register("LoadCommand", typeof(ICommand), typeof(DisplayView), new PropertyMetadata(null));
+
+
         public DisplayView()
         {
             InitializeComponent();
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            //if (LoadCommandProperty != null)
+            //{
+            //    LoadCommand.Execute(null);
+            //}
         }
     }
 }
