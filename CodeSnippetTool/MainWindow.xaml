@@ -4,19 +4,30 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CodeSnippetTool"
-        xmlns:vm="clr-namespace:CodeSnippetTool.View_Models.Commands" 
+        xmlns:viewModels="clr-namespace:CodeSnippetTool.ViewModels"
+        xmlns:views="clr-namespace:CodeSnippetTool.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <!-- The vm in line 7 is the connection to the commands folder!! creates reference to viewmodel base as vm: to create key see below-->
-    <Window.Resources>
+    <!--<Window.Resources>
         <vm:ViewModelBase x:Key="viewModel"/>
     </Window.Resources>
     <Grid>
-        <!--binding the command or method to the button by opening button properties > command > create data binding > bindingType:static Resource > command method you want to bind-->
-        <!--command is binding to simple command from the source viewModel, defined in window.resource above.-->
+        binding the command or method to the button by opening button properties > command > create data binding > bindingType:static Resource > command method you want to bind-->
+        <!--command is binding to simple command from the source viewModel, defined in window.resource above.
         <Button Content="simple command" HorizontalAlignment="Left" Command="{Binding SimpleCommand, Source={StaticResource viewModel}}"/>
         <Button Content="Search Page" HorizontalAlignment="Left" Margin="619,31,0,0" VerticalAlignment="Top" Height="54" Width="99" Click="Button_Click"/>
         <Label VerticalAlignment="Top" HorizontalAlignment="Left" Content="Hotkeys Fired:" Margin="619,285,0,0" Width="120"/>
         <ListBox x:Name="hotkeysFired" Margin="619,316,61,19"/>
-    </Grid>
+    </Grid>-->
+    <ContentControl Content="{Binding CurrentViewModel}">
+        <ContentControl.Resources>
+            <DataTemplate DataType="{x:Type viewModels:DisplayViewModel}">
+                <views:DisplayView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:AddingViewModel}">
+                <views:AddingView/>
+            </DataTemplate>
+        </ContentControl.Resources>
+    </ContentControl>
 </Window>

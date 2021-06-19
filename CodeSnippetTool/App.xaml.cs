@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CodeSnippetTool.Stores;
+using CodeSnippetTool.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,19 +15,19 @@ namespace CodeSnippetTool
     /// </summary>
     public partial class App : Application
     {
-        /*public static void Main()
+        protected override void OnStartup(StartupEventArgs e)
         {
-            Console.WriteLine("Hello world!");
-            //DbManager db = new DbManager();
+            NavigationStore navigationStore = new NavigationStore();
 
-            Db.DbConnect connect = new Db.DbConnect();
+            navigationStore.CurrentViewModel = new DisplayViewModel(navigationStore);
 
-            Db.DbManager manager = new Db.DbManager();
-            Console.WriteLine(
-             manager.select());
+            MainWindow = new MainWindow()
+            {
+                DataContext = new MainViewModel(navigationStore)
+            };
+            MainWindow.Show();
 
-            //connect.testInsert();
-
-        }*/
+            base.OnStartup(e);
+        }
     }
 }

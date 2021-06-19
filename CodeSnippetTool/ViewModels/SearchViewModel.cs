@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CodeSnippetTool.View_Models
+namespace CodeSnippetTool.ViewModels
 {
-    class DisplayaPage
+    public class SearchViewModel : ViewModelBase
     {
     }
 }

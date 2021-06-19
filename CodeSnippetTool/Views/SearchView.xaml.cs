@@ -14,11 +14,11 @@ using System.Windows.Shapes;
 namespace CodeSnippetTool.Views
 {
     /// <summary>
-    /// Interaction logic for AddingPageView.xaml
+    /// Interaction logic for SearchView.xaml
     /// </summary>
-    public partial class AddingPageView : Page
+    public partial class SearchView : UserControl
     {
-        public AddingPageView()
+        public SearchView()
         {
             InitializeComponent();
         }

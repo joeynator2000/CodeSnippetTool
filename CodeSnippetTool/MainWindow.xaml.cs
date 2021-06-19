@@ -49,7 +49,7 @@ namespace CodeSnippetTool
 
         public void AddToList(string text)
         {
-            hotkeysFired.Items.Add(text);
+            //hotkeysFired.Items.Add(text);
         }
 
         public void saveFileExample()
