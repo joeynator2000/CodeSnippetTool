@@ -6,7 +6,51 @@
              xmlns:local="clr-namespace:CodeSnippetTool.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Button Content="Display page button" Command="{Binding NavigateAddingCommand}"></Button>
+    <Grid Background="Gray">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="45"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="45"/>
+            <!--<ColumnDefinition Width="25"/>-->
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90"/>
+            <RowDefinition />
+            <!--<RowDefinition />-->
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="1" Background="#0F0F2D">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="1">
+                
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="1" Background="LightBlue" x:Name="SnippetContainer"
+              >
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="400"/>
+                <ColumnDefinition Width="150" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+        </Grid>
+
+        <!--<StackPanel Grid.Row="1" Grid.Column="1" Background="white">
+
+        </StackPanel>-->
+        <Button Content="Display page button" Command="{Binding NavigateAddingCommand}" Margin="138,313,462,51"></Button>
+        <!--<Rectangle Fill="Red"  HorizontalAlignment="Center" Height="98" Margin="0,86,0,0" Stroke="Black" VerticalAlignment="Top" Width="656"/>
+        <Rectangle Fill="Blue" HorizontalAlignment="Left" Height="98" Margin="628,86,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
+        <Rectangle Fill="Green" HorizontalAlignment="Left" Height="98" Margin="72,86,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
+        <Rectangle Fill="Yellow" HorizontalAlignment="Center" Height="98" Margin="0,86,0,0" Stroke="Black" VerticalAlignment="Top" Width="456"/>
+        <Button Content="Add simple snippet" Command="{Binding NavigateAddingCommand}" Margin="587,225,58,170"/>-->
     </Grid>
 </UserControl>
