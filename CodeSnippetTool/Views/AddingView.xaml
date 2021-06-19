@@ -7,6 +7,36 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Button Content="Adding Page Button" Command="{Binding NavigateDisplayCommand}"></Button>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label>Code:</Label>
+        <TextBox Margin="77,0,23,5" Grid.ColumnSpan="2" />
+        <Label Grid.Row="1">Language:</Label>
+
+        <ComboBox Margin="77,0,23,398" Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Row="1">
+            <ComboBoxItem Content="Java"/>
+            <ComboBoxItem IsSelected="True" Content="C#"/>
+            <ComboBoxItem Content="JavaScript"/>
+            <ComboBoxItem Content="Python"/>
+            <ComboBoxItem Content="TypeScript"/>
+        </ComboBox>
+
+        <Label Grid.ColumnSpan="2" Margin="0,7,733,365" Grid.Row="2">Key words:</Label>
+        <TextBox Margin="77,10,0,365" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Left" Width="700" />
+
+        <Label Grid.Row="2" Grid.ColumnSpan="2" Margin="0,39,727,0">Description:</Label>
+        <TextBox Grid.Row="2" AcceptsReturn="True" Margin="77,39,23,42" Grid.ColumnSpan="2" />
+        <Button Content="submit" Command="" Grid.Column="1" Margin="330,308,340,58" Grid.Row="2"></Button>
+        <Button Content="Navigte to DisplayPage" Command="{Binding NavigateDisplayCommand}" Grid.Column="1" Margin="501,308,45,58" Grid.Row="2"></Button>
     </Grid>
 </UserControl>
