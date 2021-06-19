@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using CodeSnippetTool.classes;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -145,10 +146,11 @@ namespace CodeSnippetTool.Db
             return snippets;
         }
 
-        public string selectAll()
+        public List<Snippet> selectAll()
         {
             this.connection.Open();
             string query = "SELECT * FROM snippets";
+            List<Snippet> snippets = new List<Snippet>();
             using (var cmd = new MySqlCommand(query, this.connection))
             {
 
@@ -156,15 +158,24 @@ namespace CodeSnippetTool.Db
                 {
                     while (reader.Read())
                     {
-                        var snippetText = reader.GetString(0);
+                        var snippetId = reader.GetInt32(0);
+                        var snippetText = reader.GetString(1);
+                        var snippetLang = reader.GetString(2);
+                        var snippetFavourite = reader.GetInt32(3);
+                        //var snippetDateAdded = reader.GetString(4);
+                        var snippetDateAdded = "snippetDateAdded";
+                        //var snippetDateLastCopied = reader.GetString(5);
+                        var snippetDateLastCopied = "snippetDateLastCopied";
+                        Snippet snp = new Snippet(snippetId, snippetText, snippetLang, snippetFavourite, snippetDateAdded, snippetDateLastCopied);
 
+                        snippets.Add(snp);
                         Console.WriteLine($"{snippetText}");
                     }
                 }
             }
             Console.WriteLine("select complete");
             this.connection.Close();
-            return "";
+            return snippets;
         }
 
 
