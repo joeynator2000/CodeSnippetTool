@@ -10,11 +10,74 @@ namespace CodeSnippetTool.ViewModels
 {
     public class AddingViewModel : ViewModelBase
     {
+        private string _codeSnippet;
+        public string CodeSnippet 
+        {
+            get
+            {
+                return _codeSnippet;
+            }
+
+            set
+            {
+                _codeSnippet = value;
+                OnPropertyChanged(nameof(CodeSnippet));
+            }
+        }
+        private string _language;
+        public string Language 
+        {
+            get
+            {
+                return _language;
+            }
+
+            set
+            {
+                _language = value;
+                OnPropertyChanged(nameof(_language));
+            }
+        }
+
+        private string _keyWords;
+        public string KeyWords
+        {
+            get
+            {
+                return _keyWords;
+            }
+
+            set
+            {
+                _keyWords = value;
+                OnPropertyChanged(nameof(KeyWords));
+            }
+        }
+
+        private string _description;
+        public string Description
+        {
+            get
+            {
+                return _description;
+            }
+
+            set
+            {
+                _description = value;
+                OnPropertyChanged(nameof(Description));
+            }
+        }
+
         public ICommand NavigateDisplayCommand { get; }
+        public ICommand SubmitForm { get; }
 
         public AddingViewModel(NavigationStore navigationStore) 
         {
             NavigateDisplayCommand = new NavigateCommand<DisplayViewModel>(new NavigationService<DisplayViewModel>(navigationStore, () => new DisplayViewModel(navigationStore)));
+            //SubmitForm = new AddToDatabaseCommand<AddingViewModel>(new NavigationService<AddingViewModel>(navigationStore, () => new AddingViewModel(navigationStore)));
         }
+
+
     }
 }

@@ -22,5 +22,10 @@ namespace CodeSnippetTool.Service
         {
             _navigationStore.CurrentViewModel = _createViewModel();
         }
+
+        public static implicit operator NavigationService<TViewModel>(NavigationService<AddingViewModel> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
