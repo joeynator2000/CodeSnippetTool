@@ -1,4 +1,5 @@
 ﻿using CodeSnippetTool.Commands;
+using CodeSnippetTool.Service;
 using CodeSnippetTool.Stores;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace CodeSnippetTool.ViewModels
 
         public DisplayViewModel(NavigationStore navigationStore) 
         {
-            NavigateAddingCommand = new NavigateCommand<AddingViewModel>(navigationStore, () => new AddingViewModel(navigationStore));
+            NavigateAddingCommand = new NavigateCommand<AddingViewModel>(new NavigationService<AddingViewModel>(navigationStore, () => new AddingViewModel(navigationStore)));
         }
     }
 }
