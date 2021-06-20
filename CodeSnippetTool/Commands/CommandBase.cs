@@ -7,7 +7,7 @@ namespace CodeSnippetTool.Commands
 {
     public abstract class CommandBase : ICommand
     {
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged; 
 
         public virtual bool CanExecute(object parameter) => true;
 

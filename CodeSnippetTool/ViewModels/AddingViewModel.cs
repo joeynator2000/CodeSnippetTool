@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 using CodeSnippetTool.Commands;
 using CodeSnippetTool.Service;
@@ -70,12 +72,18 @@ namespace CodeSnippetTool.ViewModels
         }
 
         public ICommand NavigateDisplayCommand { get; }
-        public ICommand SubmitForm { get; }
+
+        public AddToDatabaseCommand AddToDbCommand { get; set; }
+
+        public void AddToDbdMethod()
+        {
+            MessageBox.Show($"Snippet: {this.CodeSnippet} Description: {this.Description}");
+        }
 
         public AddingViewModel(NavigationStore navigationStore) 
         {
             NavigateDisplayCommand = new NavigateCommand<DisplayViewModel>(new NavigationService<DisplayViewModel>(navigationStore, () => new DisplayViewModel(navigationStore)));
-            //SubmitForm = new AddToDatabaseCommand<AddingViewModel>(new NavigationService<AddingViewModel>(navigationStore, () => new AddingViewModel(navigationStore)));
+            this.AddToDbCommand = new AddToDatabaseCommand(this);
         }
 
 

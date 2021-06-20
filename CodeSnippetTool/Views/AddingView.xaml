@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CodeSnippetTool.Views" xmlns:viewmodels="clr-namespace:CodeSnippetTool.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:AddingViewModel}"
+             xmlns:local="clr-namespace:CodeSnippetTool.Views" 
+             xmlns:viewmodels="clr-namespace:CodeSnippetTool.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:AddingViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -20,10 +21,10 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Label>Code:</Label>
-        <TextBox Margin="77,0,23,5" Grid.ColumnSpan="2" Text="{Binding CodeSnippet}"/>
+        <TextBox Margin="77,0,23,5" Grid.ColumnSpan="2" Text="{Binding CodeSnippet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <Label Grid.Row="1">Language:</Label>
 
-        <ComboBox Margin="77,0,23,398" Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Row="1" SelectedItem="{Binding Language}">
+        <ComboBox Margin="77,0,23,398" Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Row="1" SelectedItem="{Binding Language, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <ComboBoxItem Content="Java"/>
             <ComboBoxItem IsSelected="True" Content="C#"/>
             <ComboBoxItem Content="JavaScript"/>
@@ -32,11 +33,11 @@
         </ComboBox>
 
         <Label Grid.ColumnSpan="2" Margin="0,7,733,365" Grid.Row="2">Key words:</Label>
-        <TextBox Margin="77,10,0,365" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Left" Width="700" Text="{Binding KeyWords}"/>
+        <TextBox Margin="77,10,0,365" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Left" Width="700" Text="{Binding KeyWords, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Grid.Row="2" Grid.ColumnSpan="2" Margin="0,39,727,0">Description:</Label>
-        <TextBox Grid.Row="2" AcceptsReturn="True" Margin="77,39,23,225" Grid.ColumnSpan="2" Text="{Binding Description}"/>
-        <Button Content="submit" Command="" Grid.Column="1" Margin="324,186,347,180" Grid.Row="2" ></Button>
+        <TextBox Grid.Row="2" AcceptsReturn="True" Margin="77,39,23,225" Grid.ColumnSpan="2" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Content="submit" Command="{Binding AddToDbCommand}" Grid.Column="1" Margin="324,186,347,180" Grid.Row="2"></Button>
         <Button Content="Navigte to DisplayPage" Command="{Binding NavigateDisplayCommand}" Grid.Column="1" Margin="501,308,45,58" Grid.Row="2"></Button>
     </Grid>
 </UserControl>

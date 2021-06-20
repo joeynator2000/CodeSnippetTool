@@ -7,22 +7,18 @@ using System.Windows;
 
 namespace CodeSnippetTool.Commands
 {
-    class AddToDatabaseCommand<TViewModel> : CommandBase
-        where TViewModel : ViewModelBase
+    public class AddToDatabaseCommand : CommandBase
     {
-        private readonly NavigationService<TViewModel> _navigationService;
         private readonly AddingViewModel _viewModel;
 
-        public AddToDatabaseCommand(AddingViewModel viewModel, NavigationService<TViewModel> navigationService)
+        public AddToDatabaseCommand(AddingViewModel viewModel)
         {
             _viewModel = viewModel;
-            _navigationService = navigationService;
         }
 
         public override void Execute(object parameter)
         {
-            MessageBox.Show($"Snippet: {_viewModel.CodeSnippet} Description: {_viewModel.Description}");
-            _navigationService.Navigate();
+            _viewModel.AddToDbdMethod();
         }
     }
 }
