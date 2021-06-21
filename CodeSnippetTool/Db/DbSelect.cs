@@ -162,11 +162,12 @@ namespace CodeSnippetTool.Db
                         var snippetText = reader.GetString(1);
                         var snippetLang = reader.GetString(2);
                         var snippetFavourite = reader.GetInt32(3);
-                        //var snippetDateAdded = reader.GetString(4);
+                        var snippetDescription= reader.GetString(4);
+                        //var snippetDateAdded = reader.GetString(5);
                         var snippetDateAdded = "snippetDateAdded";
-                        //var snippetDateLastCopied = reader.GetString(5);
+                        //var snippetDateLastCopied = reader.GetString(6);
                         var snippetDateLastCopied = "snippetDateLastCopied";
-                        Snippet snp = new Snippet(snippetId, snippetText, snippetLang, snippetFavourite, snippetDateAdded, snippetDateLastCopied);
+                        Snippet snp = new Snippet(snippetId, snippetText, snippetLang, snippetFavourite,snippetDescription, snippetDateAdded, snippetDateLastCopied);
 
                         snippets.Add(snp);
                         Console.WriteLine($"{snippetText}");

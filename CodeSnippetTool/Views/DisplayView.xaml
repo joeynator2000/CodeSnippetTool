@@ -33,7 +33,12 @@
 
         <Grid Grid.Column="1" Grid.Row="1" >
             <ScrollViewer x:Name="Scroll"  Background="red"  >
-                <Grid   Background="LightBlue" x:Name="SnippetContainer" DataContext="{Binding SnippetContainer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+
+                <DataGrid 
+            ItemsSource="{Binding SizeQuantityTable}"
+            AutoGenerateColumns="True"
+            />
+                <!--<Grid   Background="LightBlue" x:Name="SnippetContainer" 
               >
                     <Grid.ColumnDefinitions  >
                         <ColumnDefinition Width="150"/>
@@ -41,7 +46,7 @@
                         <ColumnDefinition Width="150" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <!--<Grid.RowDefinitions  DataContext="{Binding DisplayViewModel}" LoadCommand="{Binding NavigateAddingCommand}">-->
+                        --><!--<Grid.RowDefinitions  DataContext="{Binding DisplayViewModel}" LoadCommand="{Binding NavigateAddingCommand}">--><!--
                         <RowDefinition Height="100"/>
                         <RowDefinition Height="100"/>
                         <RowDefinition Height="100"/>
@@ -53,12 +58,12 @@
                     </Grid.RowDefinitions>
                     <TextBlock Text="hot-key"  x:Name="snippetHotKey" Foreground="Green" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"
                            HorizontalAlignment="Center" FontSize="20px"></TextBlock>
-                    <!--<TextBlock Text="descirption" x:Name="snippetDescription" Foreground="Green" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"
+                    --><!--<TextBlock Text="descirption" x:Name="snippetDescription" Foreground="Green" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"
                            HorizontalAlignment="Center" FontSize="20px"></TextBlock>
                     <TextBlock Text="date when used" x:Name="snippetLastUsedDate" Foreground="Green" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center"
-                           HorizontalAlignment="Center" FontSize="20px"></TextBlock>-->
+                           HorizontalAlignment="Center" FontSize="20px"></TextBlock>--><!--
 
-                </Grid>
+                </Grid>-->
             </ScrollViewer>
         </Grid>
 
@@ -69,7 +74,7 @@
         <Button Content="Button" HorizontalAlignment="Left" Margin="0,95,0,0" Grid.Row="1" VerticalAlignment="Top" Click="Button_Click"/>
         <Button Content="Display page button" Command="{Binding NavigateAddingCommand}" HorizontalAlignment="Left" Margin="10,292,0,0" Grid.Row="1" VerticalAlignment="Top"/>
         <Button Content="ViewModel" Command="{Binding DisplayCommand}" Grid.Column="2" HorizontalAlignment="Left" Margin="5,160,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <Button Content="Parameter" Command="{Binding DisplayParamCommand}"  Grid.Column="1" HorizontalAlignment="Left" Margin="487,252,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Button Content="Parameter" Command="{Binding DisplayParamCommand}"  CommandParameter="{Binding SnippetContainer}" Grid.Column="1" HorizontalAlignment="Left" Margin="487,252,0,0" Grid.Row="1" VerticalAlignment="Top"/>
         
         <!--<Button Content="Add simple snippet" Command="{Binding NavigateAddingCommand}" Margin="587,225,58,170"/>-->
     </Grid>
