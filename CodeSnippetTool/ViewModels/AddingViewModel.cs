@@ -37,7 +37,8 @@ namespace CodeSnippetTool.ViewModels
 
             set
             {
-                _language = value;
+                var x = value.Substring(value.IndexOf(':') + 1);
+                _language = x;
                 OnPropertyChanged(nameof(_language));
             }
         }
@@ -72,6 +73,22 @@ namespace CodeSnippetTool.ViewModels
             }
         }
 
+        private bool _favourite = false;
+
+        public bool Favourite
+        {
+            get
+            {
+                return _favourite;
+            }
+
+            set
+            {
+                _favourite = value;
+                OnPropertyChanged(nameof(Favourite));
+            }
+        }
+
         public ICommand NavigateDisplayCommand { get; }
 
         public AddToDatabaseCommand AddToDbCommand { get; set; }
@@ -82,13 +99,18 @@ namespace CodeSnippetTool.ViewModels
             DbInsert inserter = new DbInsert(con);
             DateTime theDate = DateTime.Now;
             string DateString = theDate.ToString("yyyy-MM-dd H:mm:ss");
-            inserter.InsertSnippet(_codeSnippet, _language, 0, _description, DateString, null);
+            int fav = 0;
+            if (_favourite)
+            {
+                fav = 1;
+            }
+            inserter.InsertSnippet(_codeSnippet, _language, fav, _description, DateString, null);
         }
 
         public AddingViewModel(NavigationStore navigationStore) 
         {
             NavigateDisplayCommand = new NavigateCommand<DisplayViewModel>(new NavigationService<DisplayViewModel>(navigationStore, () => new DisplayViewModel(navigationStore)));
-            AddToDbCommand = new AddToDatabaseCommand(this);
+            AddToDbCommand = new AddToDatabaseCommand(this, new NavigationService<AddingViewModel>(navigationStore, () => new AddingViewModel(navigationStore)));
         }
 
 

@@ -13,18 +13,20 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Label>Code:</Label>
         <TextBox Margin="77,0,23,5" Grid.ColumnSpan="2" Text="{Binding CodeSnippet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <Label Grid.Row="1">Language:</Label>
 
-        <ComboBox Margin="77,0,23,398" Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Row="1" SelectedItem="{Binding Language, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        <ComboBox Margin="77,0,23,398" Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Row="1" SelectedValuePath="Content" SelectedItem="{Binding Language, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <ComboBoxItem Content="Java"/>
             <ComboBoxItem IsSelected="True" Content="C#"/>
             <ComboBoxItem Content="JavaScript"/>
@@ -37,7 +39,12 @@
 
         <Label Grid.Row="2" Grid.ColumnSpan="2" Margin="0,39,727,0">Description:</Label>
         <TextBox Grid.Row="2" AcceptsReturn="True" Margin="77,39,23,225" Grid.ColumnSpan="2" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <Button Content="submit" Command="{Binding AddToDbCommand}" Grid.Column="1" Margin="324,186,347,180" Grid.Row="2"></Button>
+
+        <Label Grid.Row="2" Margin="0,180,4,192">Favourite:</Label>
+        <CheckBox Grid.ColumnSpan="4" IsChecked="{Binding Favourite}" Grid.Column="1" Margin="0,186,-77,186" Grid.Row="2">Save as favourite</CheckBox>
+
+
+        <Button Content="submit" Command="{Binding AddToDbCommand}" Grid.Column="1" Margin="324,218,347,148" Grid.Row="2"></Button>
         <Button Content="Navigte to DisplayPage" Command="{Binding NavigateDisplayCommand}" Grid.Column="1" Margin="501,308,45,58" Grid.Row="2"></Button>
     </Grid>
 </UserControl>

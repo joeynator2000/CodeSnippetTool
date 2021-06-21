@@ -9,7 +9,7 @@ namespace CodeSnippetTool.Db
     public class DbConnect
     {
 
-        string Conn = "datasource=127.0.0.1;port=3306;username=root;password=;database=snippet_db";
+        string Conn = "datasource=127.0.0.1;port=3306;username=root;password=;database=snippet_db;Allow User Variables=True";
         public MySqlConnection databaseConnection { get; set; }
 
         public DbConnect()
