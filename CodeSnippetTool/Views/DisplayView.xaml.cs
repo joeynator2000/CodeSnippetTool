@@ -22,19 +22,6 @@ namespace CodeSnippetTool.Views
     public partial class DisplayView : UserControl
     {
 
-
-        public ICommand LoadCommand
-        {
-            get { return (ICommand)GetValue(LoadCommandProperty); }
-            set { SetValue(LoadCommandProperty, value); }
-        }
-
-
-        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty LoadCommandProperty =
-            DependencyProperty.Register("LoadCommand", typeof(ICommand), typeof(DisplayView), new PropertyMetadata(null));
-
-
         public DisplayView()
         {
             InitializeComponent();
@@ -55,14 +42,8 @@ namespace CodeSnippetTool.Views
             DbConnect conn = new DbConnect();
             DbSelect dbSelect = new DbSelect(conn.databaseConnection);
 
-            //dbSelect.selectSnippet(1);
             List<Snippet> snippets=dbSelect.selectAll();
             
-            //RowDefinition row = new RowDefinition();
-            //row.Height = new GridLength(50);
-
-            //ColumnDefinition col = new ColumnDefinition();
-            //col.Name = "cos";
 
             for (int i= 0;i < snippets.Count; i++){
                 Snippet snp = snippets[i];
@@ -95,24 +76,6 @@ namespace CodeSnippetTool.Views
                 Grid.SetRow(snippetDescr, i);
 
             }
-
-            //TextBlock txtBlock = new TextBlock();
-            //txtBlock.Text = "Chiki briki";
-            //txtBlock.FontSize = 20;
-            //txtBlock.VerticalAlignment = VerticalAlignment.Center;
-            //txtBlock.HorizontalAlignment = HorizontalAlignment.Center;
-
-            ////txtBlock.Height = 150;
-
-            //SnippetContainer.Children.Add(txtBlock);
-            //Grid.SetColumn(txtBlock, 0);
-            //Grid.SetRow(txtBlock, 1);
-
-            //SnippetContainer.RowDefinitions.Add(row);
-
-            //var uc = new DisplayView;
-            //SnippetContainer.Children.Add(uc);
-            //Grid.SetRow(uc, SnippetContainer.RowDefinitions.Count - 1);
         }
     }
 }
