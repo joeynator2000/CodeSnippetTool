@@ -35,9 +35,35 @@
             <ScrollViewer x:Name="Scroll"  Background="red"  >
 
                 <DataGrid 
-            ItemsSource="{Binding SnippetsTable}"
+            ItemsSource="{Binding SizeQuantityTable}"
             AutoGenerateColumns="True"
             />
+                <!--<Grid   Background="LightBlue" x:Name="SnippetContainer" 
+              >
+                    <Grid.ColumnDefinitions  >
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition Width="150" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        --><!--<Grid.RowDefinitions  DataContext="{Binding DisplayViewModel}" LoadCommand="{Binding NavigateAddingCommand}">--><!--
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="100" />
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="100"/>
+
+
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="hot-key"  x:Name="snippetHotKey" Foreground="Green" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"
+                           HorizontalAlignment="Center" FontSize="20px"></TextBlock>
+                    --><!--<TextBlock Text="descirption" x:Name="snippetDescription" Foreground="Green" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"
+                           HorizontalAlignment="Center" FontSize="20px"></TextBlock>
+                    <TextBlock Text="date when used" x:Name="snippetLastUsedDate" Foreground="Green" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center"
+                           HorizontalAlignment="Center" FontSize="20px"></TextBlock>--><!--
+
+                </Grid>-->
             </ScrollViewer>
         </Grid>
 

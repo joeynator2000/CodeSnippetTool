@@ -37,18 +37,18 @@ namespace CodeSnippetTool.ViewModels
             }
         }
 
-        private DataTable sizeQuantityTable;
+        private DataTable snippetsTable;
 
-        public DataTable SizeQuantityTable
+        public DataTable SnippetsTable
         {
             get
             {
-                return sizeQuantityTable;
+                return snippetsTable;
             }
             set
             {
-                sizeQuantityTable = value;
-                OnPropertyChanged(nameof(SizeQuantityTable));
+                snippetsTable = value;
+                OnPropertyChanged(nameof(SnippetsTable));
                 //NotifyPropertyChanged("SizeQuantityTable");
             }
         }
@@ -64,7 +64,7 @@ namespace CodeSnippetTool.ViewModels
             //------------------------------------------------
                         
             
-            this.SizeQuantityTable = new DataTable();
+            this.SnippetsTable = new DataTable();
 
             DbConnect conn = new DbConnect();
             DbSelect dbSelect = new DbSelect(conn.databaseConnection);
@@ -72,15 +72,15 @@ namespace CodeSnippetTool.ViewModels
 
             DataColumn keyWordColumn = new DataColumn();
             keyWordColumn.ColumnName = "Key Word";
-            this.SizeQuantityTable.Columns.Add(keyWordColumn);
+            this.SnippetsTable.Columns.Add(keyWordColumn);
 
             DataColumn descriptionColumn = new DataColumn();
             descriptionColumn.ColumnName = "Descrption";
-            this.SizeQuantityTable.Columns.Add(descriptionColumn);
+            this.SnippetsTable.Columns.Add(descriptionColumn);
 
             DataColumn lastUsedColumn = new DataColumn();
             lastUsedColumn.ColumnName = "Last used date";
-            this.SizeQuantityTable.Columns.Add(lastUsedColumn);
+            this.SnippetsTable.Columns.Add(lastUsedColumn);
 
 
             for (int i = 0; i < snippets.Count; i++)
@@ -95,14 +95,11 @@ namespace CodeSnippetTool.ViewModels
                 txtBlock.HorizontalAlignment = HorizontalAlignment.Center;
 
 
-                DataRow row = this.SizeQuantityTable.NewRow();
+                DataRow row = this.SnippetsTable.NewRow();
                 row[keyWordColumn] = snp.lang;
                 row[descriptionColumn] = snp.description;
                 row[lastUsedColumn] = snp.last_copied;
-                this.SizeQuantityTable.Rows.Add(row);
-
-
-
+                this.SnippetsTable.Rows.Add(row);
                 //TextBlock snippetDescr = new TextBlock();
                 //snippetDescr.Text = snp.snippet_text;
                 //snippetDescr.FontSize = 20;
@@ -114,41 +111,14 @@ namespace CodeSnippetTool.ViewModels
 
             }
 
-            //DataColumn sizeQuantityColumn = new DataColumn();
-            //sizeQuantityColumn.ColumnName = "Size Quantity";
-            //this.SizeQuantityTable.Columns.Add(sizeQuantityColumn);
-
-            //DataColumn sColumn = new DataColumn();
-            //sColumn.ColumnName = "S";
-            //this.SizeQuantityTable.Columns.Add(sColumn);
-
-            //DataColumn mColumn = new DataColumn();
-            //mColumn.ColumnName = "M";
-            //this.SizeQuantityTable.Columns.Add(mColumn);
-
-            //DataRow row1 = this.SizeQuantityTable.NewRow();
-            //row1[sizeQuantityColumn] = "Blue";
-            //row1[sColumn] = "12";
-            //row1[mColumn] = "15";
-            //this.SizeQuantityTable.Rows.Add(row1);
-
-            //DataRow row2 = this.SizeQuantityTable.NewRow();
-            //row2[sizeQuantityColumn] = "Red";
-            //row2[sColumn] = "18";
-            //row2[mColumn] = "21";
-            //this.SizeQuantityTable.Rows.Add(row2);
-
-            //DataRow row3 = this.SizeQuantityTable.NewRow();
-            //row3[sizeQuantityColumn] = "Green";
-            //row3[sColumn] = "24";
-            //row3[mColumn] = "27";
-            //this.SizeQuantityTable.Rows.Add(row3);
-
-            //DataRow row4 = this.SizeQuantityTable.NewRow();
-            //row4[sizeQuantityColumn] = "Yellow";
-            //row4[sColumn] = "30";
-            //row4[mColumn] = "33";
-            //this.SizeQuantityTable.Rows.Add(row4);
+            //for(int j = 0; j < 20; j++)
+            //{
+            //    DataRow row = this.SnippetsTable.NewRow();
+            //    row[keyWordColumn] = "cs";
+            //    row[descriptionColumn] = "ss";
+            //    row[lastUsedColumn] = "snp";
+            //    this.SnippetsTable.Rows.Add(row);
+            //}
         }
 
         public void getDataFromDb()
