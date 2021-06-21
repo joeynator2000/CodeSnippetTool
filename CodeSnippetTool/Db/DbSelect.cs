@@ -120,12 +120,11 @@ namespace CodeSnippetTool.Db
             this.connection.Close();
             return description;
         }
-
-        public List<string> selectAddDate(string date)
+        public Snippet selectAddDate(string date)
         {
-            List<string> snippets = new List<string>();
             this.connection.Open();
-            string query = "SELECT snippet_text FROM snippets WHERE date_added=@date";
+            Snippet snippet = new Snippet();
+            string query = "SELECT * FROM snippets WHERE date_added=@date";
             using (var cmd = new MySqlCommand(query, this.connection))
             {
                 cmd.Parameters.AddWithValue("@date", date);
@@ -134,17 +133,53 @@ namespace CodeSnippetTool.Db
                 {
                     while (reader.Read())
                     {
-                        var snippetText = reader.GetString(0);
+                        DateTime theDate = DateTime.Now;
+                        string DateString = theDate.ToString("yyyy-MM-dd H:mm:ss");
 
-                        snippets.Add(snippetText);
+                        var snippetId = reader.GetInt32(0);
+                        var snippetText = reader.GetString(1);
+                        var snippetLang = reader.GetString(2);
+                        var snippetFavourite = reader.GetInt32(3);
+                        var snippetDescription = reader.GetString(4);
+                        var snippetDateAdded = reader.GetString(5);
+                        var snippetDateLastCopied = "dummy text";
+                        //var snippetDateLastCopied = reader.GetString(6);
+                        Snippet snp = new Snippet(snippetId, snippetText, snippetLang, snippetFavourite, snippetDescription, snippetDateAdded, snippetDateLastCopied);
+
+                        snippet = snp;
                         Console.WriteLine($"{snippetText}");
                     }
                 }
             }
             Console.WriteLine("select complete");
             this.connection.Close();
-            return snippets;
+            return snippet;
         }
+
+        //public List<string> selectAddDate(string date)
+        //{
+        //    List<string> snippets = new List<string>();
+        //    this.connection.Open();
+        //    string query = "SELECT snippet_text FROM snippets WHERE date_added=@date";
+        //    using (var cmd = new MySqlCommand(query, this.connection))
+        //    {
+        //        cmd.Parameters.AddWithValue("@date", date);
+
+        //        using (var reader = cmd.ExecuteReader())
+        //        {
+        //            while (reader.Read())
+        //            {
+        //                var snippetText = reader.GetString(0);
+
+        //                snippets.Add(snippetText);
+        //                Console.WriteLine($"{snippetText}");
+        //            }
+        //        }
+        //    }
+        //    Console.WriteLine("select complete");
+        //    this.connection.Close();
+        //    return snippets;
+        //}
 
         public List<Snippet> selectAll()
         {

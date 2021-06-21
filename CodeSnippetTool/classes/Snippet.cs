@@ -25,5 +25,10 @@ namespace CodeSnippetTool.classes
             this.date_added = date_added;
             this.last_copied = last_copied;
         }
+
+        public Snippet()
+        {
+
+        }
     }
 }

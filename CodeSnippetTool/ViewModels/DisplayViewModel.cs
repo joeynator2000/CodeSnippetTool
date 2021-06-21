@@ -68,7 +68,11 @@ namespace CodeSnippetTool.ViewModels
 
             DbConnect conn = new DbConnect();
             DbSelect dbSelect = new DbSelect(conn.databaseConnection);
-            List<Snippet> snippets = dbSelect.selectAll();
+           //Snippet snp= dbSelect.selectAddDate("2012-07-10 14:58:00");
+
+
+
+            List <Snippet> snippets = dbSelect.selectAll();
 
             DataColumn keyWordColumn = new DataColumn();
             keyWordColumn.ColumnName = "Key Word";
@@ -81,6 +85,12 @@ namespace CodeSnippetTool.ViewModels
             DataColumn lastUsedColumn = new DataColumn();
             lastUsedColumn.ColumnName = "Last used date";
             this.SnippetsTable.Columns.Add(lastUsedColumn);
+
+            
+            DataColumn deleteColumn = new DataColumn();
+            deleteColumn.ColumnName = "Delete";
+
+            this.SnippetsTable.Columns.Add("ButtonColumn",typeof(Button));
 
 
             for (int i = 0; i < snippets.Count; i++)
@@ -96,9 +106,17 @@ namespace CodeSnippetTool.ViewModels
 
 
                 DataRow row = this.SnippetsTable.NewRow();
+                
                 row[keyWordColumn] = snp.lang;
                 row[descriptionColumn] = snp.description;
                 row[lastUsedColumn] = snp.last_copied;
+                row["ButtonColumn"] = new Button
+                {
+                    Name = "rowButton"+i,
+                    Content = "Delete",
+                    Width = 100,
+                    Height = 30
+                };
                 this.SnippetsTable.Rows.Add(row);
                 //TextBlock snippetDescr = new TextBlock();
                 //snippetDescr.Text = snp.snippet_text;
