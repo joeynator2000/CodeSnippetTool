@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 using CodeSnippetTool.Commands;
@@ -97,6 +98,8 @@ namespace CodeSnippetTool.ViewModels
         {
             DbConnect con = new DbConnect();
             DbInsert inserter = new DbInsert(con);
+            DbSelect idSelecter = new DbSelect(con.getConnection());
+
             DateTime theDate = DateTime.Now;
             string DateString = theDate.ToString("yyyy-MM-dd H:mm:ss");
             int fav = 0;
@@ -104,7 +107,14 @@ namespace CodeSnippetTool.ViewModels
             {
                 fav = 1;
             }
-            inserter.InsertSnippet(_codeSnippet, _language, fav, _description, DateString, null);
+            inserter.InsertSnippet(_codeSnippet, _language, fav, _description, DateString);
+            //select id based on dateSting
+            var id = idSelecter.selectAddDate(DateString).id;
+
+            //insert into keywords (id word)
+            string trimedKeyWords = Regex.Replace(_keyWords, @"s", "");
+            Array keyWords = trimedKeyWords.Split(',');
+            inserter.InsertKeywords(id, keyWords);
         }
 
         public AddingViewModel(NavigationStore navigationStore) 
@@ -112,7 +122,5 @@ namespace CodeSnippetTool.ViewModels
             NavigateDisplayCommand = new NavigateCommand<DisplayViewModel>(new NavigationService<DisplayViewModel>(navigationStore, () => new DisplayViewModel(navigationStore)));
             AddToDbCommand = new AddToDatabaseCommand(this, new NavigationService<AddingViewModel>(navigationStore, () => new AddingViewModel(navigationStore)));
         }
-
-
     }
 }
