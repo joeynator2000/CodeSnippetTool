@@ -18,7 +18,13 @@ namespace CodeSnippetTool.Commands
 
         public override void Execute(object parameter)
         {
-            _viewModel.AddToDbdMethod();
+            if (_viewModel.CodeSnippet != null && _viewModel.Description != null && _viewModel.KeyWords != null && _viewModel.Language != null)
+            {
+                _viewModel.AddToDbdMethod();
+            } else
+            {
+                MessageBox.Show("Please fill in all fields");
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 
 namespace CodeSnippetTool.Db
 {
-    class DbConnect
+    public class DbConnect
     {
 
         string Conn = "datasource=127.0.0.1;port=3306;username=root;password=;database=snippet_db";

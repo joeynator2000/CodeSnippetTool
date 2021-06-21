@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using CodeSnippetTool.Commands;
+using CodeSnippetTool.Db;
 using CodeSnippetTool.Service;
 using CodeSnippetTool.Stores;
 
@@ -77,13 +78,17 @@ namespace CodeSnippetTool.ViewModels
 
         public void AddToDbdMethod()
         {
-            MessageBox.Show($"Snippet: {this.CodeSnippet} Description: {this.Description}");
+            DbConnect con = new DbConnect();
+            DbInsert inserter = new DbInsert(con);
+            DateTime theDate = DateTime.Now;
+            string DateString = theDate.ToString("yyyy-MM-dd H:mm:ss");
+            inserter.InsertSnippet(_codeSnippet, _language, 0, _description, DateString, null);
         }
 
         public AddingViewModel(NavigationStore navigationStore) 
         {
             NavigateDisplayCommand = new NavigateCommand<DisplayViewModel>(new NavigationService<DisplayViewModel>(navigationStore, () => new DisplayViewModel(navigationStore)));
-            this.AddToDbCommand = new AddToDatabaseCommand(this);
+            AddToDbCommand = new AddToDatabaseCommand(this);
         }
 
 
