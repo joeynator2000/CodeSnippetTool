@@ -7,6 +7,8 @@
         xmlns:viewModels="clr-namespace:CodeSnippetTool.ViewModels"
         xmlns:views="clr-namespace:CodeSnippetTool.Views"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight"
         Title="MainWindow" Height="450" Width="800">
     <!-- The vm in line 7 is the connection to the commands folder!! creates reference to viewmodel base as vm: to create key see below-->
     <!--<Window.Resources>

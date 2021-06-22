@@ -29,7 +29,7 @@ namespace CodeSnippetTool.Commands
         public override void Execute(object parameter)
         {
             //this.ViewModel.ParameterMethod(parameter as String);
-            this.ViewModel.getDataFromDb();
+            //this.ViewModel.getDataFromDb();
 
             //throw new NotImplementedException();
         }

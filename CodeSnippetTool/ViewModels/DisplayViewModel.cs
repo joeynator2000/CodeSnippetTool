@@ -17,188 +17,108 @@ namespace CodeSnippetTool.ViewModels
 {
     public class DisplayViewModel : ViewModelBase
     {
+
+        static String connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=snippet_db;Allow User Variables=True";
+        MySqlConnection con;
+        MySqlCommand cmd;
+        MySqlDataAdapter adapter;
+        DataSet ds;
+        public DeleteCommand DeleteCommand { get; set; }
+
         public ICommand NavigateAddingCommand { get; set; }
 
-        public DisplayCommand DisplayCommand { get; set; }
-        public DisplayParamCommand DisplayParamCommand { get; set; }
-
-        private Grid _snippetContainer;
-
-        public Grid SnippetContainer
-        {
-            get
-            {
-                return _snippetContainer;
-            }
-            set
-            {
-                _snippetContainer = value;
-                OnPropertyChanged(nameof(SnippetContainer));
-            }
-        }
-
-        private DataTable snippetsTable;
-
-        public DataTable SnippetsTable
-        {
-            get
-            {
-                return snippetsTable;
-            }
-            set
-            {
-                snippetsTable = value;
-                OnPropertyChanged(nameof(SnippetsTable));
-                //NotifyPropertyChanged("SizeQuantityTable");
-            }
-        }
-
-
-
-
+        public IList<SnippetModel> snippetsModel;
         public DisplayViewModel(NavigationStore navigationStore)
         {
+            this.DeleteCommand = new DeleteCommand(this, new NavigationService<DisplayViewModel>(navigationStore, () => new DisplayViewModel(navigationStore)));
             NavigateAddingCommand = new NavigateCommand<AddingViewModel>(new NavigationService<AddingViewModel>(navigationStore, () => new AddingViewModel(navigationStore)));
-            this.DisplayCommand = new DisplayCommand(this);
-            this.DisplayParamCommand = new DisplayParamCommand(this);
-            //------------------------------------------------
-                        
-            
-            this.SnippetsTable = new DataTable();
+            FillList();
+        }
 
-            DbConnect conn = new DbConnect();
-            DbSelect dbSelect = new DbSelect(conn.databaseConnection);
-           //Snippet snp= dbSelect.selectAddDate("2012-07-10 14:58:00");
-
-
-
-            List <Snippet> snippets = dbSelect.selectAll();
-
-            DataColumn keyWordColumn = new DataColumn();
-            keyWordColumn.ColumnName = "Key Word";
-            this.SnippetsTable.Columns.Add(keyWordColumn);
-
-            DataColumn descriptionColumn = new DataColumn();
-            descriptionColumn.ColumnName = "Descrption";
-            this.SnippetsTable.Columns.Add(descriptionColumn);
-
-            DataColumn lastUsedColumn = new DataColumn();
-            lastUsedColumn.ColumnName = "Last used date";
-            this.SnippetsTable.Columns.Add(lastUsedColumn);
-
-            
-            DataColumn deleteColumn = new DataColumn();
-            deleteColumn.ColumnName = "Delete";
-
-            this.SnippetsTable.Columns.Add("ButtonColumn",typeof(Button));
-
-
-            for (int i = 0; i < snippets.Count; i++)
+        public IList<SnippetModel> Snippets
+        {
+            get { return snippetsModel; }
+            set { snippetsModel = value; }
+        }
+        public void FillList()
+        {
+            try
             {
-                Snippet snp = snippets[i];
+                con = new MySqlConnection(connectionString);
+                con.Open();
+                cmd = new MySqlCommand("SELECT id, snippet_text, lang, favourite, description FROM snippets", con);
+                adapter = new MySqlDataAdapter(cmd);
+                ds = new DataSet();
+                adapter.Fill(ds, "snippets");
 
+                if (snippetsModel == null)
+                    snippetsModel = new List<SnippetModel>();
 
-                TextBlock txtBlock = new TextBlock();
-                txtBlock.Text = snp.lang;
-                txtBlock.FontSize = 20;
-                txtBlock.VerticalAlignment = VerticalAlignment.Center;
-                txtBlock.HorizontalAlignment = HorizontalAlignment.Center;
-
-
-                DataRow row = this.SnippetsTable.NewRow();
-                
-                row[keyWordColumn] = snp.lang;
-                row[descriptionColumn] = snp.description;
-                row[lastUsedColumn] = snp.last_copied;
-                row["ButtonColumn"] = new Button
+                foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    Name = "rowButton"+i,
-                    Content = "Delete",
-                    Width = 100,
-                    Height = 30
-                };
-                this.SnippetsTable.Rows.Add(row);
-                //TextBlock snippetDescr = new TextBlock();
-                //snippetDescr.Text = snp.snippet_text;
-                //snippetDescr.FontSize = 20;
-                //snippetDescr.VerticalAlignment = VerticalAlignment.Center;
-                //snippetDescr.HorizontalAlignment = HorizontalAlignment.Center;
-                //SnippetContainer.Children.Add(snippetDescr);
-                //Grid.SetColumn(snippetDescr, 1);
-                //Grid.SetRow(snippetDescr, i);
-
+                    snippetsModel.Add(new SnippetModel
+                    {
+                        Id = Convert.ToInt32(dr[0].ToString()),
+                        SnippetText = dr[1].ToString(),
+                        Language = dr[2].ToString(),
+                        Favourite = Convert.ToInt32(dr[3].ToString()),
+                        Description = dr[4].ToString()
+                    });
+                }
             }
-
-            //for(int j = 0; j < 20; j++)
-            //{
-            //    DataRow row = this.SnippetsTable.NewRow();
-            //    row[keyWordColumn] = "cs";
-            //    row[descriptionColumn] = "ss";
-            //    row[lastUsedColumn] = "snp";
-            //    this.SnippetsTable.Rows.Add(row);
-            //}
-        }
-
-        public void getDataFromDb()
-        {
-            //Grid.RowSpan = "{Binding SnippetContainer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-            DbConnect conn = new DbConnect();
-            DbSelect dbSelect = new DbSelect(conn.databaseConnection);
-            //dbSelect.selectSnippet(1);
-            List<Snippet> snippets = dbSelect.selectAll();
-
-            //RowDefinition row = new RowDefinition();
-            //row.Height = new GridLength(50);
-
-            //ColumnDefinition col = new ColumnDefinition();
-            //col.Name = "cos";
-            SnippetContainer= new Grid();
-            
-
-
-            for (int i = 0; i < snippets.Count; i++)
+            catch (Exception ex)
             {
-                Snippet snp = snippets[i];
+                ex.Message.ToString();
+            }
+            finally
+            {
+                ds = null;
+                adapter.Dispose();
+                con.Close();
+                con.Dispose();
+            }
+        }
+        public void DeleteMethod(String id)
+        {
+            con = new MySqlConnection(connectionString);
+            con.Open();
+            int Id = Convert.ToInt32(id.ToString());
+            DbDelete dbDeleter = new DbDelete();
+            dbDeleter.DeleteSnippet(con, Id);
+        }
 
-                RowDefinition row = new RowDefinition();
-                row.Height = new GridLength(50);
-                this.SnippetContainer.RowDefinitions.Add(row);
+        private ICommand mUpdater;
+        public ICommand UpdateCommand
+        {
+            get
+            {
+                if (mUpdater == null)
+                    mUpdater = new Updater();
+                return mUpdater;
+            }
+            set
+            {
+                mUpdater = value;
+            }
+        }
 
-                //ColumnDefinition col = new ColumnDefinition();
-                //col.Name = "cos";
+        private class Updater : ICommand
+        {
+            #region ICommand Members  
 
-                TextBlock txtBlock = new TextBlock();
-                txtBlock.Text = snp.lang;
-                txtBlock.FontSize = 20;
-                txtBlock.VerticalAlignment = VerticalAlignment.Center;
-                txtBlock.HorizontalAlignment = HorizontalAlignment.Center;
-                SnippetContainer.Children.Add(txtBlock);
-                Grid.SetColumn(txtBlock, 0);
-                Grid.SetRow(txtBlock, i);
-
-
-                TextBlock snippetDescr = new TextBlock();
-                snippetDescr.Text = snp.snippet_text;
-                snippetDescr.FontSize = 20;
-                snippetDescr.VerticalAlignment = VerticalAlignment.Center;
-                snippetDescr.HorizontalAlignment = HorizontalAlignment.Center;
-                SnippetContainer.Children.Add(snippetDescr);
-                Grid.SetColumn(snippetDescr, 1);
-                Grid.SetRow(snippetDescr, i);
-
+            public bool CanExecute(object parameter)
+            {
+                return true;
             }
 
-        }
+            public event EventHandler CanExecuteChanged;
 
-        public void ParameterMethod(string person)
-        {
-            MessageBox.Show($"Snippet: {person} Description: ");
-        }
+            public void Execute(object parameter)
+            {
+   
+            }
 
-        public void simpleMethod()
-        {
-            //Debug.WriteLine("cos");
-            MessageBox.Show($"Snippet: Description: ");
+            #endregion
         }
     }
 }

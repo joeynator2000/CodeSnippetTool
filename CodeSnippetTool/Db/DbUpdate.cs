@@ -6,32 +6,26 @@ using MySql.Data.MySqlClient;
 
 namespace CodeSnippetTool.Db
 {
-    class DbUpdate
+    public class DbUpdate
     {
-        public DbUpdate()
+        public DbConnect db { get; set; }
+        public DbUpdate(DbConnect db)
         {
-
+            this.db = db;
         }
 
-        public void UpdateSnippet(int id, String snippet_text, String lang, String favourite, String date_added, String last_copied, MySqlConnection db)
+        public void UpdateSnippet(int id, String snippet_text, String lang, int favourite)
         {
-            //db.Open();
-            string updateQuery = "UPDATE snippets SET id=@id,snippet_text=@snippet_text,lang=@language,favourite=@favourite,date_added=@date_added,last_copied=@last_copied WHERE id=@id";
-            using (db)
-            {
+            string updateQuery = "UPDATE snippets SET id=@id,snippet_text=@snippet_text,lang=@language,favourite=@favourite WHERE id=@id";
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.CommandText = updateQuery;
                 cmd.Parameters.AddWithValue("@id", id);
                 cmd.Parameters.AddWithValue("@snippet_text", snippet_text);
                 cmd.Parameters.AddWithValue("@language", lang);
                 cmd.Parameters.AddWithValue("@favourite", favourite);
-                cmd.Parameters.AddWithValue("@date_added", date_added);
-                cmd.Parameters.AddWithValue("@last_copied", last_copied);
+                db.databaseConnection.Open();
                 cmd.ExecuteNonQuery();
-                db.Close();
-                //Bind();
-            }
-
+                db.databaseConnection.Close();
         }
 
     }

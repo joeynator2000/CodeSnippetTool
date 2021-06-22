@@ -27,7 +27,7 @@ namespace CodeSnippetTool.Db
             //this.adder = new DbInsert();
             this.deleter = new DbDelete();
             this.selecter = new DbSelect(this.db.databaseConnection);
-            this.updater = new DbUpdate();
+            //this.updater = new DbUpdate(this.db.databaseConnection);
         }
 
 
@@ -41,10 +41,10 @@ namespace CodeSnippetTool.Db
             return false;
         }
 
-        public void delete()
-        {
-            this.deleter.DeleteSnippet(db.databaseConnection);
-        }
+        //public void delete()
+        //{
+        //    this.deleter.DeleteSnippet(db.databaseConnection);
+        //}
 
         public string select() 
         {

@@ -5,17 +5,15 @@ using MySql.Data.MySqlClient;
 
 namespace CodeSnippetTool.Db
 {
-    class DbDelete
+    public class DbDelete
     {
         public DbDelete()
         {
         }
 
         //TODO Implement button click listener. Wrap function in a try catch block
-        public void DeleteSnippet(MySqlConnection mySqlConnection)
+        public void DeleteSnippet(MySqlConnection mySqlConnection, int id)
         {
-            mySqlConnection.Open();
-            int id = 1;
             string deleteQuery = "DELETE FROM snippets WHERE id='" + id + "';";
             MySqlCommand delete = new MySqlCommand(deleteQuery, mySqlConnection);
             MySqlDataReader reader;
