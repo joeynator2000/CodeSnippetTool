@@ -4,6 +4,7 @@ using CodeSnippetTool.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 
 namespace CodeSnippetTool.Commands
 {
@@ -18,11 +19,18 @@ namespace CodeSnippetTool.Commands
             _viewModel = viewModel;
             _navigationService = navigationService;
         }
+
         public override void Execute(object parameter)
         {
-           var param = parameter.ToString();
-            this._viewModel.DeleteMethod(param);
-            _navigationService.Navigate();
+            if (parameter != null)
+            {
+                var param = parameter.ToString();
+                this._viewModel.DeleteMethod(param);
+                _navigationService.Navigate();
+            } else
+            {
+                MessageBox.Show("Please select a snippet");
+            }
         }
     }
 }
