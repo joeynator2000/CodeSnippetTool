@@ -17,21 +17,33 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <DataGrid Name="SnippetsGrid" CanUserResizeRows="False" CanUserResizeColumns="False" IsReadOnly="True" CanUserAddRows="False" AlternatingRowBackground="Gray" AutoGenerateColumns="False" Grid.Row="1" Margin="-4,12,0,72"  ItemsSource="{Binding Snippets}" Grid.ColumnSpan="3"  >
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}"  Width="50"/>
-                <DataGridTextColumn Header="Snippet" Binding="{Binding SnippetText}"  Width="auto" />
-                <DataGridTextColumn Header="Language" Binding="{Binding Language}" Width="auto" />
-                <DataGridTextColumn Header="Favourite" Binding="{Binding Favourite}" Width="auto" />
-                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="auto" />
-            </DataGrid.Columns>
-        </DataGrid>
+        <ScrollViewer Grid.ColumnSpan="3" Margin="0,10,0,109" Grid.RowSpan="2">
+            <DataGrid Name="SnippetsGrid" CanUserResizeRows="False" CanUserResizeColumns="False" IsReadOnly="True" CanUserAddRows="False" AlternatingRowBackground="Gray" AutoGenerateColumns="False" Grid.Row="1" Margin="-4,12,0,91"  ItemsSource="{Binding Snippets}" Grid.ColumnSpan="3" Height="233"  >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}"  Width="50"/>
+                    <DataGridTextColumn Header="Snippet" Binding="{Binding SnippetText}"  Width="auto" />
+                    <DataGridTextColumn Header="Language" Binding="{Binding Language}" Width="auto" />
+                    <DataGridTextColumn Header="Favourite" Binding="{Binding Favourite}" Width="auto" />
+                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="auto" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>
+
+        <GroupBox Header="Themes" Margin="0,208,0,65" Grid.Row="1" Grid.ColumnSpan="3">
+            <UniformGrid Columns="4" HorizontalAlignment="Center">
+                <RadioButton x:Name="BlackMode" Content="Black Mode" HorizontalAlignment="Center" Height="20" IsChecked="True" GroupName="modesSelection" Checked="BlackMode_Checked"/>
+                <RadioButton x:Name="DarkMode" Content="Dark Mode" HorizontalAlignment="Center" Height="20" GroupName="modesSelection" Checked="DarkMode_Checked"/>
+                <RadioButton x:Name="LightMode" Content="Light Mode" HorizontalAlignment="Center" Height="20" GroupName="modesSelection" Checked="LightMode_Checked"/>
+                <RadioButton x:Name="WhiteMode" Content="White Mode" HorizontalAlignment="Center" Height="20" GroupName="modesSelection" Checked="WhiteMode_Checked"/>
+            </UniformGrid>
+        </GroupBox>
+
         <TextBox Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="16,256,0,0" Name="txtId" VerticalAlignment="Top" Width="29" Text="{Binding ElementName=SnippetsGrid,  Path=SelectedItem.Id}" />
         <TextBox Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="55,256,0,0" Name="txtSnippet" VerticalAlignment="Top" Width="121" Text="{Binding ElementName=SnippetsGrid,Path=SelectedItem.SnippetText}" Grid.Column="1" />
         <TextBox Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="240,256,0,0" Name="txtLanguage" VerticalAlignment="Top" Width="119" Text="{Binding ElementName=SnippetsGrid,Path=SelectedItem.Language}" Grid.Column="1" />
         <TextBox Grid.Row="1" Height="24" HorizontalAlignment="Left" Margin="618,256,0,0" x:Name="txtFavourite" VerticalAlignment="Top" Width="107" Text="{Binding ElementName=SnippetsGrid, Path=SelectedItem.Favourite}" Grid.ColumnSpan="2" Grid.Column="1" />
         <TextBox Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="429,256,0,0" x:Name="txtDescription" VerticalAlignment="Top" Width="124" Text="{Binding ElementName=SnippetsGrid, Path=SelectedItem.Description}" Grid.Column="1" />
-        
+
         <Label Content="Id" Grid.Row="1" HorizontalAlignment="Left" Margin="-4,253,0,33" Name="label1" />
         <Label Content="Snippet" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="50,254,0,0" Name="label2" VerticalAlignment="Top" Grid.ColumnSpan="2" />
         <Label Content="Language" Grid.Row="1" Height="28" HorizontalAlignment="Left" Margin="178,253,0,0" Name="label3" VerticalAlignment="Top" Grid.Column="1" />

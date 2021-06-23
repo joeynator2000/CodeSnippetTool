@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CodeSnippetTool"
+        xmlns:properties="clr-namespace:CodeSnippetTool.Properties"
         xmlns:viewModels="clr-namespace:CodeSnippetTool.ViewModels"
         xmlns:views="clr-namespace:CodeSnippetTool.Views"
         mc:Ignorable="d"
@@ -30,6 +31,176 @@
             <DataTemplate DataType="{x:Type viewModels:AddingViewModel}">
                 <views:AddingView/>
             </DataTemplate>
+            <Style TargetType="{x:Type Grid}">
+                <Style.Triggers>
+                    <!-- Black Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Black">
+                        <Setter Property="Background" Value="Black"/>
+                    </DataTrigger>
+                    <!-- Dark Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                        <Setter Property="Background" Value="#363C49"/>
+                    </DataTrigger>
+                    <!-- Light Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Light">
+                        <Setter Property="Background" Value="Whitesmoke"/>
+                    </DataTrigger>
+                    <!-- White Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="White">
+                        <Setter Property="Background" Value="White"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="{x:Type DataGrid}">
+                <Style.Triggers>
+                    <!-- Black Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Black">
+                        <Setter Property="Background" Value="Black"/>
+                    </DataTrigger>
+                    <!-- Dark Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                        <Setter Property="Background" Value="#363C49"/>
+                    </DataTrigger>
+                    <!-- Light Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Light">
+                        <Setter Property="Background" Value="Whitesmoke"/>
+                    </DataTrigger>
+                    <!-- White Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="White">
+                        <Setter Property="Background" Value="White"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="{x:Type GroupBox}">
+                <Style.Triggers>
+                    <!-- Black Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Black">
+                        <Setter Property="Background" Value="Black"/>
+                        <Setter Property="TextElement.Foreground" Value="White"/>
+                    </DataTrigger>
+                    <!-- Dark Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                        <Setter Property="Background" Value="#363C49"/>
+                        <Setter Property="TextElement.Foreground" Value="White"/>
+                    </DataTrigger>
+                    <!-- Light Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Light">
+                        <Setter Property="Background" Value="Whitesmoke"/>
+                    </DataTrigger>
+                    <!-- White Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="White">
+                        <Setter Property="Background" Value="White"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="{x:Type Label}">
+                <Style.Triggers>
+                    <!-- Black Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Black">
+                        <Setter Property="Background" Value="Black"/>
+                        <Setter Property="TextElement.Foreground" Value="White"/>
+                    </DataTrigger>
+                    <!-- Dark Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                        <Setter Property="Background" Value="#363C49"/>
+                        <Setter Property="TextElement.Foreground" Value="White"/>
+                    </DataTrigger>
+                    <!-- Light Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Light">
+                        <Setter Property="Background" Value="Whitesmoke"/>
+                    </DataTrigger>
+                    <!-- White Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="White">
+                        <Setter Property="Background" Value="White"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="{x:Type RadioButton}">
+                <Style.Triggers>
+                    <!-- Black Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Black">
+                        <Setter Property="Background" Value="Black"/>
+                        <Setter Property="TextElement.Foreground" Value="White"/>
+
+                    </DataTrigger>
+                    <!-- Dark Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                        <Setter Property="Background" Value="#363C49"/>
+                        <Setter Property="TextElement.Foreground" Value="White"/>
+                    </DataTrigger>
+                    <!-- Light Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Light">
+                        <Setter Property="Background" Value="Whitesmoke"/>
+                    </DataTrigger>
+                    <!-- White Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="White">
+                        <Setter Property="Background" Value="White"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="{x:Type Button}">
+                <Style.Triggers>
+                    <!-- Black Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Black">
+                        <Setter Property="Background" Value="Black"/>
+                        <Setter Property="TextElement.Foreground" Value="White"/>
+
+                    </DataTrigger>
+                    <!-- Dark Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                        <Setter Property="Background" Value="#363C49"/>
+                        <Setter Property="TextElement.Foreground" Value="White"/>
+                    </DataTrigger>
+                    <!-- Light Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Light">
+                        <Setter Property="Background" Value="Whitesmoke"/>
+                    </DataTrigger>
+                    <!-- White Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="White">
+                        <Setter Property="Background" Value="White"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="{x:Type ScrollViewer}">
+                <Style.Triggers>
+                    <!-- Black Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Black">
+                        <Setter Property="Background" Value="Black"/>
+                    </DataTrigger>
+                    <!-- Dark Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                        <Setter Property="Background" Value="#363C49"/>
+                    </DataTrigger>
+                    <!-- Light Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Light">
+                        <Setter Property="Background" Value="Whitesmoke"/>
+                    </DataTrigger>
+                    <!-- White Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="White">
+                        <Setter Property="Background" Value="White"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="{x:Type TextBox}">
+                <Style.Triggers>
+                    <!-- Black Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Black">
+                        <Setter Property="TextElement.Foreground" Value="White"/>
+                    </DataTrigger>
+                    <!-- Dark Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                        <Setter Property="TextElement.Foreground" Value="White"/>
+                    </DataTrigger>
+                    <!-- Light Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Light">
+                        <Setter Property="Background" Value="Whitesmoke"/>
+                    </DataTrigger>
+                    <!-- White Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="White">
+                        <Setter Property="Background" Value="White"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
         </ContentControl.Resources>
     </ContentControl>
 </Window>

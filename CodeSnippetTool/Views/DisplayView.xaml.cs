@@ -34,6 +34,35 @@ namespace CodeSnippetTool.Views
             MessageBox.Show(snippet.Id.ToString());
 
         }
+
+        private void BlackMode_Checked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.ColorMode = "Black";
+
+            Properties.Settings.Default.Save();
+        }
+
+        private void DarkMode_Checked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.ColorMode = "Dark";
+
+            Properties.Settings.Default.Save();
+        }
+
+        private void LightMode_Checked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.ColorMode = "Light";
+
+            Properties.Settings.Default.Save();
+        }
+
+        private void WhiteMode_Checked(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.ColorMode = "White";
+
+            Properties.Settings.Default.Save();
+        }
+
         //    private void UserControl_Loaded(object sender, RoutedEventArgs e)
         //    {
         //        //if (LoadCommandProperty != null)
