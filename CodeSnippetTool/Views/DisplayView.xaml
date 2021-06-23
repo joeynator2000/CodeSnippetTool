@@ -51,6 +51,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
+        <Button Content="Find" Command="{Binding FindByIdCommand}" CommandParameter="{Binding ElementName=SnippetsGrid,  Path=SelectedItem.Id}" Grid.Column="1" Margin="139,286,431,8" Grid.Row="1"/>
         <Button Content="Display page button" Command="{Binding NavigateAddingCommand}" HorizontalAlignment="Left" Margin="0,295,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
     </Grid>
 </UserControl>
