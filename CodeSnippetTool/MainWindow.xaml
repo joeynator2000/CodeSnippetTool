@@ -261,6 +261,28 @@
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
+            <Style TargetType="{x:Type CheckBox}">
+                <Style.Triggers>
+                    <!-- Black Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Black">
+                        <Setter Property="Background" Value="#2E2E2E"/>
+                        <Setter Property="TextElement.Foreground" Value="White"/>
+                    </DataTrigger>
+                    <!-- Dark Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                        <Setter Property="Background" Value="#363C49"/>
+                        <Setter Property="TextElement.Foreground" Value="White"/>
+                    </DataTrigger>
+                    <!-- Light Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Light">
+                        <Setter Property="Background" Value="Whitesmoke"/>
+                    </DataTrigger>
+                    <!-- White Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="White">
+                        <Setter Property="Background" Value="White"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
         </ContentControl.Resources>
     </ContentControl>    
 </Window>
