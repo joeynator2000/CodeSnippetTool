@@ -17,19 +17,21 @@ namespace CodeSnippetTool.ViewModels
 {
     public class DisplayViewModel : ViewModelBase
     {
-
         static String connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=snippet_db;Allow User Variables=True";
         MySqlConnection con;
         MySqlCommand cmd;
         MySqlDataAdapter adapter;
         DataSet ds;
         public DeleteCommand DeleteCommand { get; set; }
-
+        public CopyCommand CopyCommand { get; set; }
         public ICommand NavigateAddingCommand { get; set; }
+
+
 
         public IList<SnippetModel> snippetsModel;
         public DisplayViewModel(NavigationStore navigationStore)
         {
+            this.CopyCommand = new CopyCommand(this);
             this.DeleteCommand = new DeleteCommand(this, new NavigationService<DisplayViewModel>(navigationStore, () => new DisplayViewModel(navigationStore)));
             NavigateAddingCommand = new NavigateCommand<AddingViewModel>(new NavigationService<AddingViewModel>(navigationStore, () => new AddingViewModel(navigationStore)));
             FillList();
@@ -77,6 +79,12 @@ namespace CodeSnippetTool.ViewModels
                 con.Close();
                 con.Dispose();
             }
+        }
+
+        public void CopyMethod(String txt)
+        {
+            Clipboard.SetText(txt);
+            MessageBox.Show("Copied to clipboard!");
         }
         public void DeleteMethod(String id)
         {
