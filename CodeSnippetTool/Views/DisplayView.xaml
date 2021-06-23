@@ -52,7 +52,18 @@
         <Button Content="Update" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="585,287,0,0" Name="btnUpdate"   
                 VerticalAlignment="Top" Width="141"  
                 Command="{Binding Path=UpdateCommand}" Grid.ColumnSpan="2" Grid.Column="1"  />
-        <Button Content="Delete" Command="{Binding Path=DeleteCommand}" CommandParameter="{Binding ElementName=SnippetsGrid,  Path=SelectedItem.Id}" Grid.Column="1" Margin="429,286,143,8" Grid.Row="1"/>
+        <Button Content="Copy" Command="{Binding Path=CopyCommand}" CommandParameter="{Binding ElementName=SnippetsGrid,  Path=SelectedItem.SnippetText}" Grid.Column="1" Margin="292,286,279,8" Grid.Row="1" RenderTransformOrigin="0.438,0.541"/>
+        <Button Content="Delete" Command="{Binding Path=DeleteCommand}" CommandParameter="{Binding ElementName=SnippetsGrid,  Path=SelectedItem.Id}" Grid.Column="1" Margin="438,286,133,8" Grid.Row="1" RenderTransformOrigin="0.5,0.5">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.147"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button Content="Find" Command="{Binding FindByIdCommand}" CommandParameter="{Binding ElementName=SnippetsGrid,  Path=SelectedItem.Id}" Grid.Column="1" Margin="139,286,431,8" Grid.Row="1"/>
         <Button Content="Display page button" Command="{Binding NavigateAddingCommand}" HorizontalAlignment="Left" Margin="0,295,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
     </Grid>
 </UserControl>

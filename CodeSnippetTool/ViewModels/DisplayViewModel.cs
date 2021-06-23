@@ -17,20 +17,25 @@ namespace CodeSnippetTool.ViewModels
 {
     public class DisplayViewModel : ViewModelBase
     {
-
         static String connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=snippet_db;Allow User Variables=True";
         MySqlConnection con;
         MySqlCommand cmd;
         MySqlDataAdapter adapter;
         DataSet ds;
         public DeleteCommand DeleteCommand { get; set; }
-
+        public CopyCommand CopyCommand { get; set; }
         public ICommand NavigateAddingCommand { get; set; }
+        public bool tableAlreadyCreated { get; set; }
+        public FindByIdCommand FindByIdCommand { get; set; }
+
+
 
         public IList<SnippetModel> snippetsModel;
         public DisplayViewModel(NavigationStore navigationStore)
         {
+            this.CopyCommand = new CopyCommand(this);
             this.DeleteCommand = new DeleteCommand(this, new NavigationService<DisplayViewModel>(navigationStore, () => new DisplayViewModel(navigationStore)));
+            this.FindByIdCommand = new FindByIdCommand(this, new NavigationService<DisplayViewModel>(navigationStore, () => new DisplayViewModel(navigationStore)));
             NavigateAddingCommand = new NavigateCommand<AddingViewModel>(new NavigationService<AddingViewModel>(navigationStore, () => new AddingViewModel(navigationStore)));
             FillList();
         }
@@ -42,41 +47,87 @@ namespace CodeSnippetTool.ViewModels
         }
         public void FillList()
         {
-            try
+            if (tableAlreadyCreated != true)
             {
-                con = new MySqlConnection(connectionString);
-                con.Open();
-                cmd = new MySqlCommand("SELECT id, snippet_text, lang, favourite, description FROM snippets", con);
-                adapter = new MySqlDataAdapter(cmd);
-                ds = new DataSet();
-                adapter.Fill(ds, "snippets");
+                try
+                {
+                    con = new MySqlConnection(connectionString);
+                    con.Open();
+                    cmd = new MySqlCommand("SELECT id, snippet_text, lang, favourite, description FROM snippets", con);
+                    adapter = new MySqlDataAdapter(cmd);
+                    ds = new DataSet();
+                    adapter.Fill(ds, "snippets");
 
-                if (snippetsModel == null)
+                    if (snippetsModel == null)
+                        snippetsModel = new List<SnippetModel>();
+
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        snippetsModel.Add(new SnippetModel
+                        {
+                            Id = Convert.ToInt32(dr[0].ToString()),
+                            SnippetText = dr[1].ToString(),
+                            Language = dr[2].ToString(),
+                            Favourite = Convert.ToInt32(dr[3].ToString()),
+                            Description = dr[4].ToString()
+                        });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ex.Message.ToString();
+                }
+                finally
+                {
+                    ds = null;
+                    adapter.Dispose();
+                    con.Close();
+                    con.Dispose();
+                }
+                //tableAlreadyCreated = true;
+            }
+            else
+            {
+                try
+                {
+                    //snippetsModel.Clear();
+                    con = new MySqlConnection(connectionString);
+                    con.Open();
+                    cmd = new MySqlCommand("SELECT * FROM snippets WHERE id=1", con);
+                    //DbSelect dbSelect = new DbSelect(con);
+                    adapter = new MySqlDataAdapter(cmd);
+                    ds = new DataSet();
+                    adapter.Fill(ds, "snippets");
+
+                    //if (snippetsModel == null)
                     snippetsModel = new List<SnippetModel>();
 
-                foreach (DataRow dr in ds.Tables[0].Rows)
-                {
-                    snippetsModel.Add(new SnippetModel
+                    foreach (DataRow dr in ds.Tables[0].Rows)
                     {
-                        Id = Convert.ToInt32(dr[0].ToString()),
-                        SnippetText = dr[1].ToString(),
-                        Language = dr[2].ToString(),
-                        Favourite = Convert.ToInt32(dr[3].ToString()),
-                        Description = dr[4].ToString()
-                    });
+                        snippetsModel.Add(new SnippetModel
+                        {
+                            Id = Convert.ToInt32(dr[0].ToString()),
+                            SnippetText = dr[1].ToString(),
+                            Language = dr[2].ToString(),
+                            Favourite = Convert.ToInt32(dr[3].ToString()),
+                            Description = dr[4].ToString()
+                        });
+                    }
+                    FindByIdCommand.alreadyCreated = false;
                 }
+                catch (Exception ex)
+                {
+                    ex.Message.ToString();
+
+                }
+                //tableAlreadyCreated = false;
             }
-            catch (Exception ex)
-            {
-                ex.Message.ToString();
-            }
-            finally
-            {
-                ds = null;
-                adapter.Dispose();
-                con.Close();
-                con.Dispose();
-            }
+        }
+
+        public void CopyMethod(String txt)
+        {
+            Clipboard.SetText(txt);
+            MessageBox.Show("Copied to clipboard!");
         }
         public void DeleteMethod(String id)
         {

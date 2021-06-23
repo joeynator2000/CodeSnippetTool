@@ -19,11 +19,12 @@ namespace CodeSnippetTool.Db
 
 
                                                                   
-        public string selectSnippet(int id)
+        public Snippet selectSnippet(int id)
         {
             string snippet = "";
+            Snippet snp = new Snippet();
             this.connection.Open();
-            string query = "SELECT snippet_text FROM snippets WHERE id=@id";
+            string query = "SELECT * FROM snippets WHERE id=@id";
             using (var cmd = new MySqlCommand(query, this.connection))
             {
                 cmd.Parameters.AddWithValue("@id", id);
@@ -32,16 +33,26 @@ namespace CodeSnippetTool.Db
                 {
                     while (reader.Read())
                     {
-                        var snippetText = reader.GetString(0);
+                        var snippetId = reader.GetInt32(0);
+                        var snippetText = reader.GetString(1);
+                        var snippetLang = reader.GetString(2);
+                        var snippetFavourite = reader.GetInt32(3);
+                        var snippetDescription = reader.GetString(4);
+                        //var snippetDateAdded = reader.GetString(5);
+                        var snippetDateAdded = "snippetDateAdded";
+                        //var snippetDateLastCopied = reader.GetString(6);
+                        var snippetDateLastCopied = "snippetDateLastCopied";
+                        Snippet snpt = new Snippet(snippetId, snippetText, snippetLang, snippetFavourite, snippetDescription, snippetDateAdded, snippetDateLastCopied);
+                        snp = snpt;
 
-                        snippet = snippetText;
-                        Console.WriteLine($"{snippetText}");
+                        //snippet = snippetText;
+                        //Console.WriteLine($"{snippetText}");
                     }
                 }
             }
             Console.WriteLine("select complete");
             this.connection.Close();
-            return snippet;
+            return snp;
         }
 
         public List<string> selectFavourite(int favourite)
