@@ -30,27 +30,7 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModels:AddingViewModel}">
                 <views:AddingView/>
-            </DataTemplate>
-            <Style TargetType="{x:Type UserControl}">
-                <Style.Triggers>
-                    <!-- Black Mode -->
-                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Black">
-                        <Setter Property="Background" Value="#2E2E2E"/>
-                    </DataTrigger>
-                    <!-- Dark Mode -->
-                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
-                        <Setter Property="Background" Value="#363C49"/>
-                    </DataTrigger>
-                    <!-- Light Mode -->
-                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Light">
-                        <Setter Property="Background" Value="Whitesmoke"/>
-                    </DataTrigger>
-                    <!-- White Mode -->
-                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="White">
-                        <Setter Property="Background" Value="White"/>
-                    </DataTrigger>
-                </Style.Triggers>
-            </Style>
+            </DataTemplate>            
             <Style TargetType="{x:Type Grid}">
                 <Style.Triggers>
                     <!-- Black Mode -->
@@ -83,16 +63,21 @@
                     <!-- Dark Mode -->
                     <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
                         <Setter Property="Background" Value="#363C49"/>
-
+                        <Setter Property="RowBackground" Value="#363C49"/>
                         <Setter Property="AlternatingRowBackground" Value="#808B96"/>
+                        <Setter Property="TextElement.Foreground" Value="White"/>
                     </DataTrigger>
                     <!-- Light Mode -->
                     <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Light">
                         <Setter Property="Background" Value="Whitesmoke"/>
+                        <Setter Property="RowBackground" Value="WhiteSmoke"/>
+                        <Setter Property="AlternatingRowBackground" Value="LightGray"/>
                     </DataTrigger>
                     <!-- White Mode -->
                     <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="White">
                         <Setter Property="Background" Value="White"/>
+                        <Setter Property="RowBackground" Value="White"/>
+                        <Setter Property="AlternatingRowBackground" Value="WhiteSmoke"/>
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
@@ -143,6 +128,31 @@
                         <Setter Property="Background" Value="White"/>
                     </DataTrigger>
                 </Style.Triggers>
+            </Style>            
+            <Style TargetType="{x:Type ComboBoxItem}">
+                <Style.Triggers>
+                    <!-- Black Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Black">
+                        <Setter Property="Background" Value="#2E2E2E"/>
+                        <Setter Property="BorderBrush" Value="#2E2E2E"/>
+                        <Setter Property="TextElement.Foreground" Value="White"/>
+                        
+                    </DataTrigger>
+                    <!-- Dark Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Dark">
+                        <Setter Property="Background" Value="#363C49"/>
+                        <Setter Property="BorderBrush" Value="#363C49"/>
+                        <Setter Property="TextElement.Foreground" Value="White"/>                        
+                    </DataTrigger>
+                    <!-- Light Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Light">
+                        <Setter Property="Background" Value="Whitesmoke"/>
+                    </DataTrigger>
+                    <!-- White Mode -->
+                    <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="White">
+                        <Setter Property="Background" Value="White"/>
+                    </DataTrigger>
+                </Style.Triggers>
             </Style>
             <Style TargetType="{x:Type Label}">
                 <Style.Triggers>
@@ -157,11 +167,11 @@
                     </DataTrigger>
                     <!-- Light Mode -->
                     <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="Light">
-                        <Setter Property="Background" Value="Whitesmoke"/>
+                        
                     </DataTrigger>
                     <!-- White Mode -->
                     <DataTrigger Binding="{Binding Source={x:Static properties:Settings.Default}, Path=ColorMode}" Value="White">
-                        <Setter Property="Background" Value="White"/>
+                        
                     </DataTrigger>
                 </Style.Triggers>
             </Style>

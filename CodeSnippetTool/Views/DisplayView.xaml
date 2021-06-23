@@ -32,7 +32,7 @@
 
         <GroupBox Header="Themes" Margin="34,194,95,55" Grid.Row="2" Grid.Column="1">
             <UniformGrid Columns="4" HorizontalAlignment="Center">
-                <RadioButton x:Name="BlackMode" Content="Black Mode" HorizontalAlignment="Center" Height="20" IsChecked="True" GroupName="modesSelection" Checked="BlackMode_Checked"/>
+                <RadioButton x:Name="BlackMode" Content="Black Mode" HorizontalAlignment="Center" Height="20" GroupName="modesSelection" Checked="BlackMode_Checked"/>
                 <RadioButton x:Name="DarkMode" Content="Dark Mode" HorizontalAlignment="Center" Height="20" GroupName="modesSelection" Checked="DarkMode_Checked"/>
                 <RadioButton x:Name="LightMode" Content="Light Mode" HorizontalAlignment="Center" Height="20" GroupName="modesSelection" Checked="LightMode_Checked"/>
                 <RadioButton x:Name="WhiteMode" Content="White Mode" HorizontalAlignment="Center" Height="20" GroupName="modesSelection" Checked="WhiteMode_Checked"/>
