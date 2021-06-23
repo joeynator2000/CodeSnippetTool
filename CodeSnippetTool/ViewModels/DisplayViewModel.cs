@@ -93,7 +93,9 @@ namespace CodeSnippetTool.ViewModels
                     //snippetsModel.Clear();
                     con = new MySqlConnection(connectionString);
                     con.Open();
-                    cmd = new MySqlCommand("SELECT * FROM snippets WHERE id=1", con);
+                    var id = FindByIdCommand.snippetId;
+                    cmd = new MySqlCommand($"SELECT * FROM snippets WHERE id={id}", con);
+                    //cmd.Parameters.AddWithValue("@id", id);
                     //DbSelect dbSelect = new DbSelect(con);
                     adapter = new MySqlDataAdapter(cmd);
                     ds = new DataSet();

@@ -13,6 +13,7 @@ namespace CodeSnippetTool.Commands
         private readonly DisplayViewModel _viewModel;
         private readonly NavigationService<DisplayViewModel> _navigationService;
         public static bool alreadyCreated;
+        public static int snippetId;
 
         public FindByIdCommand(DisplayViewModel viewModel, NavigationService<DisplayViewModel> navigationService)
         {
@@ -29,14 +30,29 @@ namespace CodeSnippetTool.Commands
         {
             //if(_viewModel.I)
             //_viewModel.FillList();
-            
-            
-                //var param = parameter.ToString();
+            if (parameter != null)
+            {
+                var param = parameter.ToString();
+                //param.Trim();
+                var x = param.Substring(param.IndexOf(':') + 1).Trim();
                 alreadyCreated = true;
+                try
+                {
+                    snippetId = Convert.ToInt32(x);
+                }catch(Exception ex)
+                {
+                    MessageBox.Show("Please specify id of snippet");
+                    alreadyCreated = false;
+                }
+                //x.Trim();
+                
                 _navigationService.Navigate();
-            
+            }
+            else
+            {
+                MessageBox.Show("Please specify id of snippet");
+            }
 
-            
         }
     }
 }
