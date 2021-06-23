@@ -63,6 +63,11 @@ namespace CodeSnippetTool.Views
             Properties.Settings.Default.Save();
         }
 
+        private void SnippetsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
         //    private void UserControl_Loaded(object sender, RoutedEventArgs e)
         //    {
         //        //if (LoadCommandProperty != null)
