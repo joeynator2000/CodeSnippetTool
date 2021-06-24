@@ -12,7 +12,7 @@ namespace CodeSnippetTool.Hotkeys
     /// <summary>
     /// Adding/removing hotkeys
     /// </summary>
-    public static class HotkeyManager
+    public static class HotkeyFirst
     {
         //Windows callback
         //Windows callback for key strokes to register
@@ -35,7 +35,7 @@ namespace CodeSnippetTool.Hotkeys
         //CHeck if hook is setup or not
         public static bool isHookSetup { get; set; }
 
-        static HotkeyManager()
+        static HotkeyFirst()
         {
             Hotkeys = new List<HotkeyListener>();
         }
@@ -71,9 +71,9 @@ namespace CodeSnippetTool.Hotkeys
         //Setup hook with specified callback(proc)
         private static IntPtr SetHook(LowLevelKeyBoardProc proc)
         {
-            using(Process currentProcess = Process.GetCurrentProcess())
+            using (Process currentProcess = Process.GetCurrentProcess())
             {
-                using(ProcessModule currentModule = currentProcess.MainModule)
+                using (ProcessModule currentModule = currentProcess.MainModule)
                 {
                     return SetWindowsHookEx(WH_KEYBOARD_LL, proc, GetModuleHandle(currentModule.ModuleName), 0);
                 }
@@ -85,18 +85,18 @@ namespace CodeSnippetTool.Hotkeys
             //Scans for hotkeys
 
             //Check nCode if sent key is down or not
-            if(nCode >= 0)
+            if (nCode >= 0)
             {
                 foreach (HotkeyListener hotkey in Hotkeys)
                 {
-                  
+
                     if (Keyboard.Modifiers == hotkey.Modifier && Keyboard.IsKeyDown(hotkey.Key))
                     {
                         if (hotkey.CanExecute)
                         {
-                            hotkey.Callback?.Invoke();                            
+                            hotkey.Callback?.Invoke();
                         }
-                    }              
+                    }
                 }
             }
 

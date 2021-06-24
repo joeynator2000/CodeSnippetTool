@@ -13,10 +13,15 @@ namespace CodeSnippetTool.classes
         MySqlConnection con;
         MySqlCommand cmd;
         public int id;
-        public string snippet_text;
+        public string name;
+        public string snippetText;
         public string language;
         public int favourite;
         public string description;
+        public string hotKey;
+        public string dateAdded;
+        public string lastCopied;
+
         public int Id
         {
             get
@@ -30,15 +35,28 @@ namespace CodeSnippetTool.classes
                 UpdateDatabase();
             }
         }
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+                OnPropertyChanged("Name");
+                UpdateDatabase();
+            }
+        }
         public string SnippetText
         {
             get
             {
-                return snippet_text;
+                return snippetText;
             }
             set
             {
-                snippet_text = value;
+                snippetText = value;
                 OnPropertyChanged("SnippetText");
                 UpdateDatabase();
             }
@@ -84,6 +102,65 @@ namespace CodeSnippetTool.classes
                 
                 UpdateDatabase();
             }
+        }
+        public string HotKey
+        {
+            get
+            {
+                return hotKey;
+            }
+            set
+            {
+                hotKey = value;
+                OnPropertyChanged("Description");
+
+                UpdateDatabase();
+            }
+        }
+
+
+        public string DateAdded
+        {
+            get
+            {
+                return dateAdded;
+            }
+            set
+            {
+                dateAdded = value;
+                OnPropertyChanged("DateAdded");
+                UpdateDatabase();
+            }
+        }
+
+        public string LastCopied
+        {
+            get
+            {
+                return lastCopied;
+            }
+            set
+            {
+                lastCopied = value;
+                OnPropertyChanged("LastCopied");
+                UpdateDatabase();
+            }
+        }
+        public SnippetModel(int id,string name,string text, string language,int favourite,string description,string hotKey,string dateAdded,string lastCopied)
+        {
+            this.id = id;
+            this.name = name;
+            this.snippetText = text;
+            this.language = language;
+            this.favourite = favourite;
+            this.description = description;
+            this.hotKey = hotKey;
+            this.dateAdded = dateAdded;
+            this.lastCopied = lastCopied; 
+        }
+        public SnippetModel()
+        {
+
         }
 
         public void UpdateDatabase()

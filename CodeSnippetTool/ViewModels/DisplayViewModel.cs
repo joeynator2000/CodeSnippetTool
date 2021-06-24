@@ -1,6 +1,7 @@
 ﻿using CodeSnippetTool.classes;
 using CodeSnippetTool.Commands;
 using CodeSnippetTool.Db;
+using CodeSnippetTool.Hotkeys;
 using CodeSnippetTool.Service;
 using CodeSnippetTool.Stores;
 using MySql.Data.MySqlClient;
@@ -45,85 +46,138 @@ namespace CodeSnippetTool.ViewModels
             get { return snippetsModel; }
             set { snippetsModel = value; }
         }
+
         public void FillList()
         {
+            DbConnect con = new DbConnect();
+            DbSelect dbSelect = new DbSelect(con.databaseConnection);
             if (tableAlreadyCreated != true)
             {
                 try
                 {
-                    con = new MySqlConnection(connectionString);
-                    con.Open();
-                    cmd = new MySqlCommand("SELECT id, snippet_text, lang, favourite, description FROM snippets", con);
-                    adapter = new MySqlDataAdapter(cmd);
-                    ds = new DataSet();
-                    adapter.Fill(ds, "snippets");
+                    //HotkeysManager.AddHotkey(new GlobalHotkey(ModifierKeys.Control, Key.S, () => { ShowBox("Ctrl+S Fired"); }));
+                    snippetsModel = dbSelect.selectAll();
 
-                    if (snippetsModel == null)
+                    if (snippetsModel == null || snippetsModel.Count==0)
                         snippetsModel = new List<SnippetModel>();
 
-                    foreach (DataRow dr in ds.Tables[0].Rows)
-                    {
-                        snippetsModel.Add(new SnippetModel
-                        {
-                            Id = Convert.ToInt32(dr[0].ToString()),
-                            SnippetText = dr[1].ToString(),
-                            Language = dr[2].ToString(),
-                            Favourite = Convert.ToInt32(dr[3].ToString()),
-                            Description = dr[4].ToString()
-                        });
-                    }
+
                 }
                 catch (Exception ex)
                 {
                     ex.Message.ToString();
                 }
-                finally
-                {
-                    ds = null;
-                    adapter.Dispose();
-                    con.Close();
-                    con.Dispose();
-                }
-                //tableAlreadyCreated = true;
             }
             else
             {
                 try
                 {
-                    //snippetsModel.Clear();
-                    con = new MySqlConnection(connectionString);
-                    con.Open();
                     var id = FindByIdCommand.snippetId;
-                    cmd = new MySqlCommand($"SELECT * FROM snippets WHERE id={id}", con);
-                    //cmd.Parameters.AddWithValue("@id", id);
-                    //DbSelect dbSelect = new DbSelect(con);
-                    adapter = new MySqlDataAdapter(cmd);
-                    ds = new DataSet();
-                    adapter.Fill(ds, "snippets");
-
-                    //if (snippetsModel == null)
-                    snippetsModel = new List<SnippetModel>();
-
-                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    SnippetModel snp = new SnippetModel();
+                    snp = dbSelect.selectSnippetId(id);
+                    if (snippetsModel == null || snippetsModel.Count == 0)
+                        snippetsModel = new List<SnippetModel>();
+                    if (snp != null)
                     {
-                        snippetsModel.Add(new SnippetModel
-                        {
-                            Id = Convert.ToInt32(dr[0].ToString()),
-                            SnippetText = dr[1].ToString(),
-                            Language = dr[2].ToString(),
-                            Favourite = Convert.ToInt32(dr[3].ToString()),
-                            Description = dr[4].ToString()
-                        });
+                        snippetsModel.Add(snp);
                     }
-                    FindByIdCommand.alreadyCreated = false;
+
                 }
                 catch (Exception ex)
                 {
                     ex.Message.ToString();
 
                 }
-                //tableAlreadyCreated = false;
             }
+        }
+
+        //public void FillList()
+        //{
+        //    if (tableAlreadyCreated != true)
+        //    {
+        //        try
+        //        {
+        //            //HotkeysManager.AddHotkey(new GlobalHotkey(ModifierKeys.Control, Key.S, () => { ShowBox("Ctrl+S Fired"); }));
+        //            con = new MySqlConnection(connectionString);
+        //            con.Open();
+        //            cmd = new MySqlCommand("SELECT id, snippet_text, lang, favourite, description FROM snippets", con);
+        //            adapter = new MySqlDataAdapter(cmd);
+        //            ds = new DataSet();
+        //            adapter.Fill(ds, "snippets");
+
+        //            if (snippetsModel == null)
+        //                snippetsModel = new List<SnippetModel>();
+
+        //            foreach (DataRow dr in ds.Tables[0].Rows)
+        //            {
+        //                snippetsModel.Add(new SnippetModel
+        //                {
+        //                    Id = Convert.ToInt32(dr[0].ToString()),
+        //                    SnippetText = dr[1].ToString(),
+        //                    Language = dr[2].ToString(),
+        //                    Favourite = Convert.ToInt32(dr[3].ToString()),
+        //                    Description = dr[4].ToString()
+        //                });
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            ex.Message.ToString();
+        //        }
+        //        finally
+        //        {
+        //            ds = null;
+        //            adapter.Dispose();
+        //            con.Close();
+        //            con.Dispose();
+        //        }
+        //        //tableAlreadyCreated = true;
+        //    }
+        //    else
+        //    {
+        //        try
+        //        {
+        //            //snippetsModel.Clear();
+        //            con = new MySqlConnection(connectionString);
+        //            con.Open();
+        //            var id = FindByIdCommand.snippetId;
+        //            cmd = new MySqlCommand($"SELECT * FROM snippets WHERE id={id}", con);
+        //            //cmd.Parameters.AddWithValue("@id", id);
+        //            //DbSelect dbSelect = new DbSelect(con);
+        //            adapter = new MySqlDataAdapter(cmd);
+        //            ds = new DataSet();
+        //            adapter.Fill(ds, "snippets");
+
+        //            //if (snippetsModel == null)
+        //            snippetsModel = new List<SnippetModel>();
+
+        //            foreach (DataRow dr in ds.Tables[0].Rows)
+        //            {
+        //                snippetsModel.Add(new SnippetModel
+        //                {
+        //                    Id = Convert.ToInt32(dr[0].ToString()),
+        //                    SnippetText = dr[1].ToString(),
+        //                    Language = dr[2].ToString(),
+        //                    Favourite = Convert.ToInt32(dr[3].ToString()),
+        //                    Description = dr[4].ToString()
+        //                });
+        //            }
+        //            FindByIdCommand.alreadyCreated = false;
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            ex.Message.ToString();
+
+        //        }
+        //        //tableAlreadyCreated = false;
+        //    }
+        //}
+        
+        
+        public void ShowBox(string text)
+        {
+            Clipboard.SetText(text);
+            MessageBox.Show(""+text);
         }
 
         public void CopyMethod(String txt)

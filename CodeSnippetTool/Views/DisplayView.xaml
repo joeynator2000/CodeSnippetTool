@@ -22,6 +22,8 @@
         <DataGrid Name="SnippetsGrid" CanUserResizeRows="False" CanUserResizeColumns="False" IsReadOnly="True" CanUserAddRows="False" AutoGenerateColumns="False" Margin="0,-5,0,101"  ItemsSource="{Binding Snippets}" Grid.ColumnSpan="3" SelectionChanged="SnippetsGrid_SelectionChanged" Grid.RowSpan="3"  >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}"  Width="50"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"  Width="50"/>
+                <DataGridTextColumn Header="HotKey" Binding="{Binding HotKey}"  Width="50"/>
                 <DataGridTextColumn Header="Snippet" Binding="{Binding SnippetText}"  Width="auto" />
                 <DataGridTextColumn Header="Language" Binding="{Binding Language}" Width="auto" />
                 <DataGridTextColumn Header="Favourite" Binding="{Binding Favourite}" Width="auto" />

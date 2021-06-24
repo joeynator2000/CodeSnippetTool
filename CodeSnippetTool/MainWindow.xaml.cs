@@ -27,14 +27,20 @@ namespace CodeSnippetTool
             InitializeComponent();
 
             //Setup for the hook
-            HotkeyManager.SetupSystemHook();
+            HotkeysManager.SetupSystemHook();
+            // You can create a globalhotkey object and pass it like so
+            HotkeysManager.AddHotkey(new GlobalHotkey(ModifierKeys.Control, Key.S, () => { AddToList("Ctrl+S Fired"); }));
+
+
+            //Setup for the hook
+            //HotkeyManager.SetupSystemHook();
 
             // Create hotkey Enter Control + Whatever letter and it recognizes it in the main window, see the listbox @ hotkeys fired.
-            HotkeyListener saveHotkey = new HotkeyListener(ModifierKeys.Control, Key.K, saveFileExample);
+            //HotkeyListener saveHotkey = new HotkeyListener(ModifierKeys.Control, Key.K, saveFileExample);
 
 
             //Add hotkey
-            HotkeyManager.AddHotkey(saveHotkey);
+            //HotkeyManager.AddHotkey(saveHotkey);
 
 
 
@@ -44,7 +50,7 @@ namespace CodeSnippetTool
 
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            HotkeyManager.ShutdownSystemHook();
+            //HotkeyManager.ShutdownSystemHook();
         }
 
         public void AddToList(string text)

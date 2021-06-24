@@ -19,10 +19,9 @@ namespace CodeSnippetTool.Db
 
 
                                                                   
-        public Snippet selectSnippet(int id)
+        public SnippetModel selectSnippetId(int id)
         {
-            string snippet = "";
-            Snippet snp = new Snippet();
+            SnippetModel snpt = new SnippetModel();
             this.connection.Open();
             string query = "SELECT * FROM snippets WHERE id=@id";
             using (var cmd = new MySqlCommand(query, this.connection))
@@ -31,28 +30,30 @@ namespace CodeSnippetTool.Db
 
                 using (var reader = cmd.ExecuteReader())
                 {
-                    while (reader.Read())
+                    if (reader.HasRows)
                     {
-                        var snippetId = reader.GetInt32(0);
-                        var snippetText = reader.GetString(1);
-                        var snippetLang = reader.GetString(2);
-                        var snippetFavourite = reader.GetInt32(3);
-                        var snippetDescription = reader.GetString(4);
-                        //var snippetDateAdded = reader.GetString(5);
-                        var snippetDateAdded = "snippetDateAdded";
-                        //var snippetDateLastCopied = reader.GetString(6);
-                        var snippetDateLastCopied = "snippetDateLastCopied";
-                        Snippet snpt = new Snippet(snippetId, snippetText, snippetLang, snippetFavourite, snippetDescription, snippetDateAdded, snippetDateLastCopied);
-                        snp = snpt;
+                        while (reader.Read())
+                        {
+                            var snippetId = reader.GetInt32(0);
+                            var snippetName = reader.GetString(1);
+                            var snippetText = reader.GetString(2);
+                            var snippetLang = reader.GetString(3);
+                            var snippetFavourite = reader.GetInt32(4);
+                            var snippetDescription = reader.GetString(5);
+                            var snippetHotKey = reader.GetString(6);
+                            var snippetDateAdded = reader.GetString(7);
+                            var snippetDateLastCopied = reader.GetString(8);
+                            SnippetModel snp = new SnippetModel(snippetId, snippetName, snippetText, snippetLang, snippetFavourite, snippetDescription, snippetHotKey, snippetDateAdded, snippetDateLastCopied);
 
-                        //snippet = snippetText;
-                        //Console.WriteLine($"{snippetText}");
+                            snpt = snp;
+                        }
                     }
+
                 }
             }
             Console.WriteLine("select complete");
             this.connection.Close();
-            return snp;
+            return snpt;
         }
 
         public List<string> selectFavourite(int favourite)
@@ -167,36 +168,13 @@ namespace CodeSnippetTool.Db
             return snippet;
         }
 
-        //public List<string> selectAddDate(string date)
-        //{
-        //    List<string> snippets = new List<string>();
-        //    this.connection.Open();
-        //    string query = "SELECT snippet_text FROM snippets WHERE date_added=@date";
-        //    using (var cmd = new MySqlCommand(query, this.connection))
-        //    {
-        //        cmd.Parameters.AddWithValue("@date", date);
 
-        //        using (var reader = cmd.ExecuteReader())
-        //        {
-        //            while (reader.Read())
-        //            {
-        //                var snippetText = reader.GetString(0);
 
-        //                snippets.Add(snippetText);
-        //                Console.WriteLine($"{snippetText}");
-        //            }
-        //        }
-        //    }
-        //    Console.WriteLine("select complete");
-        //    this.connection.Close();
-        //    return snippets;
-        //}
-
-        public List<Snippet> selectAll()
+        public List<SnippetModel> selectAll()
         {
             this.connection.Open();
             string query = "SELECT * FROM snippets";
-            List<Snippet> snippets = new List<Snippet>();
+            List<SnippetModel> snippets = new List<SnippetModel>();
             using (var cmd = new MySqlCommand(query, this.connection))
             {
 
@@ -205,15 +183,15 @@ namespace CodeSnippetTool.Db
                     while (reader.Read())
                     {
                         var snippetId = reader.GetInt32(0);
-                        var snippetText = reader.GetString(1);
-                        var snippetLang = reader.GetString(2);
-                        var snippetFavourite = reader.GetInt32(3);
-                        var snippetDescription= reader.GetString(4);
-                        //var snippetDateAdded = reader.GetString(5);
-                        var snippetDateAdded = "snippetDateAdded";
-                        //var snippetDateLastCopied = reader.GetString(6);
-                        var snippetDateLastCopied = "snippetDateLastCopied";
-                        Snippet snp = new Snippet(snippetId, snippetText, snippetLang, snippetFavourite,snippetDescription, snippetDateAdded, snippetDateLastCopied);
+                        var snippetName = reader.GetString(1);
+                        var snippetText = reader.GetString(2);
+                        var snippetLang = reader.GetString(3);
+                        var snippetFavourite = reader.GetInt32(4);
+                        var snippetDescription= reader.GetString(5);
+                        var snippetHotKey = reader.GetString(6);
+                        var snippetDateAdded = reader.GetString(7);
+                        var snippetDateLastCopied = reader.GetString(8);
+                        SnippetModel snp = new SnippetModel(snippetId, snippetName, snippetText, snippetLang, snippetFavourite,snippetDescription, snippetHotKey, snippetDateAdded, snippetDateLastCopied);
 
                         snippets.Add(snp);
                         Console.WriteLine($"{snippetText}");
