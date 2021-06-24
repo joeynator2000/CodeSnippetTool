@@ -156,7 +156,12 @@ namespace CodeSnippetTool.Db
                         var snippetDescription = reader.GetString(5);
                         var snippetHotKey = reader.GetString(6);
                         var snippetDateAdded = reader.GetString(7);
-                        var snippetDateLastCopied ="";
+                        var snippetDateLastCopied = "null";
+                        var c = reader[8] as String;
+                        if (!String.IsNullOrEmpty(c))
+                        {
+                            snippetDateLastCopied = reader.GetString(8);
+                        }
                         SnippetModel snp = new SnippetModel(snippetId, snippetName, snippetText, snippetLang, snippetFavourite, snippetDescription, snippetHotKey, snippetDateAdded, snippetDateLastCopied);
 
                         snippet = snp;
@@ -192,10 +197,14 @@ namespace CodeSnippetTool.Db
                         var snippetHotKey = reader.GetString(6);
                         var snippetDateAdded = reader.GetString(7);
                         var snippetDateLastCopied = "null";
-                        if (reader.GetString(8) != null) 
+                        var c = reader[8] as String;
+                        if (!String.IsNullOrEmpty(c))
                         {
-                             snippetDateLastCopied = reader.GetString(8);
+                            snippetDateLastCopied = reader.GetString(8);
                         }
+
+
+
                         SnippetModel snp = new SnippetModel(snippetId, snippetName, snippetText, snippetLang, snippetFavourite,snippetDescription, snippetHotKey, snippetDateAdded, snippetDateLastCopied);
 
                         snippets.Add(snp);

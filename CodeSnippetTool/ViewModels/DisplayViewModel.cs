@@ -55,8 +55,17 @@ namespace CodeSnippetTool.ViewModels
             {
                 try
                 {
-                    HotkeysManager.AddHotkey(new GlobalHotkey(ModifierKeys.Control, Key.S, () => { ShowBox("Ctrl+S Fired"); }));
+                    
                     snippetsModel = dbSelect.selectAll();
+                    foreach(SnippetModel snp in snippetsModel)
+                    {
+                        string hotKey = snp.HotKey;
+                        Key keyValue = (Key)Enum.Parse(typeof(Key), hotKey,true); 
+
+                        
+                        HotkeysManager.AddHotkey(new GlobalHotkey(ModifierKeys.Control, keyValue, () => { ShowBox($"ctrl+ {hotKey} fired",snp.snippetText); }));
+                    }
+                    
 
                     if (snippetsModel == null || snippetsModel.Count==0)
                         snippetsModel = new List<SnippetModel>();
@@ -174,10 +183,10 @@ namespace CodeSnippetTool.ViewModels
         //}
         
         
-        public void ShowBox(string text)
+        public void ShowBox(string hotKey,string snippet)
         {
-            Clipboard.SetText(text);
-            MessageBox.Show(""+text);
+            Clipboard.SetText(snippet);
+            MessageBox.Show(""+hotKey);
         }
 
         public void CopyMethod(String txt)
