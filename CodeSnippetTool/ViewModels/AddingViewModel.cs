@@ -14,6 +14,36 @@ namespace CodeSnippetTool.ViewModels
 {
     public class AddingViewModel : ViewModelBase
     {
+        private string _name;
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+
+            set
+            {
+                _name = value;
+                OnPropertyChanged(nameof(Name));
+            }
+        }
+
+        private string _hotKey;
+        public string HotKey
+        {
+            get
+            {
+                return _hotKey;
+            }
+
+            set
+            {
+                _hotKey = value;
+                OnPropertyChanged(nameof(HotKey));
+            }
+        }
+
         private string _codeSnippet;
         public string CodeSnippet 
         {
@@ -107,7 +137,7 @@ namespace CodeSnippetTool.ViewModels
             {
                 fav = 1;
             }
-            inserter.InsertSnippet(_codeSnippet, _language, fav, _description, DateString);
+            inserter.InsertSnippet(_name, _codeSnippet, _language, fav, _hotKey, _description, DateString);
             //select id based on dateSting
             var id = idSelecter.selectAddDate(DateString).id;
 

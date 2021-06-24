@@ -12,21 +12,29 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" MaxHeight="125"/>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Label>Code:</Label>
-        <TextBox Margin="77,0,23,5" Grid.ColumnSpan="2" Text="{Binding CodeSnippet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <Label Grid.Row="1">Language:</Label>
+        <Label Grid.Column="0" Grid.ColumnSpan="2" Margin="0,9,711,369" Grid.Row="2">Name:</Label>
+        <TextBox Grid.Row="2" Margin="88,10,23,376" Grid.ColumnSpan="2" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <ComboBox Margin="77,0,23,398" Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Row="1" SelectedValuePath="Content" SelectedItem="{Binding Language, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ComboBox_SelectionChanged">
+        <Label Margin="-3,50,8,322" Grid.Row="2">Code:</Label>
+        <TextBox Margin="0,50,22,235" MaxWidth="690" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Text="{Binding CodeSnippet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="2"/>
+
+        <Label Grid.Row="2" Margin="0,190,711,182" Grid.ColumnSpan="2">Language:</Label>
+
+        <ComboBox Margin="0,192,23,192" Grid.Row="2" SelectedValuePath="Content" SelectedItem="{Binding Language, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ComboBox_SelectionChanged" Grid.Column="1">
             <ComboBoxItem Content="Java"/>
             <ComboBoxItem IsSelected="True" Content="C#"/>
             <ComboBoxItem Content="JavaScript"/>
@@ -34,17 +42,19 @@
             <ComboBoxItem Content="TypeScript"/>
         </ComboBox>
 
-        <Label Grid.ColumnSpan="2" Margin="0,7,733,365" Grid.Row="2">Key words:</Label>
-        <TextBox Margin="77,10,0,365" Grid.ColumnSpan="2" Grid.Row="2" HorizontalAlignment="Left" Width="700" Text="{Binding KeyWords, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <Label Margin="2,226,8,146" Grid.Row="2">Key words:</Label>
+        <TextBox Margin="88,232,0,152" Grid.Row="2" HorizontalAlignment="Left" Width="665" Text="{Binding KeyWords, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
 
-        <Label Grid.Row="2" Grid.ColumnSpan="2" Margin="0,39,727,0">Description:</Label>
-        <TextBox Grid.Row="2" AcceptsReturn="True" Margin="77,39,23,225" Grid.ColumnSpan="2" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged"/>
+        <Label Grid.Row="2" Margin="0,270,4,-22" Grid.RowSpan="4">Description:</Label>
+        <TextBox Grid.Row="2" VerticalScrollBarVisibility="Auto" MaxHeight="25" AcceptsReturn="True" Margin="88,270,22,112" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged" Grid.ColumnSpan="2"/>
 
-        <Label Grid.Row="2" Margin="0,180,4,192">Favourite:</Label>
-        <CheckBox Grid.ColumnSpan="4" IsChecked="{Binding Favourite}" Grid.Column="1" Margin="0,186,-77,186" Grid.Row="2">Save as favourite</CheckBox>
+        <Label Grid.Row="2" Grid.ColumnSpan="2" Margin="0,300,711,44" Grid.RowSpan="3">Hotkey:</Label>
+        <TextBox MaxLength="1" Grid.Row="2" Text="{Binding HotKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="88,301,655,81" Grid.ColumnSpan="2"/>
 
+        <Label Grid.Row="2" Margin="-1,330,5,42">Favourite:</Label>
+        <CheckBox Grid.ColumnSpan="7" IsChecked="{Binding Favourite}" Margin="87,336,-76,36" Grid.Row="2">Save as favourite</CheckBox>
 
-        <Button Content="submit" Command="{Binding AddToDbCommand}" Grid.Column="1" Margin="324,218,347,148" Grid.Row="2"></Button>
-        <Button Content="Navigte to DisplayPage" Command="{Binding NavigateDisplayCommand}" Grid.Column="1" Margin="501,308,45,58" Grid.Row="2"></Button>
+        <Button Content="submit" Command="{Binding AddToDbCommand}" Grid.Column="1" Margin="290,371,346,9" Grid.Row="2"></Button>
+        <Button Content="Navigte to DisplayPage" Command="{Binding NavigateDisplayCommand}" Grid.Column="1" Margin="501,337,45,29" Grid.Row="2"></Button>
     </Grid>
 </UserControl>

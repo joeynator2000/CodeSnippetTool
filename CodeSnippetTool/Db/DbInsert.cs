@@ -15,13 +15,15 @@ namespace CodeSnippetTool.Db
         }
 
         //TODO: Button action listener and assign values
-        public void InsertSnippet(string snippet_text, string language, int favourite, string description, string dateAdded)
+        public void InsertSnippet(string Name, string snippet_text, string language, int favourite, string HotKey, string description, string dateAdded)
         {  
-            string queryString = "INSERT INTO snippets (snippet_text, lang, favourite, description, date_added, last_copied) VALUES (@snippet_text, @lang, @favourite, @description, @date_added, @last_copied)";
+            string queryString = "INSERT INTO snippets (name, snippet_text, lang, favourite, description, HotKey, date_added, last_copied) VALUES (@name, @snippet_text, @lang, @favourite, @HotKey, @description, @date_added, @last_copied)";
             MySqlCommand command = new MySqlCommand(queryString, Db.databaseConnection);
+            command.Parameters.AddWithValue("@name", Name);
             command.Parameters.AddWithValue("@snippet_text", snippet_text);
             command.Parameters.AddWithValue("@lang", language);
             command.Parameters.AddWithValue("@favourite", favourite);
+            command.Parameters.AddWithValue("@HotKey", HotKey);
             command.Parameters.AddWithValue("@description", description);
             command.Parameters.AddWithValue("@date_added", dateAdded);
             command.Parameters.AddWithValue("@last_copied", null);
