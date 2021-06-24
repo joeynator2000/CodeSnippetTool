@@ -132,10 +132,10 @@ namespace CodeSnippetTool.Db
             this.connection.Close();
             return description;
         }
-        public Snippet selectAddDate(string date)
+        public SnippetModel selectAddDate(string date)
         {
             this.connection.Open();
-            Snippet snippet = new Snippet();
+            SnippetModel snippet = new SnippetModel();
             string query = "SELECT * FROM snippets WHERE date_added=@date";
             using (var cmd = new MySqlCommand(query, this.connection))
             {
@@ -149,14 +149,15 @@ namespace CodeSnippetTool.Db
                         string DateString = theDate.ToString("yyyy-MM-dd H:mm:ss");
 
                         var snippetId = reader.GetInt32(0);
-                        var snippetText = reader.GetString(1);
-                        var snippetLang = reader.GetString(2);
-                        var snippetFavourite = reader.GetInt32(3);
-                        var snippetDescription = reader.GetString(4);
-                        var snippetDateAdded = reader.GetString(5);
-                        var snippetDateLastCopied = "dummy text";
-                        //var snippetDateLastCopied = reader.GetString(6);
-                        Snippet snp = new Snippet(snippetId, snippetText, snippetLang, snippetFavourite, snippetDescription, snippetDateAdded, snippetDateLastCopied);
+                        var snippetName = reader.GetString(1);
+                        var snippetText = reader.GetString(2);
+                        var snippetLang = reader.GetString(3);
+                        var snippetFavourite = reader.GetInt32(4);
+                        var snippetDescription = reader.GetString(5);
+                        var snippetHotKey = reader.GetString(6);
+                        var snippetDateAdded = reader.GetString(7);
+                        var snippetDateLastCopied ="";
+                        SnippetModel snp = new SnippetModel(snippetId, snippetName, snippetText, snippetLang, snippetFavourite, snippetDescription, snippetHotKey, snippetDateAdded, snippetDateLastCopied);
 
                         snippet = snp;
                         Console.WriteLine($"{snippetText}");
@@ -190,7 +191,11 @@ namespace CodeSnippetTool.Db
                         var snippetDescription= reader.GetString(5);
                         var snippetHotKey = reader.GetString(6);
                         var snippetDateAdded = reader.GetString(7);
-                        var snippetDateLastCopied = reader.GetString(8);
+                        var snippetDateLastCopied = "null";
+                        if (reader.GetString(8) != null) 
+                        {
+                             snippetDateLastCopied = reader.GetString(8);
+                        }
                         SnippetModel snp = new SnippetModel(snippetId, snippetName, snippetText, snippetLang, snippetFavourite,snippetDescription, snippetHotKey, snippetDateAdded, snippetDateLastCopied);
 
                         snippets.Add(snp);

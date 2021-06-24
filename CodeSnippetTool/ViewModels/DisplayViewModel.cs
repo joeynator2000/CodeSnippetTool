@@ -55,7 +55,7 @@ namespace CodeSnippetTool.ViewModels
             {
                 try
                 {
-                    //HotkeysManager.AddHotkey(new GlobalHotkey(ModifierKeys.Control, Key.S, () => { ShowBox("Ctrl+S Fired"); }));
+                    HotkeysManager.AddHotkey(new GlobalHotkey(ModifierKeys.Control, Key.S, () => { ShowBox("Ctrl+S Fired"); }));
                     snippetsModel = dbSelect.selectAll();
 
                     if (snippetsModel == null || snippetsModel.Count==0)
