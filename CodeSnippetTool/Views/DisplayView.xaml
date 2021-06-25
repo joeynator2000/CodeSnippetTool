@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:viewmodels="clr-namespace:CodeSnippetTool.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:DisplayViewModel}"             
+             xmlns:viewmodels="clr-namespace:CodeSnippetTool.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:DisplayViewModel}"  
+           
              mc:Ignorable="d" Height="339" Width="801">
     <Grid Margin="10,10,10,10">
         <Grid.ColumnDefinitions>
@@ -15,16 +16,16 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="13*"/>
             <RowDefinition Height="295*"/>
-            <RowDefinition Height="11*"/>
+            <RowDefinition Height="11*" MaxHeight="200"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <DataGrid Name="SnippetsGrid" CanUserResizeRows="False" CanUserResizeColumns="False" IsReadOnly="True" CanUserAddRows="False" AutoGenerateColumns="False" Margin="0,-5,0,101"  ItemsSource="{Binding Snippets}" Grid.ColumnSpan="3" SelectionChanged="SnippetsGrid_SelectionChanged" Grid.RowSpan="3"  >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}"  Width="50"/>
+                <!--<DataGridTextColumn Header="Id" Binding="{Binding Id}"  Width="50"/>-->
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"  Width="50"/>
                 <DataGridTextColumn Header="HotKey" Binding="{Binding HotKey}"  Width="50"/>
-                <DataGridTextColumn Header="Snippet" Binding="{Binding SnippetText}"  Width="auto" />
+                <!--<DataGridTextColumn Header="Snippet" Binding="{Binding SnippetText}"  Width="auto" />-->
                 <DataGridTextColumn Header="Language" Binding="{Binding Language}" Width="auto" />
                 <DataGridTextColumn Header="Favourite" Binding="{Binding Favourite}" Width="auto" />
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="auto" />
@@ -44,13 +45,13 @@
             </UniformGrid>
         </GroupBox>
 
-        <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="16,243,0,0" Name="txtId" VerticalAlignment="Top" Width="29" Text="{Binding ElementName=SnippetsGrid,  Path=SelectedItem.Id}" />
+        <!--<TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="16,243,0,0" Name="txtId" VerticalAlignment="Top" Width="29" Text="{Binding ElementName=SnippetsGrid,  Path=SelectedItem.Id}" />-->
         <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="55,243,0,0" Name="txtName" VerticalAlignment="Top" Width="121" Text="{Binding ElementName=SnippetsGrid,Path=SelectedItem.Name}" Grid.Column="1" />
         <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="240,243,0,0" Name="txtLanguage" VerticalAlignment="Top" Width="119" Text="{Binding ElementName=SnippetsGrid,Path=SelectedItem.Language}" Grid.Column="1" />
         <TextBox Grid.Row="2" Height="24" HorizontalAlignment="Left" Margin="618,243,0,0" x:Name="txtFavourite" VerticalAlignment="Top" Width="107" Text="{Binding ElementName=SnippetsGrid, Path=SelectedItem.Favourite}" Grid.ColumnSpan="2" Grid.Column="1" />
         <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="429,243,0,0" x:Name="txtDescription" VerticalAlignment="Top" Width="124" Text="{Binding ElementName=SnippetsGrid, Path=SelectedItem.HotKey}" Grid.Column="1" />
 
-        <Label Content="Id" Grid.Row="2" HorizontalAlignment="Left" Margin="-4,240,0,22" Name="label1" />
+        <!--<Label Content="Id" Grid.Row="2" HorizontalAlignment="Left" Margin="-4,240,0,22" Name="label1" />-->
         <Label Content="Name" Grid.Row="2" Height="28" HorizontalAlignment="Left" Margin="50,241,0,0" Name="label2" VerticalAlignment="Top" Grid.ColumnSpan="2" />
         <Label Content="Language" Grid.Row="2" Height="28" HorizontalAlignment="Left" Margin="178,240,0,0" Name="label3" VerticalAlignment="Top" Grid.Column="1" />
         <Label Content="Favourite" Grid.Row="2" Height="28" HorizontalAlignment="Left" Margin="556,241,0,0" x:Name="label2_Copy" VerticalAlignment="Top" Grid.Column="1" />

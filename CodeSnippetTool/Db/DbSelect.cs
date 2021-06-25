@@ -245,10 +245,10 @@ namespace CodeSnippetTool.Db
                         var snippetId = reader.GetInt32(0);
 
                         var snippetName = "";
-                        var snippetNameTmp = reader[2] as String;
+                        var snippetNameTmp = reader[1] as String;
                         if (!String.IsNullOrEmpty(snippetNameTmp))
                         {
-                            snippetName = reader.GetString(2);
+                            snippetName = reader.GetString(1);
                         }
 
                         var snippetText = "";

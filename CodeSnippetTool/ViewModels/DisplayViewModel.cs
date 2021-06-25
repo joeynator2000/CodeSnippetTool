@@ -60,10 +60,14 @@ namespace CodeSnippetTool.ViewModels
                     foreach(SnippetModel snp in snippetsModel)
                     {
                         string hotKey = snp.HotKey;
-                        Key keyValue = (Key)Enum.Parse(typeof(Key), hotKey,true); 
+                        //Key keyValue = (Key)Enum.Parse(typeof(Key), hotKey,true);
 
-                        
-                        HotkeysManager.AddHotkey(new GlobalHotkey(ModifierKeys.Control, keyValue, () => { ShowBox($"ctrl+ {hotKey} fired",snp.snippetText,snp); }));
+                        String [] arr=snp.hotKey.Split("+");
+                        var key=arr[0];
+                        Key keyValue = (Key)Enum.Parse(typeof(Key), key, true);
+                        var modifier=arr[1];
+                        ModifierKeys modifierValue = (ModifierKeys)Enum.Parse(typeof(ModifierKeys),modifier,true);
+                        HotkeysManager.AddHotkey(new GlobalHotkey(modifierValue, keyValue, () => { ShowBox(modifier,key,snp.snippetText,snp); }));
                     }
                     
 
@@ -183,13 +187,14 @@ namespace CodeSnippetTool.ViewModels
         //}
         
         
-        public void ShowBox(string hotKey,string snippet,SnippetModel snp)
+        public void ShowBox(string modifier,string hotKey,string snippet,SnippetModel snp)
         {
             Clipboard.SetText(snippet);
             DbConnect conn = new DbConnect();
             DbUpdate update = new DbUpdate(conn);
             update.UpdateSnippetLastCopiedDate(snp.id);
-            MessageBox.Show(""+hotKey);
+
+            MessageBox.Show(snippet,$"{modifier}+{hotKey}");
         }
 
         public void CopyMethod(String txt)

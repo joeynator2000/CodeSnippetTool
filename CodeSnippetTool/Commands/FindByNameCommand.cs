@@ -43,7 +43,7 @@ namespace CodeSnippetTool.Commands
                     _navigationService.Navigate();
                 }catch(Exception ex)
                 {
-                    throw ex;
+                    throw ex; 
                     
                 }
             }
