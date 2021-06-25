@@ -37,30 +37,41 @@ namespace CodeSnippetTool.Views
 
         private void BlackMode_Checked(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.ColorMode = "Black";
+            if (Convert.ToBoolean(BlackMode.IsChecked))
+            {
+                Properties.Settings.Default.ColorMode = "Black";
 
-            Properties.Settings.Default.Save();
+                Properties.Settings.Default.Save();
+            }
         }
 
         private void DarkMode_Checked(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.ColorMode = "Dark";
-
-            Properties.Settings.Default.Save();
+            if (Convert.ToBoolean(DarkMode.IsChecked))
+            {
+                Properties.Settings.Default.ColorMode = "Dark";
+                Properties.Settings.Default.Save();
+            }
         }
 
         private void LightMode_Checked(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.ColorMode = "Light";
+            if (Convert.ToBoolean(LightMode.IsChecked))
+            {
+                Properties.Settings.Default.ColorMode = "Light";
 
-            Properties.Settings.Default.Save();
+                Properties.Settings.Default.Save();
+            }
         }
 
         private void WhiteMode_Checked(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.ColorMode = "White";
+            if (Convert.ToBoolean(WhiteMode.IsChecked))
+            {
+                Properties.Settings.Default.ColorMode = "White";
 
-            Properties.Settings.Default.Save();
+                Properties.Settings.Default.Save();
+            }
         }
 
         private void SnippetsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
