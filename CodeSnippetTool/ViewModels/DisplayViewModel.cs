@@ -66,29 +66,29 @@ namespace CodeSnippetTool.ViewModels
             {
                 try
                 {
-                    
+
                     snippetsModel = dbSelect.selectAll();
-                    foreach(SnippetModel snp in snippetsModel)
+                    foreach (SnippetModel snp in snippetsModel)
                     {
                         string hotKey = snp.HotKey;
 
-                
 
-                        String [] arr=snp.hotKey.Split("+");
-                        var key=arr[0];
+
+                        String[] arr = snp.hotKey.Split("+");
+                        var key = arr[0];
                         Key keyValue = (Key)Enum.Parse(typeof(Key), key, true);
-                        var modifier=arr[1];
-                        ModifierKeys modifierValue = (ModifierKeys)Enum.Parse(typeof(ModifierKeys),modifier,true);
-                        HotkeysManager.AddHotkey(new GlobalHotkey(modifierValue, keyValue, () => {
-                            if (IsSelected)
-                            {
-                                ShowBox(modifier, key, snp.snippetText, snp);
-                            }
+                        var modifier = arr[1];
+                        ModifierKeys modifierValue = (ModifierKeys)Enum.Parse(typeof(ModifierKeys), modifier, true);
+                        HotkeysManager.AddHotkey(new GlobalHotkey(modifierValue, keyValue, () =>
+                        {
+
+                            ShowBox(modifier, key, snp.snippetText, snp);
+
                         }));
                     }
-                    
 
-                    if (snippetsModel == null || snippetsModel.Count==0)
+
+                    if (snippetsModel == null || snippetsModel.Count == 0)
                         snippetsModel = new List<SnippetModel>();
 
 
@@ -209,16 +209,18 @@ namespace CodeSnippetTool.ViewModels
         //        //tableAlreadyCreated = false;
         //    }
         //}
-        
-        
-        public void ShowBox(string modifier,string hotKey,string snippet,SnippetModel snp)
+
+
+        public void ShowBox(string modifier, string hotKey, string snippet, SnippetModel snp)
         {
             Clipboard.SetText(snippet);
             DbConnect conn = new DbConnect();
             DbUpdate update = new DbUpdate(conn);
             update.UpdateSnippetLastCopiedDate(snp.id);
-
-            MessageBox.Show(snippet,$"{modifier}+{hotKey}");
+            if (IsSelected)
+            {
+                MessageBox.Show(snippet, $"{modifier}+{hotKey}");
+            }
         }
 
         public void CopyMethod(String txt)
@@ -263,7 +265,7 @@ namespace CodeSnippetTool.ViewModels
 
             public void Execute(object parameter)
             {
-   
+
             }
 
             #endregion
