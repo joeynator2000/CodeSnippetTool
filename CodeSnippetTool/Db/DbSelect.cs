@@ -62,6 +62,49 @@ namespace CodeSnippetTool.Db
             return snpt;
         }
 
+        public SnippetModel selectSnippetName(string name)
+        {
+            SnippetModel snpt = new SnippetModel();
+            this.connection.Open();
+            string query = "SELECT * FROM snippets WHERE name=@name";
+            using (var cmd = new MySqlCommand(query, this.connection))
+            {
+                cmd.Parameters.AddWithValue("@name", name);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            var snippetId = reader.GetInt32(0);
+                            var snippetName = reader.GetString(1);
+                            var snippetText = reader.GetString(2);
+                            var snippetLang = reader.GetString(3);
+                            var snippetFavourite = reader.GetInt32(4);
+                            var snippetDescription = reader.GetString(5);
+                            var snippetHotKey = reader.GetString(6);
+                            var snippetDateAdded = reader.GetString(7);
+                            //var snippetDateLastCopied = reader.GetString(8);
+                            var snippetDateLastCopied = "null";
+                            var c = reader[8] as String;
+                            if (!String.IsNullOrEmpty(c))
+                            {
+                                snippetDateLastCopied = reader.GetString(8);
+                            }
+                            SnippetModel snp = new SnippetModel(snippetId, snippetName, snippetText, snippetLang, snippetFavourite, snippetDescription, snippetHotKey, snippetDateAdded, snippetDateLastCopied);
+
+                            snpt = snp;
+                        }
+                    }
+
+                }
+            }
+            Console.WriteLine("select complete");
+            this.connection.Close();
+            return snpt;
+        }
+
         public List<string> selectFavourite(int favourite)
         {
             List<string> snippets = new List<string>();

@@ -7,15 +7,15 @@ using System.Windows;
 
 namespace CodeSnippetTool.Commands
 {
-    public class FindByIdCommand : CommandBase
+    public class FindByNameCommand : CommandBase
     {
 
         private readonly DisplayViewModel _viewModel;
         private readonly NavigationService<DisplayViewModel> _navigationService;
         public static bool alreadyCreated;
-        public static int snippetId;
+        public static string snippetName;
 
-        public FindByIdCommand(DisplayViewModel viewModel, NavigationService<DisplayViewModel> navigationService)
+        public FindByNameCommand(DisplayViewModel viewModel, NavigationService<DisplayViewModel> navigationService)
         {
 
             _viewModel = viewModel;
@@ -32,25 +32,25 @@ namespace CodeSnippetTool.Commands
             //_viewModel.FillList();
             if (parameter != null)
             {
-                var param = parameter.ToString();
-                //param.Trim();
-                var x = param.Substring(param.IndexOf(':') + 1).Trim();
-                alreadyCreated = true;
                 try
                 {
-                    snippetId = Convert.ToInt32(x);
+                    var param = parameter.ToString();
+                    //param.Trim();
+                    snippetName = param.Substring(param.IndexOf(':') + 1).Trim();
+                    alreadyCreated = true;
+                    //x.Trim();
+
+                    _navigationService.Navigate();
                 }catch(Exception ex)
                 {
-                    MessageBox.Show("Please specify id of snippet");
-                    alreadyCreated = false;
+                    throw ex;
+                    
                 }
-                //x.Trim();
-                
-                _navigationService.Navigate();
             }
             else
             {
                 MessageBox.Show("Please specify id of snippet");
+                alreadyCreated = false;
             }
 
         }
