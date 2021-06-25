@@ -62,7 +62,6 @@
         <Label Content="Modefier:" Grid.Row="2" Margin="0,332,0,-303" Grid.RowSpan="5"/>
 
         <ComboBox Margin="88,334,23,50" Grid.Row="2" SelectedValuePath="Content" SelectedItem="{Binding Modefier, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ComboBox_SelectionChanged" Grid.ColumnSpan="2">
-            <ComboBoxItem Content="Control"/>
             <ComboBoxItem Content="Alt"/>
             <ComboBoxItem Content="Shift"/>
         </ComboBox>
