@@ -63,7 +63,7 @@ namespace CodeSnippetTool.ViewModels
                         Key keyValue = (Key)Enum.Parse(typeof(Key), hotKey,true); 
 
                         
-                        HotkeysManager.AddHotkey(new GlobalHotkey(ModifierKeys.Control, keyValue, () => { ShowBox($"ctrl+ {hotKey} fired",snp.snippetText); }));
+                        HotkeysManager.AddHotkey(new GlobalHotkey(ModifierKeys.Control, keyValue, () => { ShowBox($"ctrl+ {hotKey} fired",snp.snippetText,snp); }));
                     }
                     
 
@@ -183,9 +183,12 @@ namespace CodeSnippetTool.ViewModels
         //}
         
         
-        public void ShowBox(string hotKey,string snippet)
+        public void ShowBox(string hotKey,string snippet,SnippetModel snp)
         {
             Clipboard.SetText(snippet);
+            DbConnect conn = new DbConnect();
+            DbUpdate update = new DbUpdate(conn);
+            update.UpdateSnippetLastCopiedDate(snp.id);
             MessageBox.Show(""+hotKey);
         }
 

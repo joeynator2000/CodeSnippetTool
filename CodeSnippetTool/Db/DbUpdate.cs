@@ -28,5 +28,19 @@ namespace CodeSnippetTool.Db
                 db.databaseConnection.Close();
         }
 
+
+        public void UpdateSnippetLastCopiedDate(int id)
+        {
+            string updateQuery = "UPDATE snippets SET last_copied=@lastCopied WHERE id=@id";
+            MySqlCommand cmd = new MySqlCommand(updateQuery,db.databaseConnection);
+            cmd.CommandText = updateQuery;
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@lastCopied",DateTime.Now);
+            db.databaseConnection.Open();
+            cmd.ExecuteNonQuery();
+            db.databaseConnection.Close();
+        }
+
+
     }
 }
