@@ -34,13 +34,7 @@
 
         <Label Grid.Row="2" Margin="0,190,711,182" Grid.ColumnSpan="2">Language:</Label>
 
-        <ComboBox Margin="0,192,23,192" Grid.Row="2" SelectedValuePath="Content" SelectedItem="{Binding Language, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ComboBox_SelectionChanged" Grid.Column="1">
-            <ComboBoxItem Content="Java"/>
-            <ComboBoxItem IsSelected="True" Content="C#"/>
-            <ComboBoxItem Content="JavaScript"/>
-            <ComboBoxItem Content="Python"/>
-            <ComboBoxItem Content="TypeScript"/>
-        </ComboBox>
+        <ComboBox Margin="0,192,23,192" Grid.Row="2" SelectedValuePath="Content" ItemsSource="{Binding dbStoredLanguages}" SelectedItem="{Binding Language, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ComboBox_SelectionChanged" Grid.Column="1"/>
 
         <Label Margin="2,226,8,146" Grid.Row="2">Key words:</Label>
         <TextBox Margin="88,232,0,152" Grid.Row="2" HorizontalAlignment="Left" Width="665" Text="{Binding KeyWords, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>

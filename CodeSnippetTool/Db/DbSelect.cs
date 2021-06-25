@@ -189,7 +189,6 @@ namespace CodeSnippetTool.Db
             List<SnippetModel> snippets = new List<SnippetModel>();
             using (var cmd = new MySqlCommand(query, this.connection))
             {
-
                 using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
@@ -208,11 +207,7 @@ namespace CodeSnippetTool.Db
                         {
                             snippetDateLastCopied = reader.GetString(8);
                         }
-
-
-
                         SnippetModel snp = new SnippetModel(snippetId, snippetName, snippetText, snippetLang, snippetFavourite,snippetDescription, snippetHotKey, snippetDateAdded, snippetDateLastCopied);
-
                         snippets.Add(snp);
                         Console.WriteLine($"{snippetText}");
                     }
@@ -244,6 +239,27 @@ namespace CodeSnippetTool.Db
             this.connection.Close();
 
             return IsTaken;
+        }
+
+        public IList<string> getLanguages()
+        {
+            IList<string> languages = new List<string>(); ;
+            this.connection.Open();
+            string query = "SELECT lang FROM snippets group by lang";
+
+            using (var cmd = new MySqlCommand(query, this.connection))
+            {
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        languages.Add(reader.GetString(0));
+                    }
+                }
+            }
+            this.connection.Close();
+
+            return languages;
         }
     }
 }
