@@ -42,7 +42,13 @@ namespace CodeSnippetTool.Db
                             var snippetDescription = reader.GetString(5);
                             var snippetHotKey = reader.GetString(6);
                             var snippetDateAdded = reader.GetString(7);
-                            var snippetDateLastCopied = reader.GetString(8);
+                            //var snippetDateLastCopied = reader.GetString(8);
+                            var snippetDateLastCopied = "null";
+                            var c = reader[8] as String;
+                            if (!String.IsNullOrEmpty(c))
+                            {
+                                snippetDateLastCopied = reader.GetString(8);
+                            }
                             SnippetModel snp = new SnippetModel(snippetId, snippetName, snippetText, snippetLang, snippetFavourite, snippetDescription, snippetHotKey, snippetDateAdded, snippetDateLastCopied);
 
                             snpt = snp;

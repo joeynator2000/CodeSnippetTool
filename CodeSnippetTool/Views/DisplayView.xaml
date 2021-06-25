@@ -42,16 +42,16 @@
         </GroupBox>
 
         <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="16,243,0,0" Name="txtId" VerticalAlignment="Top" Width="29" Text="{Binding ElementName=SnippetsGrid,  Path=SelectedItem.Id}" />
-        <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="55,243,0,0" Name="txtSnippet" VerticalAlignment="Top" Width="121" Text="{Binding ElementName=SnippetsGrid,Path=SelectedItem.SnippetText}" Grid.Column="1" />
+        <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="55,243,0,0" Name="txtSnippet" VerticalAlignment="Top" Width="121" Text="{Binding ElementName=SnippetsGrid,Path=SelectedItem.Name}" Grid.Column="1" />
         <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="240,243,0,0" Name="txtLanguage" VerticalAlignment="Top" Width="119" Text="{Binding ElementName=SnippetsGrid,Path=SelectedItem.Language}" Grid.Column="1" />
         <TextBox Grid.Row="2" Height="24" HorizontalAlignment="Left" Margin="618,243,0,0" x:Name="txtFavourite" VerticalAlignment="Top" Width="107" Text="{Binding ElementName=SnippetsGrid, Path=SelectedItem.Favourite}" Grid.ColumnSpan="2" Grid.Column="1" />
-        <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="429,243,0,0" x:Name="txtDescription" VerticalAlignment="Top" Width="124" Text="{Binding ElementName=SnippetsGrid, Path=SelectedItem.Description}" Grid.Column="1" />
+        <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="429,243,0,0" x:Name="txtDescription" VerticalAlignment="Top" Width="124" Text="{Binding ElementName=SnippetsGrid, Path=SelectedItem.HotKey}" Grid.Column="1" />
 
         <Label Content="Id" Grid.Row="2" HorizontalAlignment="Left" Margin="-4,240,0,22" Name="label1" />
-        <Label Content="Snippet" Grid.Row="2" Height="28" HorizontalAlignment="Left" Margin="50,241,0,0" Name="label2" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+        <Label Content="Name" Grid.Row="2" Height="28" HorizontalAlignment="Left" Margin="50,241,0,0" Name="label2" VerticalAlignment="Top" Grid.ColumnSpan="2" />
         <Label Content="Language" Grid.Row="2" Height="28" HorizontalAlignment="Left" Margin="178,240,0,0" Name="label3" VerticalAlignment="Top" Grid.Column="1" />
         <Label Content="Favourite" Grid.Row="2" Height="28" HorizontalAlignment="Left" Margin="556,241,0,0" x:Name="label2_Copy" VerticalAlignment="Top" Grid.Column="1" />
-        <Label Content="Description" Grid.Row="2" Height="26" HorizontalAlignment="Left" Margin="360,241,0,0" x:Name="label2_Copy1" VerticalAlignment="Top" Grid.Column="1" />
+        <Label Content="HotKey" Grid.Row="2" Height="26" HorizontalAlignment="Left" Margin="360,241,0,0" x:Name="label2_Copy1" VerticalAlignment="Top" Grid.Column="1" />
         <Button Content="Update" Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="585,274,0,0" Name="btnUpdate"   
                 VerticalAlignment="Top" Width="141"  
                 Command="{Binding Path=UpdateCommand}" Grid.ColumnSpan="2" Grid.Column="1" Grid.RowSpan="2"  />
