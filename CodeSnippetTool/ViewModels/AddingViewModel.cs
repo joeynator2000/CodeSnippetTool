@@ -14,16 +14,6 @@ namespace CodeSnippetTool.ViewModels
 {
     public class AddingViewModel : ViewModelBase
     {
-        public IList<string> dbStoredLanguages 
-        {
-            get
-            {
-                DbConnect con = new DbConnect();
-                DbSelect dataGetter = new DbSelect(con.getConnection());
-                return dataGetter.getLanguages();
-            }
-        }
-
         private string _modefier;
         public string Modefier
         {

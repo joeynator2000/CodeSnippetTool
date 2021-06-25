@@ -327,26 +327,5 @@ namespace CodeSnippetTool.Db
 
             return IsTaken;
         }
-
-        public IList<string> getLanguages()
-        {
-            IList<string> languages = new List<string>(); ;
-            this.connection.Open();
-            string query = "SELECT lang FROM snippets group by lang";
-
-            using (var cmd = new MySqlCommand(query, this.connection))
-            {
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        languages.Add(reader.GetString(0));
-                    }
-                }
-            }
-            this.connection.Close();
-
-            return languages;
-        }
     }
 }
