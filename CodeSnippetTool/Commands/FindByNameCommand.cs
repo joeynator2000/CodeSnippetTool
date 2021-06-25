@@ -36,15 +36,26 @@ namespace CodeSnippetTool.Commands
                 {
                     var param = parameter.ToString();
                     //param.Trim();
-                    snippetName = param.Substring(param.IndexOf(':') + 1).Trim();
-                    alreadyCreated = true;
-                    //x.Trim();
+                    //snippetName = param.Substring(param.IndexOf(':') + 1).Trim();
+                    String[] arr = param.Split(":");
+                    //var t=arr[0];
+                    //var l=arr[1];
+                    if (arr.Length < 2)
+                    {
+                        alreadyCreated = false;
+                        //MessageBox.Show("Please specify Name of snippet");
+                    }
+                    else
+                    {
+                        snippetName = arr[1].Trim();
+                        alreadyCreated = true;
+                    }
 
                     _navigationService.Navigate();
                 }catch(Exception ex)
                 {
                     throw ex; 
-                    
+
                 }
             }
             else
