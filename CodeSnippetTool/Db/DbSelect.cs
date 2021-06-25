@@ -15,9 +15,6 @@ namespace CodeSnippetTool.Db
         {
             this.connection = connection;
         }
-
-
-
                                                                   
         public SnippetModel selectSnippetId(int id)
         {
@@ -314,6 +311,29 @@ namespace CodeSnippetTool.Db
             using (var cmd = new MySqlCommand(query, this.connection))
             {
                 cmd.Parameters.AddWithValue("@hotKeyToCheck", hotKeyToCheck);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        IsTaken = true;
+                    }
+                }
+            }
+            this.connection.Close();
+
+            return IsTaken;
+        }
+
+        public bool NameIsTaken(string nameToCheck)
+        {
+            bool IsTaken = false;
+            this.connection.Open();
+            string query = "SELECT * FROM snippets WHERE name=@nameToCheck";
+
+            using (var cmd = new MySqlCommand(query, this.connection))
+            {
+                cmd.Parameters.AddWithValue("@nameToCheck", nameToCheck);
 
                 using (var reader = cmd.ExecuteReader())
                 {

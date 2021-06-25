@@ -17,6 +17,9 @@ namespace CodeSnippetTool.Db
         //TODO: Button action listener and assign values
         public void InsertSnippet(string Name, string snippet_text, string language, int favourite, string HotKey, string Modefier, string description, string dateAdded)
         {
+            //check if name is taken
+            DbSelect selecter = new DbSelect(Db.databaseConnection);
+            
             if (HotKey != null && Modefier != null)
             {
                 int number;
@@ -50,7 +53,7 @@ namespace CodeSnippetTool.Db
             Db.databaseConnection.Open();
             int i = command.ExecuteNonQuery();
             Db.databaseConnection.Close();
-            if (i!=0)
+            if (i != 0)
             {
                 MessageBox.Show("Data saved");
             }

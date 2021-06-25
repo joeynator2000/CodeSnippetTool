@@ -152,7 +152,9 @@ namespace CodeSnippetTool.ViewModels
             {
                 fav = 1;
             }
+
             inserter.InsertSnippet(_name, _codeSnippet, _language, fav, _hotKey, _modefier, _description, DateString);
+            
             //select id based on dateSting
             var id = idSelecter.selectAddDate(DateString).id;
 
