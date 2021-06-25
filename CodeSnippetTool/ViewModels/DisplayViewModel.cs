@@ -114,7 +114,11 @@ namespace CodeSnippetTool.ViewModels
                             snippetsModel.Add(snp);
                         }
                     }
-                    //MessageBox.Show("" + snp.snippetText,"snippet");
+                    else
+                    {
+                        MessageBox.Show($"Snippet with name:{name} does not exist", "Find Snippet");
+                    }
+
                 }
                 catch (Exception ex)
                 {
