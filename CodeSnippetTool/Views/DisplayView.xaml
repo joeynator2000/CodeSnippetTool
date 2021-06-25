@@ -48,7 +48,7 @@
         Canvas.Left="10" Canvas.Top="10"
         Content="Preview Snippet"
         IsChecked="{Binding IsSelected}" Grid.Column="1" Margin="618,199,6,68" Grid.Row="2" Grid.ColumnSpan="2"/>
-            <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="16,243,0,0" Name="txtId" VerticalAlignment="Top" Width="29" Text="{Binding ElementName=SnippetsGrid,  Path=SelectedItem.Id}" />
+            <TextBox Grid.Row="2" Visibility="Hidden" Height="23" HorizontalAlignment="Left" Margin="16,243,0,0" Name="txtId" VerticalAlignment="Top" Width="29" Text="{Binding ElementName=SnippetsGrid,  Path=SelectedItem.Id}" />
         <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="55,243,0,0" Name="txtName" VerticalAlignment="Top" Width="121" Text="{Binding ElementName=SnippetsGrid,Path=SelectedItem.Name}" Grid.Column="1" />
         <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="240,243,0,0" Name="txtLanguage" VerticalAlignment="Top" Width="119" Text="{Binding ElementName=SnippetsGrid,Path=SelectedItem.Language}" Grid.Column="1" />
         <TextBox Grid.Row="2" Height="24" HorizontalAlignment="Left" Margin="618,243,0,0" x:Name="txtFavourite" VerticalAlignment="Top" Width="107" Text="{Binding ElementName=SnippetsGrid, Path=SelectedItem.Favourite}" Grid.ColumnSpan="2" Grid.Column="1" />
