@@ -88,11 +88,14 @@ namespace CodeSnippetTool.ViewModels
                     var name = FindByNameCommand.snippetName;
                     SnippetModel snp = new SnippetModel();
                     snp = dbSelect.selectSnippetName(name);
-                    if (snippetsModel == null || snippetsModel.Count == 0)
-                        snippetsModel = new List<SnippetModel>();
-                    if (snp != null)
+                    if (snp.Name != null)
                     {
-                        snippetsModel.Add(snp);
+                        if (snippetsModel == null || snippetsModel.Count == 0)
+                            snippetsModel = new List<SnippetModel>();
+                        if (snp != null)
+                        {
+                            snippetsModel.Add(snp);
+                        }
                     }
                     //MessageBox.Show("" + snp.snippetText,"snippet");
                 }

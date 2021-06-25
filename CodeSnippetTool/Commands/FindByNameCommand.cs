@@ -51,7 +51,6 @@ namespace CodeSnippetTool.Commands
                         alreadyCreated = true;
                     }
 
-                    _navigationService.Navigate();
                 }catch(Exception ex)
                 {
                     throw ex; 
@@ -60,9 +59,9 @@ namespace CodeSnippetTool.Commands
             }
             else
             {
-                MessageBox.Show("Please specify id of snippet");
                 alreadyCreated = false;
             }
+            _navigationService.Navigate();
 
         }
     }
