@@ -1,17 +1,10 @@
 ﻿using CodeSnippetTool.Db;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 
 namespace CodeSnippetTool.classes
 {
     public class SnippetModel : INotifyPropertyChanged
     {
-        static String connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=snippet_db;Allow User Variables=True";
-        MySqlConnection con;
-        MySqlCommand cmd;
         public int id;
         public string name;
         public string snippetText;
@@ -32,7 +25,6 @@ namespace CodeSnippetTool.classes
             {
                 id = value;
                 OnPropertyChanged("Id");
-                UpdateDatabase();
             }
         }
         public string Name
@@ -45,7 +37,6 @@ namespace CodeSnippetTool.classes
             {
                 name = value;
                 OnPropertyChanged("Name");
-                UpdateDatabase();
             }
         }
         public string SnippetText
@@ -58,7 +49,6 @@ namespace CodeSnippetTool.classes
             {
                 snippetText = value;
                 OnPropertyChanged("SnippetText");
-                UpdateDatabase();
             }
         }
         public string Language
@@ -71,7 +61,6 @@ namespace CodeSnippetTool.classes
             {
                 language = value;
                 OnPropertyChanged("Language");
-                UpdateDatabase();
             }
         }
         public int Favourite
@@ -84,8 +73,6 @@ namespace CodeSnippetTool.classes
             {
                 favourite = value;
                 OnPropertyChanged("Favourite");
-
-                UpdateDatabase();
             }
         }
 
@@ -99,8 +86,6 @@ namespace CodeSnippetTool.classes
             {
                 description = value;
                 OnPropertyChanged("Description");
-                
-                UpdateDatabase();
             }
         }
         public string HotKey
@@ -112,9 +97,7 @@ namespace CodeSnippetTool.classes
             set
             {
                 hotKey = value;
-                OnPropertyChanged("Description");
-
-                UpdateDatabase();
+                OnPropertyChanged("HotKey");
             }
         }
 
@@ -129,7 +112,6 @@ namespace CodeSnippetTool.classes
             {
                 dateAdded = value;
                 OnPropertyChanged("DateAdded");
-                UpdateDatabase();
             }
         }
 
@@ -143,7 +125,6 @@ namespace CodeSnippetTool.classes
             {
                 lastCopied = value;
                 OnPropertyChanged("LastCopied");
-                UpdateDatabase();
             }
         }
         public SnippetModel(int id,string name,string text, string language,int favourite,string description,string hotKey,string dateAdded,string lastCopied)
@@ -163,28 +144,19 @@ namespace CodeSnippetTool.classes
 
         }
 
-        public void UpdateDatabase()
-        {
-            con = new MySqlConnection(connectionString);
-            con.Open();
-            cmd = new MySqlCommand("UPDATE snippets SET id=@id,snippet_text=@snippet_text,lang=@language,favourite=@favourite WHERE id=@id", con);
-            cmd.Parameters.AddWithValue("@id", Id);
-            cmd.Parameters.AddWithValue("@snippet_text", SnippetText);
-            cmd.Parameters.AddWithValue("@language", Language);
-            cmd.Parameters.AddWithValue("@favourite", Favourite);
-            cmd.ExecuteNonQuery();
-            con.Close();
-
-        }
         #region INotifyPropertyChanged Members  
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {
+            DbConnect dbConnect = new DbConnect();
+            DbUpdate dbUpdater = new DbUpdate(dbConnect);
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+                dbUpdater.UpdateSnippet(Id, SnippetText, Language, Favourite, Description, HotKey, DateAdded, LastCopied);
             }
+            
         }
         #endregion
     }
