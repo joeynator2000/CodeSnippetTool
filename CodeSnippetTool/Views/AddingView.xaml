@@ -19,7 +19,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" MaxHeight="125"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -30,7 +30,7 @@
         <TextBox Grid.Row="2" Margin="88,10,23,376" Grid.ColumnSpan="2" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <Label Margin="-3,50,8,322" Grid.Row="2">Code:</Label>
-        <TextBox Margin="0,50,22,235" MaxWidth="690" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Text="{Binding CodeSnippet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="2"/>
+        <TextBox Margin="0,50,22,235"  MaxHeight="125" MaxWidth="690" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Text="{Binding CodeSnippet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="2"/>
 
         <Label Grid.Row="2" Margin="0,190,711,182" Grid.ColumnSpan="2">Language:</Label>
 
