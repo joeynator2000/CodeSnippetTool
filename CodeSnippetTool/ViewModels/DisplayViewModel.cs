@@ -27,7 +27,7 @@ namespace CodeSnippetTool.ViewModels
         public CopyCommand CopyCommand { get; set; }
         public ICommand NavigateAddingCommand { get; set; }
         public bool tableAlreadyCreated { get; set; }
-        public FindByIdCommand FindByIdCommand { get; set; }
+        public FindByNameCommand FindByNameCommand { get; set; }
 
 
 
@@ -36,7 +36,7 @@ namespace CodeSnippetTool.ViewModels
         {
             this.CopyCommand = new CopyCommand(this);
             this.DeleteCommand = new DeleteCommand(this, new NavigationService<DisplayViewModel>(navigationStore, () => new DisplayViewModel(navigationStore)));
-            this.FindByIdCommand = new FindByIdCommand(this, new NavigationService<DisplayViewModel>(navigationStore, () => new DisplayViewModel(navigationStore)));
+            this.FindByNameCommand = new FindByNameCommand(this, new NavigationService<DisplayViewModel>(navigationStore, () => new DisplayViewModel(navigationStore)));
             NavigateAddingCommand = new NavigateCommand<AddingViewModel>(new NavigationService<AddingViewModel>(navigationStore, () => new AddingViewModel(navigationStore)));
             FillList();
         }
@@ -81,16 +81,16 @@ namespace CodeSnippetTool.ViewModels
             {
                 try
                 {
-                    var id = FindByIdCommand.snippetId;
+                    var name = FindByNameCommand.snippetName;
                     SnippetModel snp = new SnippetModel();
-                    snp = dbSelect.selectSnippetId(id);
+                    snp = dbSelect.selectSnippetName(name);
                     if (snippetsModel == null || snippetsModel.Count == 0)
                         snippetsModel = new List<SnippetModel>();
                     if (snp != null)
                     {
                         snippetsModel.Add(snp);
                     }
-
+                    //MessageBox.Show("" + snp.snippetText,"snippet");
                 }
                 catch (Exception ex)
                 {

@@ -32,7 +32,10 @@
         </DataGrid>
 
 
-        <GroupBox Header="Themes" Margin="34,194,95,55" Grid.Row="2" Grid.Column="1">
+        <GroupBox Margin="34,194,95,55" Grid.Row="2" Grid.Column="1">
+            <GroupBox.Header>
+                <Label Content="Themes"></Label>
+            </GroupBox.Header>
             <UniformGrid Columns="4" HorizontalAlignment="Center">
                 <RadioButton x:Name="BlackMode" Content="Black Mode" HorizontalAlignment="Center" Height="20" GroupName="modesSelection" Checked="BlackMode_Checked"/>
                 <RadioButton x:Name="DarkMode" Content="Dark Mode" HorizontalAlignment="Center" Height="20" GroupName="modesSelection" Checked="DarkMode_Checked"/>
@@ -42,7 +45,7 @@
         </GroupBox>
 
         <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="16,243,0,0" Name="txtId" VerticalAlignment="Top" Width="29" Text="{Binding ElementName=SnippetsGrid,  Path=SelectedItem.Id}" />
-        <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="55,243,0,0" Name="txtSnippet" VerticalAlignment="Top" Width="121" Text="{Binding ElementName=SnippetsGrid,Path=SelectedItem.Name}" Grid.Column="1" />
+        <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="55,243,0,0" Name="txtName" VerticalAlignment="Top" Width="121" Text="{Binding ElementName=SnippetsGrid,Path=SelectedItem.Name}" Grid.Column="1" />
         <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="240,243,0,0" Name="txtLanguage" VerticalAlignment="Top" Width="119" Text="{Binding ElementName=SnippetsGrid,Path=SelectedItem.Language}" Grid.Column="1" />
         <TextBox Grid.Row="2" Height="24" HorizontalAlignment="Left" Margin="618,243,0,0" x:Name="txtFavourite" VerticalAlignment="Top" Width="107" Text="{Binding ElementName=SnippetsGrid, Path=SelectedItem.Favourite}" Grid.ColumnSpan="2" Grid.Column="1" />
         <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="429,243,0,0" x:Name="txtDescription" VerticalAlignment="Top" Width="124" Text="{Binding ElementName=SnippetsGrid, Path=SelectedItem.HotKey}" Grid.Column="1" />
@@ -66,7 +69,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button Content="Find" Command="{Binding FindByIdCommand}" CommandParameter="{Binding ElementName=txtId }" Grid.Column="1" Margin="139,273,431,8" Grid.Row="2" Grid.RowSpan="2"/>
+        <Button Content="Find" Command="{Binding FindByNameCommand}" CommandParameter="{Binding ElementName=txtName }" Grid.Column="1" Margin="139,273,431,8" Grid.Row="2" Grid.RowSpan="2"/>
         <Button Content="Display page button" Command="{Binding NavigateAddingCommand}" HorizontalAlignment="Left" Margin="0,282,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
     </Grid>
 </UserControl>

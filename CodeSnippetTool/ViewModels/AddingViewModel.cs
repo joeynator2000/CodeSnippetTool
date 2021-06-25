@@ -14,6 +14,16 @@ namespace CodeSnippetTool.ViewModels
 {
     public class AddingViewModel : ViewModelBase
     {
+        public IList<string> dbStoredLanguages 
+        {
+            get
+            {
+                DbConnect con = new DbConnect();
+                DbSelect dataGetter = new DbSelect(con.getConnection());
+                return dataGetter.getLanguages();
+            }
+        }
+
         private string _name;
         public string Name
         {
@@ -145,6 +155,11 @@ namespace CodeSnippetTool.ViewModels
             string trimedKeyWords = Regex.Replace(_keyWords, @"s", "");
             Array keyWords = trimedKeyWords.Split(',');
             inserter.InsertKeywords(id, keyWords);
+        }
+
+        public void fillLanguages()
+        {
+
         }
 
         public AddingViewModel(NavigationStore navigationStore) 

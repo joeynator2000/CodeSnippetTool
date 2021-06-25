@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodeSnippetTool.Db;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -106,9 +107,14 @@ namespace CodeSnippetTool.Hotkeys
                     {
                         if (Keyboard.Modifiers == hotkey.Modifier && Keyboard.IsKeyDown(hotkey.Key))
                         {
-                            if (hotkey.CanExecute)
+                           if (hotkey.CanExecute)
                             {
                                 hotkey.Callback?.Invoke();
+                                Console.WriteLine(hotkey.Key);
+                                DbConnect conn = new DbConnect();
+                                DbUpdate dvb = new DbUpdate(conn);
+                                
+                                //Update query where we pass key
                                 HotkeyFired?.Invoke(hotkey);
                             }
                         }
