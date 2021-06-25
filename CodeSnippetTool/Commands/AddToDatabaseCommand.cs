@@ -20,7 +20,8 @@ namespace CodeSnippetTool.Commands
 
         public override void Execute(object parameter)
         {
-            if (_viewModel.CodeSnippet != null && _viewModel.Description != null && _viewModel.KeyWords != null && _viewModel.Language != null && _viewModel.Name != null)
+            if (_viewModel.CodeSnippet != null && _viewModel.Description != null && _viewModel.KeyWords != null && _viewModel.Language != null && _viewModel.Name != null && 
+                ((_viewModel.HotKey != null && _viewModel.Modefier != null) || (_viewModel.HotKey == null && _viewModel.Modefier == null)))
             {
                 _viewModel.AddToDbdMethod();
                 _navigationService.Navigate();

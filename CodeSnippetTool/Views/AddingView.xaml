@@ -45,10 +45,18 @@
         <Label Grid.Row="2" Grid.ColumnSpan="2" Margin="0,300,711,44" Grid.RowSpan="3">Hotkey:</Label>
         <TextBox MaxLength="1" Grid.Row="2" Text="{Binding HotKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="88,301,655,81" Grid.ColumnSpan="2"/>
 
-        <Label Grid.Row="2" Margin="-1,330,5,42">Favourite:</Label>
-        <CheckBox Grid.ColumnSpan="7" IsChecked="{Binding Favourite}" Margin="87,336,-76,36" Grid.Row="2">Save as favourite</CheckBox>
+        <Label Grid.Row="2" Margin="0,359,4,13">Favourite:</Label>
+        <CheckBox Grid.ColumnSpan="7" IsChecked="{Binding Favourite}" Margin="88,365,-77,7" Grid.Row="2">Save as favourite</CheckBox>
+
+        <Label Content="Modefier:" Grid.Row="2" Margin="0,332,0,-303" Grid.RowSpan="5"/>
+
+        <ComboBox Margin="88,334,23,50" Grid.Row="2" SelectedValuePath="Content" SelectedItem="{Binding Modefier, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ComboBox_SelectionChanged" Grid.ColumnSpan="2">
+            <ComboBoxItem IsSelected="True" Content="Control"/>
+            <ComboBoxItem Content="Alt"/>
+            <ComboBoxItem Content="Shift"/>
+        </ComboBox>
 
         <Button Content="submit" Command="{Binding AddToDbCommand}" Grid.Column="1" Margin="290,371,346,9" Grid.Row="2"></Button>
-        <Button Content="Navigte to DisplayPage" Command="{Binding NavigateDisplayCommand}" Grid.Column="1" Margin="501,337,45,29" Grid.Row="2"></Button>
+        <Button Content="Navigte to DisplayPage" Command="{Binding NavigateDisplayCommand}" Grid.Column="1" Margin="523,364,23,2" Grid.Row="2"></Button>
     </Grid>
 </UserControl>

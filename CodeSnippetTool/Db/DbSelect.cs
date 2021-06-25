@@ -203,7 +203,13 @@ namespace CodeSnippetTool.Db
                         var snippetLang = reader.GetString(3);
                         var snippetFavourite = reader.GetInt32(4);
                         var snippetDescription = reader.GetString(5);
-                        var snippetHotKey = reader.GetString(6);
+                        var snippetHotKey = "";
+                        var snippetHotKeyTmp = reader[6] as String;
+                        if (!String.IsNullOrEmpty(snippetHotKeyTmp))
+                        {
+                            snippetHotKey = reader.GetString(6);
+                        }
+
                         var snippetDateAdded = reader.GetString(7);
                         var snippetDateLastCopied = "null";
                         var c = reader[8] as String;
@@ -242,7 +248,13 @@ namespace CodeSnippetTool.Db
                         var snippetLang = reader.GetString(3);
                         var snippetFavourite = reader.GetInt32(4);
                         var snippetDescription= reader.GetString(5);
-                        var snippetHotKey = reader.GetString(6);
+                        var snippetHotKey = "";
+                        var snippetHotKeyTmp = reader[6] as String;
+                        if (!String.IsNullOrEmpty(snippetHotKeyTmp))
+                        {
+                            snippetHotKey = reader.GetString(6);
+                        }
+
                         var snippetDateAdded = reader.GetString(7);
                         var snippetDateLastCopied = "null";
                         var c = reader[8] as String;
