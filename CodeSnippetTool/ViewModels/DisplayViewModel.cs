@@ -71,15 +71,19 @@ namespace CodeSnippetTool.ViewModels
                     foreach(SnippetModel snp in snippetsModel)
                     {
                         string hotKey = snp.HotKey;
-                        Key keyValue = (Key)Enum.Parse(typeof(Key), hotKey,true); 
 
-                        
-                        HotkeysManager.AddHotkey(new GlobalHotkey(ModifierKeys.Control, keyValue, () => {
-                            if(IsSelected)
+                
+
+                        String [] arr=snp.hotKey.Split("+");
+                        var key=arr[0];
+                        Key keyValue = (Key)Enum.Parse(typeof(Key), key, true);
+                        var modifier=arr[1];
+                        ModifierKeys modifierValue = (ModifierKeys)Enum.Parse(typeof(ModifierKeys),modifier,true);
+                        HotkeysManager.AddHotkey(new GlobalHotkey(modifierValue, keyValue, () => {
+                            if (IsSelected)
                             {
-                                ShowBox($"ctrl+ {hotKey} fired", snp.snippetText, snp);
+                                ShowBox(modifier, key, snp.snippetText, snp);
                             }
-                            
                         }));
                     }
                     
@@ -101,11 +105,14 @@ namespace CodeSnippetTool.ViewModels
                     var name = FindByNameCommand.snippetName;
                     SnippetModel snp = new SnippetModel();
                     snp = dbSelect.selectSnippetName(name);
-                    if (snippetsModel == null || snippetsModel.Count == 0)
-                        snippetsModel = new List<SnippetModel>();
-                    if (snp != null)
+                    if (snp.Name != null)
                     {
-                        snippetsModel.Add(snp);
+                        if (snippetsModel == null || snippetsModel.Count == 0)
+                            snippetsModel = new List<SnippetModel>();
+                        if (snp != null)
+                        {
+                            snippetsModel.Add(snp);
+                        }
                     }
                     //MessageBox.Show("" + snp.snippetText,"snippet");
                 }
@@ -200,13 +207,14 @@ namespace CodeSnippetTool.ViewModels
         //}
         
         
-        public void ShowBox(string hotKey,string snippet,SnippetModel snp)
+        public void ShowBox(string modifier,string hotKey,string snippet,SnippetModel snp)
         {
             Clipboard.SetText(snippet);
             DbConnect conn = new DbConnect();
             DbUpdate update = new DbUpdate(conn);
             update.UpdateSnippetLastCopiedDate(snp.id);
-            MessageBox.Show(""+hotKey);
+
+            MessageBox.Show(snippet,$"{modifier}+{hotKey}");
         }
 
         public void CopyMethod(String txt)

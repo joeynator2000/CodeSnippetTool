@@ -34,7 +34,18 @@
 
         <Label Grid.Row="2" Margin="0,190,711,182" Grid.ColumnSpan="2">Language:</Label>
 
-        <ComboBox Margin="0,192,23,192" Grid.Row="2" SelectedValuePath="Content" ItemsSource="{Binding dbStoredLanguages}" SelectedItem="{Binding Language, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ComboBox_SelectionChanged" Grid.Column="1"/>
+        <ComboBox Margin="0,192,23,192" Grid.Row="2" SelectedValuePath="Content" SelectedItem="{Binding Language, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ComboBox_SelectionChanged" Grid.Column="1">
+            <ComboBoxItem>Java</ComboBoxItem>
+            <ComboBoxItem>JavaScript</ComboBoxItem>
+            <ComboBoxItem>Python</ComboBoxItem>
+            <ComboBoxItem>Ruby</ComboBoxItem>
+            <ComboBoxItem>PHP</ComboBoxItem>
+            <ComboBoxItem>Kotlin</ComboBoxItem>
+            <ComboBoxItem>C</ComboBoxItem>
+            <ComboBoxItem>C+</ComboBoxItem>
+            <ComboBoxItem>C++</ComboBoxItem>
+            <ComboBoxItem>C#</ComboBoxItem>
+        </ComboBox>
 
         <Label Margin="2,226,8,146" Grid.Row="2">Key words:</Label>
         <TextBox Margin="88,232,0,152" Grid.Row="2" HorizontalAlignment="Left" Width="665" Text="{Binding KeyWords, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
@@ -51,7 +62,6 @@
         <Label Content="Modefier:" Grid.Row="2" Margin="0,332,0,-303" Grid.RowSpan="5"/>
 
         <ComboBox Margin="88,334,23,50" Grid.Row="2" SelectedValuePath="Content" SelectedItem="{Binding Modefier, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ComboBox_SelectionChanged" Grid.ColumnSpan="2">
-            <ComboBoxItem IsSelected="True" Content="Control"/>
             <ComboBoxItem Content="Alt"/>
             <ComboBoxItem Content="Shift"/>
         </ComboBox>

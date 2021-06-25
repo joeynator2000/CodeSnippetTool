@@ -1,4 +1,5 @@
-﻿using CodeSnippetTool.Service;
+﻿using CodeSnippetTool.Db;
+using CodeSnippetTool.Service;
 using CodeSnippetTool.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -23,8 +24,15 @@ namespace CodeSnippetTool.Commands
             if (_viewModel.CodeSnippet != null && _viewModel.Description != null && _viewModel.KeyWords != null && _viewModel.Language != null && _viewModel.Name != null && 
                 ((_viewModel.HotKey != null && _viewModel.Modefier != null) || (_viewModel.HotKey == null && _viewModel.Modefier == null)))
             {
-                _viewModel.AddToDbdMethod();
-                _navigationService.Navigate();
+                DbConnect con = new DbConnect();
+                DbSelect selecter = new DbSelect(con.databaseConnection);
+                if (!selecter.NameIsTaken(_viewModel.Name))
+                {
+                    _viewModel.AddToDbdMethod();
+                    _navigationService.Navigate();
+                } else {
+                    MessageBox.Show("The name is already taken");
+                }
             } else
             {
                 MessageBox.Show("Please fill in all fields");

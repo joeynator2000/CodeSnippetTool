@@ -15,9 +15,6 @@ namespace CodeSnippetTool.Db
         {
             this.connection = connection;
         }
-
-
-
                                                                   
         public SnippetModel selectSnippetId(int id)
         {
@@ -245,10 +242,10 @@ namespace CodeSnippetTool.Db
                         var snippetId = reader.GetInt32(0);
 
                         var snippetName = "";
-                        var snippetNameTmp = reader[2] as String;
+                        var snippetNameTmp = reader[1] as String;
                         if (!String.IsNullOrEmpty(snippetNameTmp))
                         {
-                            snippetName = reader.GetString(2);
+                            snippetName = reader.GetString(1);
                         }
 
                         var snippetText = "";
@@ -328,25 +325,27 @@ namespace CodeSnippetTool.Db
             return IsTaken;
         }
 
-        public IList<string> getLanguages()
+        public bool NameIsTaken(string nameToCheck)
         {
-            IList<string> languages = new List<string>(); ;
+            bool IsTaken = false;
             this.connection.Open();
-            string query = "SELECT lang FROM snippets group by lang";
+            string query = "SELECT * FROM snippets WHERE name=@nameToCheck";
 
             using (var cmd = new MySqlCommand(query, this.connection))
             {
+                cmd.Parameters.AddWithValue("@nameToCheck", nameToCheck);
+
                 using (var reader = cmd.ExecuteReader())
                 {
-                    while (reader.Read())
+                    if (reader.HasRows)
                     {
-                        languages.Add(reader.GetString(0));
+                        IsTaken = true;
                     }
                 }
             }
             this.connection.Close();
 
-            return languages;
+            return IsTaken;
         }
     }
 }

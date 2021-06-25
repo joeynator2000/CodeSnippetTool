@@ -14,16 +14,6 @@ namespace CodeSnippetTool.ViewModels
 {
     public class AddingViewModel : ViewModelBase
     {
-        public IList<string> dbStoredLanguages 
-        {
-            get
-            {
-                DbConnect con = new DbConnect();
-                DbSelect dataGetter = new DbSelect(con.getConnection());
-                return dataGetter.getLanguages();
-            }
-        }
-
         private string _modefier;
         public string Modefier
         {
@@ -162,7 +152,9 @@ namespace CodeSnippetTool.ViewModels
             {
                 fav = 1;
             }
+
             inserter.InsertSnippet(_name, _codeSnippet, _language, fav, _hotKey, _modefier, _description, DateString);
+            
             //select id based on dateSting
             var id = idSelecter.selectAddDate(DateString).id;
 
