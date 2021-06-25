@@ -243,11 +243,37 @@ namespace CodeSnippetTool.Db
                     while (reader.Read())
                     {
                         var snippetId = reader.GetInt32(0);
-                        var snippetName = reader.GetString(1);
-                        var snippetText = reader.GetString(2);
-                        var snippetLang = reader.GetString(3);
+
+                        var snippetName = "";
+                        var snippetNameTmp = reader[2] as String;
+                        if (!String.IsNullOrEmpty(snippetNameTmp))
+                        {
+                            snippetName = reader.GetString(2);
+                        }
+
+                        var snippetText = "";
+                        var snippetTextTmp = reader[2] as String;
+                        if (!String.IsNullOrEmpty(snippetTextTmp))
+                        {
+                            snippetText = reader.GetString(2);
+                        }
+
+                        var snippetLang = "";
+                        var snippetLangTmp = reader[3] as String;
+                        if (!String.IsNullOrEmpty(snippetLangTmp))
+                        {
+                            snippetLang = reader.GetString(3);
+                        }
+
                         var snippetFavourite = reader.GetInt32(4);
-                        var snippetDescription= reader.GetString(5);
+
+                        var snippetDescription= "";
+                        var snippetDescriptionTmp = reader[5] as String;
+                        if (!String.IsNullOrEmpty(snippetDescriptionTmp))
+                        {
+                            snippetDescription = reader.GetString(5);
+                        }
+
                         var snippetHotKey = "";
                         var snippetHotKeyTmp = reader[6] as String;
                         if (!String.IsNullOrEmpty(snippetHotKeyTmp))
@@ -255,10 +281,16 @@ namespace CodeSnippetTool.Db
                             snippetHotKey = reader.GetString(6);
                         }
 
-                        var snippetDateAdded = reader.GetString(7);
-                        var snippetDateLastCopied = "null";
-                        var c = reader[8] as String;
-                        if (!String.IsNullOrEmpty(c))
+                        var snippetDateAdded = "";
+                        var snippetDateDateAddedTmp = reader[7] as String;
+                        if (!String.IsNullOrEmpty(snippetDateDateAddedTmp))
+                        {
+                            snippetDateAdded = reader.GetString(7);
+                        }
+                        
+                        var snippetDateLastCopied = "";
+                        var snippetDateLastCopiedTmp = reader[8] as String;
+                        if (!String.IsNullOrEmpty(snippetDateLastCopiedTmp))
                         {
                             snippetDateLastCopied = reader.GetString(8);
                         }
