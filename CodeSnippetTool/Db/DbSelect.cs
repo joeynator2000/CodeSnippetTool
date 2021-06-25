@@ -223,6 +223,27 @@ namespace CodeSnippetTool.Db
             return snippets;
         }
 
+        public bool hotKeyIsTaken(string hotKeyToCheck)
+        {
+            bool IsTaken = false;
+            this.connection.Open();
+            string query = "SELECT * FROM snippets WHERE HotKey=@hotKeyToCheck";
 
+            using (var cmd = new MySqlCommand(query, this.connection))
+            {
+                cmd.Parameters.AddWithValue("@hotKeyToCheck", hotKeyToCheck);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        IsTaken = true;
+                    }
+                }
+            }
+            this.connection.Close();
+
+            return IsTaken;
+        }
     }
 }

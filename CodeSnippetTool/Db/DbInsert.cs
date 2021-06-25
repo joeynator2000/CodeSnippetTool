@@ -22,6 +22,14 @@ namespace CodeSnippetTool.Db
             {
                 HotKey = "D" + number.ToString();
             }
+
+            DbSelect dataSelecter = new DbSelect(Db.databaseConnection);
+            if (dataSelecter.hotKeyIsTaken(HotKey))
+            {
+                HotKey = "";
+                MessageBox.Show("The hotkey is taken, please add one on the display page");
+            }
+
             string queryString = "INSERT INTO snippets (name, snippet_text, lang, favourite, description, HotKey, date_added, last_copied) VALUES (@name, @snippet_text, @lang, @favourite, @description, @HotKey, @date_added, @last_copied)";
             MySqlCommand command = new MySqlCommand(queryString, Db.databaseConnection);
             command.Parameters.AddWithValue("@name", Name);
