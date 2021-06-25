@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CodeSnippetTool.Db
 {
-    class DbSelect
+    public class DbSelect
     {
 
         public MySqlConnection connection;

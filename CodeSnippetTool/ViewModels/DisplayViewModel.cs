@@ -23,6 +23,7 @@ namespace CodeSnippetTool.ViewModels
         MySqlCommand cmd;
         MySqlDataAdapter adapter;
         DataSet ds;
+        public bool isSelected { get; set; }
         public DeleteCommand DeleteCommand { get; set; }
         public CopyCommand CopyCommand { get; set; }
         public ICommand NavigateAddingCommand { get; set; }
@@ -41,6 +42,16 @@ namespace CodeSnippetTool.ViewModels
             FillList();
         }
 
+        public bool IsSelected
+        {
+            get { return isSelected; }
+            set
+            {
+                if (isSelected == value)
+                    return;
+                isSelected = value;
+            }
+        }
         public IList<SnippetModel> Snippets
         {
             get { return snippetsModel; }
@@ -63,7 +74,13 @@ namespace CodeSnippetTool.ViewModels
                         Key keyValue = (Key)Enum.Parse(typeof(Key), hotKey,true); 
 
                         
-                        HotkeysManager.AddHotkey(new GlobalHotkey(ModifierKeys.Control, keyValue, () => { ShowBox($"ctrl+ {hotKey} fired",snp.snippetText,snp); }));
+                        HotkeysManager.AddHotkey(new GlobalHotkey(ModifierKeys.Control, keyValue, () => {
+                            if(IsSelected)
+                            {
+                                ShowBox($"ctrl+ {hotKey} fired", snp.snippetText, snp);
+                            }
+                            
+                        }));
                     }
                     
 

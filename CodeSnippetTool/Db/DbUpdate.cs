@@ -9,16 +9,20 @@ namespace CodeSnippetTool.Db
     public class DbUpdate
     {
         public DbConnect db { get; set; }
+        public DbSelect dbSelect;
         public DbUpdate(DbConnect db)
         {
             this.db = db;
+            this.dbSelect = new DbSelect(db.databaseConnection);
         }
 
-        public void UpdateSnippet(int id, String snippet_text, String lang, int favourite, string description, string hotKey, string dateAdded, string lastCopied)
+        public void UpdateSnippet(int id, String name, String snippet_text, String lang, int favourite, string description, string hotKey, string dateAdded, string lastCopied)
         {
-            string updateQuery = "UPDATE snippets SET id=@id,snippet_text=@snippet_text,lang=@language,favourite=@favourite, description=@description, HotKey=@hotKey, date_added=@dateAdded, last_copied=@lastCopied WHERE id=@id";
+           
+            string updateQuery = "UPDATE snippets SET id=@id, name=@name, snippet_text=@snippet_text,lang=@language,favourite=@favourite, description=@description, HotKey=@hotKey, date_added=@dateAdded, last_copied=@lastCopied WHERE id=@id";
             MySqlCommand cmd = new MySqlCommand(updateQuery, db.databaseConnection);
                 cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@name", name);
                 cmd.Parameters.AddWithValue("@snippet_text", snippet_text);
                 cmd.Parameters.AddWithValue("@language", lang);
                 cmd.Parameters.AddWithValue("@favourite", favourite);
