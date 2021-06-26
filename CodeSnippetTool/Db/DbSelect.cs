@@ -279,14 +279,14 @@ namespace CodeSnippetTool.Db
                         }
 
                         var snippetDateAdded = "";
-                        var snippetDateDateAddedTmp = reader[7] as String;
+                        var snippetDateDateAddedTmp = reader[7].ToString();
                         if (!String.IsNullOrEmpty(snippetDateDateAddedTmp))
                         {
                             snippetDateAdded = reader.GetString(7);
                         }
                         
-                        var snippetDateLastCopied = "";
-                        var snippetDateLastCopiedTmp = reader[8] as String;
+                        var snippetDateLastCopied = "Not yet copied";
+                        var snippetDateLastCopiedTmp = reader[8].ToString();
                         if (!String.IsNullOrEmpty(snippetDateLastCopiedTmp))
                         {
                             snippetDateLastCopied = reader.GetString(8);
