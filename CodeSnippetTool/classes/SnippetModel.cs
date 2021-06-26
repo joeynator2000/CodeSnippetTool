@@ -104,10 +104,16 @@ namespace CodeSnippetTool.classes
             }
             set
             {
+                var inputCheck = value;
+                int number;
                 DbSelect selecter = new DbSelect(dbConnect.databaseConnection);
-                if (!selecter.hotKeyIsTaken(value))
+                if (int.TryParse(inputCheck.Substring(0, 1), out number))
                 {
-                    hotKey = value;
+                    inputCheck = "D" + inputCheck; 
+                }
+                if (!selecter.hotKeyIsTaken(inputCheck))
+                {
+                    hotKey = inputCheck;
                 } else {
                     MessageBox.Show("This hotkey combintion is already taken");
                 }
