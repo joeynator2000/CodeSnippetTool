@@ -17,37 +17,18 @@ namespace CodeSnippetTool.Db
             this.dbSelect = new DbSelect(db.databaseConnection);
         }
 
-        public void UpdateSnippet(int id, String name, String snippet_text, String lang, int favourite, string description, string hotKey, string dateAdded, string lastCopied)
+        public void UpdateSnippet(int id, String name, String lang, int favourite, string hotKey)
         {
-            if(!dbSelect.hotKeyIsTaken(hotKey))
-            {
-                if(!dbSelect.NameIsTaken(name))
-                {
-                    string updateQuery = "UPDATE snippets SET id=@id, name=@name, snippet_text=@snippet_text,lang=@language,favourite=@favourite, description=@description, HotKey=@hotKey, date_added=@dateAdded, last_copied=@lastCopied WHERE id=@id";
-                    MySqlCommand cmd = new MySqlCommand(updateQuery, db.databaseConnection);
-                    cmd.Parameters.AddWithValue("@id", id);
-                    cmd.Parameters.AddWithValue("@name", name);
-                    cmd.Parameters.AddWithValue("@snippet_text", snippet_text);
-                    cmd.Parameters.AddWithValue("@language", lang);
-                    cmd.Parameters.AddWithValue("@favourite", favourite);
-                    cmd.Parameters.AddWithValue("@description", description);
-                    cmd.Parameters.AddWithValue("@HotKey", hotKey);
-                    cmd.Parameters.AddWithValue("@date_added", dateAdded);
-                    cmd.Parameters.AddWithValue("@last_copied", lastCopied);
-                    db.getConnection().Open();
-                    cmd.ExecuteNonQuery();
-                    db.getConnection().Close();
-                }
-                else
-                {
-                    MessageBox.Show("Name is already taken");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Hotkey is already taken");
-            }
-        
+            string updateQuery = "UPDATE snippets SET name=@name, lang=@language, favourite=@favourite, HotKey=@hotKey WHERE id=@id";
+            MySqlCommand cmd = new MySqlCommand(updateQuery, db.databaseConnection);
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Parameters.AddWithValue("@name", name);
+            cmd.Parameters.AddWithValue("@language", lang);
+            cmd.Parameters.AddWithValue("@favourite", favourite);
+            cmd.Parameters.AddWithValue("@HotKey", hotKey);
+            db.getConnection().Open();
+            cmd.ExecuteNonQuery();
+            db.getConnection().Close();
         }
 
 

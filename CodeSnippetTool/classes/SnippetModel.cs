@@ -154,7 +154,7 @@ namespace CodeSnippetTool.classes
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-                dbUpdater.UpdateSnippet(Id, Name, SnippetText, Language, Favourite, Description, HotKey, DateAdded, LastCopied);
+                dbUpdater.UpdateSnippet(Id, Name, Language, Favourite, HotKey);
             }
             
         }
