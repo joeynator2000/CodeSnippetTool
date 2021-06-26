@@ -82,7 +82,7 @@ namespace CodeSnippetTool.ViewModels
                         HotkeysManager.AddHotkey(new GlobalHotkey(modifierValue, keyValue, () =>
                         {
 
-                            ShowBox(modifier, key, snp.snippetText, snp);
+                            CopySnippet(snp);
 
                         }));
                     }
@@ -211,23 +211,19 @@ namespace CodeSnippetTool.ViewModels
         //}
 
 
-        public void ShowBox(string modifier, string hotKey, string snippet, SnippetModel snp)
+        public void CopySnippet(SnippetModel snp)
         {
-            Clipboard.SetText(snippet);
             DbConnect conn = new DbConnect();
             DbUpdate update = new DbUpdate(conn);
-            update.UpdateSnippetLastCopiedDate(snp.id);
             if (IsSelected)
             {
-                MessageBox.Show(snippet, $"{modifier}+{hotKey}");
+                MessageBox.Show(snp.SnippetText, $"{snp.HotKey}");
             }
+            Clipboard.SetText(snp.SnippetText);
+            update.UpdateSnippetLastCopiedDate(snp.Id);
+
         }
 
-        public void CopyMethod(String txt)
-        {
-            Clipboard.SetText(txt);
-            MessageBox.Show("Copied to clipboard!");
-        }
         public void DeleteMethod(String id)
         {
             con = new MySqlConnection(connectionString);

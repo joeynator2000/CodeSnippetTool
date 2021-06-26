@@ -1,4 +1,6 @@
-﻿using CodeSnippetTool.ViewModels;
+﻿using CodeSnippetTool.classes;
+using CodeSnippetTool.Db;
+using CodeSnippetTool.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,8 +21,13 @@ namespace CodeSnippetTool.Commands
         {
             if (parameter != null)
             {
+                DbConnect con = new DbConnect();
+                DbSelect dbSelect = new DbSelect(con.databaseConnection);
                 var param = parameter.ToString();
-                this._viewModel.CopyMethod(param);
+                int id=Int32.Parse(param);
+                SnippetModel snp=dbSelect.selectSnippetId(id);
+
+                this._viewModel.CopySnippet(snp);
             }
             else
             {
