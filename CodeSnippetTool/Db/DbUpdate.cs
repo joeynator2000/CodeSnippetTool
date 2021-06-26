@@ -31,7 +31,6 @@ namespace CodeSnippetTool.Db
             db.getConnection().Close();
         }
 
-
         public void UpdateSnippetLastCopiedDate(int id)
         {
             string updateQuery = "UPDATE snippets SET last_copied=@lastCopied WHERE id=@id";
