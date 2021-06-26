@@ -1,7 +1,9 @@
 ﻿using CodeSnippetTool.Db;
+using CodeSnippetTool.Hotkeys;
 using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Input;
 
 namespace CodeSnippetTool.classes
 {
@@ -42,7 +44,9 @@ namespace CodeSnippetTool.classes
                 if (!selecter.NameIsTaken(value))
                 {
                     name = value;
-                } else {
+                }
+                else
+                {
                     MessageBox.Show("This name is already taken");
                 }
                 OnPropertyChanged("Name");
@@ -108,17 +112,74 @@ namespace CodeSnippetTool.classes
                 var inputCheck = value;
                 int number;
                 DbSelect selecter = new DbSelect(dbConnect.databaseConnection);
-                if (int.TryParse(inputCheck.Substring(0, 1), out number))
+                
+                HotKey.ToLower();
+                inputCheck.ToLower();
+
+                String[] oldHotKey = HotKey.Split("+");
+                String[] newHotKey = inputCheck.Split("+");
+                if (newHotKey.Length ==2)
                 {
-                    inputCheck = "D" + inputCheck; 
+
+
+                    //New hot key
+                    var newKey = newHotKey[0];
+                    string newModifier = newHotKey[1];
+                    char[] modifierCharacters = newModifier.ToCharArray();
+                    modifierCharacters[0] = char.ToUpper(modifierCharacters[0]);
+                    newModifier = new string(modifierCharacters);
+
+                    inputCheck = newKey + "+" + newModifier;
+                    //
+                    if (newKey.Length == 1)
+                    {
+                        if (newModifier == "Shift" || newModifier == "Alt")
+                        {
+                            if (int.TryParse(inputCheck.Substring(0, 1), out number))
+                            {
+                                inputCheck = "D" + inputCheck;
+                            }
+                            if (!selecter.hotKeyIsTaken(inputCheck))
+                            {
+                                if (oldHotKey.Length == 2)
+                                {
+                                    //Old hot key
+                                    var oldKey = oldHotKey[0];
+                                    string oldModifier = oldHotKey[1];
+                                    char[] oldModifierCharacters = oldModifier.ToCharArray();
+                                    oldModifierCharacters[0] = char.ToUpper(oldModifierCharacters[0]);
+                                    oldModifier = new string(oldModifierCharacters);
+
+                                    Key keyValue = (Key)Enum.Parse(typeof(Key), oldKey, true);
+                                    ModifierKeys modifierValue = (ModifierKeys)Enum.Parse(typeof(ModifierKeys), oldModifier, true);
+                                    HotkeysManager.RemoveHotkey(modifierValue, keyValue);
+                                }
+
+                                hotKey = inputCheck;
+                            }
+                            else
+                            {
+                                MessageBox.Show("This hotkey combintion is already taken");
+                            }
+                            OnPropertyChanged("HotKey");
+                        }
+                        else
+                        {
+                            MessageBox.Show("When updating the hotkey, you can only use modifiers +Alt or +Shift. You can also leave the hotkey empty. Acceptable for example : t+Shift Or s+Alt", "Error updating HotKey");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("When updating the hotkey, you can use only one letter for the key value. Acceptable for example : t+Shift Or s+Alt", "Error updating HotKey");
+
+                    }
+
                 }
-                if (!selecter.hotKeyIsTaken(inputCheck))
+                else
                 {
                     hotKey = inputCheck;
-                } else {
-                    MessageBox.Show("This hotkey combintion is already taken");
+                    OnPropertyChanged("HotKey");
                 }
-                OnPropertyChanged("HotKey");
             }
         }
 
@@ -148,7 +209,7 @@ namespace CodeSnippetTool.classes
                 OnPropertyChanged("LastCopied");
             }
         }
-        public SnippetModel(int id,string name,string text, string language,int favourite,string description,string hotKey,string dateAdded,string lastCopied)
+        public SnippetModel(int id, string name, string text, string language, int favourite, string description, string hotKey, string dateAdded, string lastCopied)
         {
             this.id = id;
             this.name = name;
@@ -158,7 +219,7 @@ namespace CodeSnippetTool.classes
             this.description = description;
             this.hotKey = hotKey;
             this.dateAdded = dateAdded;
-            this.lastCopied = lastCopied; 
+            this.lastCopied = lastCopied;
         }
         public SnippetModel()
         {
@@ -174,33 +235,9 @@ namespace CodeSnippetTool.classes
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-                HotKey.ToLower();
-                String[] arr = HotKey.Split("+");
-                int k = arr.Length;
-                if (arr.Length > 1)
-                {
-                    var key = arr[0];
-                    string modifier = arr[1];
-                    char[] modifierCharacters = modifier.ToCharArray();
-                    modifierCharacters[0] = char.ToUpper(modifierCharacters[0]);
-                    modifier = new string(modifierCharacters);
-
-                    this.hotKey = key + "+" + modifier;
-                    if (modifier == "Shift" || modifier == "Alt" || modifier == "")
-                    {
-                        dbUpdater.UpdateSnippet(Id, Name, Language, Favourite, HotKey);
-                    }
-                    else
-                    {
-                        MessageBox.Show("When updating the hotkey, you can only use modifiers +Alt or +Shift. You can also leave the hotkey empty. Acceptable for example : t+Shift Or s+Alt", "Error updating HotKey");
-                    }
-                }
-                else
-                {
-                    dbUpdater.UpdateSnippet(Id, Name, Language, Favourite, HotKey);
-                }
+                dbUpdater.UpdateSnippet(Id, Name, Language, Favourite, HotKey);
             }
-            
+
         }
         #endregion
     }
