@@ -35,15 +35,10 @@ namespace CodeSnippetTool.Commands
                 try
                 {
                     var param = parameter.ToString();
-                    //param.Trim();
-                    //snippetName = param.Substring(param.IndexOf(':') + 1).Trim();
                     String[] arr = param.Split(":");
-                    //var t=arr[0];
-                    //var l=arr[1];
                     if (arr.Length < 2)
                     {
                         alreadyCreated = false;
-                        //MessageBox.Show("Please specify Name of snippet");
                     }
                     else
                     {

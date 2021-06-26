@@ -1,4 +1,5 @@
 ﻿using CodeSnippetTool.Db;
+using System;
 using System.ComponentModel;
 using System.Windows;
 
@@ -173,7 +174,31 @@ namespace CodeSnippetTool.classes
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-                dbUpdater.UpdateSnippet(Id, Name, Language, Favourite, HotKey);
+                HotKey.ToLower();
+                String[] arr = HotKey.Split("+");
+                int k = arr.Length;
+                if (arr.Length > 1)
+                {
+                    var key = arr[0];
+                    string modifier = arr[1];
+                    char[] modifierCharacters = modifier.ToCharArray();
+                    modifierCharacters[0] = char.ToUpper(modifierCharacters[0]);
+                    modifier = new string(modifierCharacters);
+
+                    this.hotKey = key + "+" + modifier;
+                    if (modifier == "Shift" || modifier == "Alt" || modifier == "")
+                    {
+                        dbUpdater.UpdateSnippet(Id, Name, Language, Favourite, HotKey);
+                    }
+                    else
+                    {
+                        MessageBox.Show("When updating the hotkey, you can only use modifiers +Alt or +Shift. You can also leave the hotkey empty. Acceptable for example : t+Shift Or s+Alt", "Error updating HotKey");
+                    }
+                }
+                else
+                {
+                    dbUpdater.UpdateSnippet(Id, Name, Language, Favourite, HotKey);
+                }
             }
             
         }
