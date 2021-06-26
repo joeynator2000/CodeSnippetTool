@@ -24,30 +24,6 @@ namespace CodeSnippetTool.Db
 
         }
 
-        /*public void startConnection(string command)
-        {
-            
-
-            MySqlCommand commandDatabase = new MySqlCommand(Conn);
-
-            if (command == "open")
-            {
-                try
-                {
-                    databaseConnection.Open();
-                }
-                catch (Exception e)
-                {
-
-                }
-            }
-            if (command == "close")
-            {
-                databaseConnection.Close();
-            }
-            
-        }*/
-
         public void testSelect()
         {
             string query = "SELECT * FROM snippets";
@@ -97,6 +73,4 @@ namespace CodeSnippetTool.Db
         }
 
     }
-
-
 }

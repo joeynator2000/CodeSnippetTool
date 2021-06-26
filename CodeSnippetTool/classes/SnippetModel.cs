@@ -1,5 +1,6 @@
 ﻿using CodeSnippetTool.Db;
 using System.ComponentModel;
+using System.Windows;
 
 namespace CodeSnippetTool.classes
 {
@@ -14,6 +15,7 @@ namespace CodeSnippetTool.classes
         public string hotKey;
         public string dateAdded;
         public string lastCopied;
+        public DbConnect dbConnect = new DbConnect();
 
         public int Id
         {
@@ -35,7 +37,13 @@ namespace CodeSnippetTool.classes
             }
             set
             {
-                name = value;
+                DbSelect selecter = new DbSelect(dbConnect.databaseConnection);
+                if (!selecter.NameIsTaken(value))
+                {
+                    name = value;
+                } else {
+                    MessageBox.Show("This name is already taken");
+                }
                 OnPropertyChanged("Name");
             }
         }
@@ -96,7 +104,13 @@ namespace CodeSnippetTool.classes
             }
             set
             {
-                hotKey = value;
+                DbSelect selecter = new DbSelect(dbConnect.databaseConnection);
+                if (!selecter.hotKeyIsTaken(value))
+                {
+                    hotKey = value;
+                } else {
+                    MessageBox.Show("This hotkey combintion is already taken");
+                }
                 OnPropertyChanged("HotKey");
             }
         }
@@ -149,7 +163,6 @@ namespace CodeSnippetTool.classes
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {
-            DbConnect dbConnect = new DbConnect();
             DbUpdate dbUpdater = new DbUpdate(dbConnect);
             if (PropertyChanged != null)
             {

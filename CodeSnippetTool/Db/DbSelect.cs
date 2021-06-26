@@ -8,14 +8,11 @@ namespace CodeSnippetTool.Db
 {
     public class DbSelect
     {
-
         public MySqlConnection connection;
-
         public DbSelect(MySqlConnection connection)
         {
             this.connection = connection;
-        }
-                                                                  
+        }                                            
         public SnippetModel selectSnippetId(int id)
         {
             SnippetModel snpt = new SnippetModel();
@@ -94,7 +91,6 @@ namespace CodeSnippetTool.Db
             this.connection.Close();
             return snpt;
         }
-
         public SnippetModel selectSnippetName(string name)
         {
             SnippetModel snpt = new SnippetModel();
@@ -173,7 +169,6 @@ namespace CodeSnippetTool.Db
             this.connection.Close();
             return snpt;
         }
-
         public List<string> selectFavourite(int favourite)
         {
             List<string> snippets = new List<string>();
@@ -199,7 +194,6 @@ namespace CodeSnippetTool.Db
             this.connection.Close();
             return snippets;
         }
-
         public List<string> selectLanguage(string language)
         {
             List<string> snippets = new List<string>();
@@ -225,7 +219,6 @@ namespace CodeSnippetTool.Db
             this.connection.Close();
             return snippets;
         }
-
         public string selectDescription(int id)
         {
             string description = "";
@@ -297,8 +290,6 @@ namespace CodeSnippetTool.Db
             this.connection.Close();
             return snippet;
         }
-
-
 
         public List<SnippetModel> selectAll()
         {

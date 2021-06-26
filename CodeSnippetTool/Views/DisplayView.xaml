@@ -22,10 +22,8 @@
 
         <DataGrid Name="SnippetsGrid" CanUserResizeRows="False" CanUserResizeColumns="False" IsReadOnly="True" CanUserAddRows="False" AutoGenerateColumns="False" Margin="0,-5,0,101"  ItemsSource="{Binding Snippets}" Grid.ColumnSpan="3" SelectionChanged="SnippetsGrid_SelectionChanged" Grid.RowSpan="3"  >
             <DataGrid.Columns>
-                <!--<DataGridTextColumn Header="Id" Binding="{Binding Id}"  Width="50"/>-->
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"  Width="50"/>
                 <DataGridTextColumn Header="HotKey" Binding="{Binding HotKey}"  Width="50"/>
-                <!--<DataGridTextColumn Header="Snippet" Binding="{Binding SnippetText}"  Width="auto" />-->
                 <DataGridTextColumn Header="Language" Binding="{Binding Language}" Width="auto" />
                 <DataGridTextColumn Header="Favourite" Binding="{Binding Favourite}" Width="auto" />
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="auto" />
@@ -33,7 +31,6 @@
                 <DataGridTextColumn Header="Last Copied" Binding="{Binding LastCopied}" Width="auto" />
             </DataGrid.Columns>
         </DataGrid>
-
 
         <GroupBox Margin="34,194,95,55" Grid.Row="2" Grid.Column="1">
             <GroupBox.Header>
@@ -56,14 +53,10 @@
         <TextBox Grid.Row="2" Height="24" HorizontalAlignment="Left" Margin="618,243,0,0" x:Name="txtFavourite" VerticalAlignment="Top" Width="107" Text="{Binding ElementName=SnippetsGrid, Path=SelectedItem.Favourite}" Grid.ColumnSpan="2" Grid.Column="1" />
         <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="429,243,0,0" x:Name="txtDescription" VerticalAlignment="Top" Width="124" Text="{Binding ElementName=SnippetsGrid, Path=SelectedItem.HotKey}" Grid.Column="1" />
 
-        <!--<Label Content="Id" Grid.Row="2" HorizontalAlignment="Left" Margin="-4,240,0,22" Name="label1" />-->
         <Label Content="Name" Grid.Row="2" Height="28" HorizontalAlignment="Left" Margin="50,241,0,0" Name="label2" VerticalAlignment="Top" Grid.ColumnSpan="2" />
         <Label Content="Language" Grid.Row="2" Height="28" HorizontalAlignment="Left" Margin="178,240,0,0" Name="label3" VerticalAlignment="Top" Grid.Column="1" />
         <Label Content="Favourite" Grid.Row="2" Height="28" HorizontalAlignment="Left" Margin="556,241,0,0" x:Name="label2_Copy" VerticalAlignment="Top" Grid.Column="1" />
         <Label Content="HotKey" Grid.Row="2" Height="26" HorizontalAlignment="Left" Margin="360,241,0,0" x:Name="label2_Copy1" VerticalAlignment="Top" Grid.Column="1" />
-        <Button Content="Update" Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="585,274,0,0" Name="btnUpdate"   
-                VerticalAlignment="Top" Width="141"  
-                Command="{Binding Path=UpdateCommand}" Grid.ColumnSpan="2" Grid.Column="1" Grid.RowSpan="2"  />
         <Button Content="Copy" Command="{Binding Path=CopyCommand}" CommandParameter="{Binding ElementName=SnippetsGrid,  Path=SelectedItem.Id}" Grid.Column="1" Margin="292,273,279,8" Grid.Row="2" RenderTransformOrigin="0.438,0.541" Grid.RowSpan="2"/>
         <Button Content="Delete" Command="{Binding Path=DeleteCommand}" CommandParameter="{Binding ElementName=SnippetsGrid,  Path=SelectedItem.Id}" Grid.Column="1" Margin="438,273,133,8" Grid.Row="2" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2">
             <Button.RenderTransform>
