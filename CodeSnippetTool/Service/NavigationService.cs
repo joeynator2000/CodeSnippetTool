@@ -17,7 +17,6 @@ namespace CodeSnippetTool.Service
             _navigationStore = navigationStore;
             _createViewModel = createViewModel;
         }
-
         public void Navigate()
         {
             _navigationStore.CurrentViewModel = _createViewModel();

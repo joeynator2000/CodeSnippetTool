@@ -120,17 +120,13 @@ namespace CodeSnippetTool.classes
                 String[] newHotKey = inputCheck.Split("+");
                 if (newHotKey.Length ==2)
                 {
-
-
-                    //New hot key
                     var newKey = newHotKey[0];
                     string newModifier = newHotKey[1];
                     char[] modifierCharacters = newModifier.ToCharArray();
                     modifierCharacters[0] = char.ToUpper(modifierCharacters[0]);
                     newModifier = new string(modifierCharacters);
-
                     inputCheck = newKey + "+" + newModifier;
-                    //
+
                     if (newKey.Length == 1)
                     {
                         if (newModifier == "Shift" || newModifier == "Alt")
@@ -182,8 +178,6 @@ namespace CodeSnippetTool.classes
                 }
             }
         }
-
-
         public string DateAdded
         {
             get
@@ -196,7 +190,6 @@ namespace CodeSnippetTool.classes
                 OnPropertyChanged("DateAdded");
             }
         }
-
         public string LastCopied
         {
             get
@@ -225,7 +218,6 @@ namespace CodeSnippetTool.classes
         {
 
         }
-
         #region INotifyPropertyChanged Members  
 
         public event PropertyChangedEventHandler PropertyChanged;

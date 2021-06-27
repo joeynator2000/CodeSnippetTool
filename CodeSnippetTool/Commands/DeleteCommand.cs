@@ -12,7 +12,6 @@ namespace CodeSnippetTool.Commands
     {
         private readonly DisplayViewModel _viewModel;
         private readonly NavigationService<DisplayViewModel> _navigationService;
-
         public DeleteCommand(DisplayViewModel viewModel, NavigationService<DisplayViewModel> navigationService)
         {
             _viewModel = viewModel;

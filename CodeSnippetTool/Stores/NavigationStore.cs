@@ -8,7 +8,6 @@ namespace CodeSnippetTool.Stores
     public class NavigationStore
     {
         public event Action CurrentViewModelChanged;
-
         private ViewModelBase _currentViewModel;
         public ViewModelBase CurrentViewModel 
         {
@@ -19,7 +18,6 @@ namespace CodeSnippetTool.Stores
                 OnCurrentViewModelChanged();
             }
         }
-
         private void OnCurrentViewModelChanged()
         {
             CurrentViewModelChanged?.Invoke();

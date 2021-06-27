@@ -12,16 +12,14 @@ namespace CodeSnippetTool.Commands
     {
         private readonly AddingViewModel _viewModel;
         private readonly NavigationService<AddingViewModel> _navigationService;
-
         public AddToDatabaseCommand(AddingViewModel viewModel, NavigationService<AddingViewModel> navigationService)
         {
             _viewModel = viewModel;
             _navigationService = navigationService;
         }
-
         public override void Execute(object parameter)
         {
-            if (_viewModel.CodeSnippet != null && _viewModel.Description != null && _viewModel.KeyWords != null && _viewModel.Language != null && _viewModel.Name != null && 
+            if (_viewModel.CodeSnippet != null && _viewModel.Description != null && _viewModel.Language != null && _viewModel.Name != null && 
                 ((_viewModel.HotKey != null && _viewModel.Modefier != null) || (_viewModel.HotKey == null && _viewModel.Modefier == null)))
             {
                 DbConnect con = new DbConnect();

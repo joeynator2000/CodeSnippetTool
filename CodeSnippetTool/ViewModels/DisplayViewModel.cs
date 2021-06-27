@@ -64,14 +64,10 @@ namespace CodeSnippetTool.ViewModels
             {
                 try
                 {
-
                     snippetsModel = dbSelect.selectAll();
                     foreach (SnippetModel snp in snippetsModel)
                     {
                         string hotKey = snp.HotKey;
-
-
-
                         String[] arr = snp.hotKey.Split("+");
                         var key = arr[0];
                         Key keyValue = (Key)Enum.Parse(typeof(Key), key, true);
@@ -79,17 +75,11 @@ namespace CodeSnippetTool.ViewModels
                         ModifierKeys modifierValue = (ModifierKeys)Enum.Parse(typeof(ModifierKeys), modifier, true);
                         HotkeysManager.AddHotkey(new GlobalHotkey(modifierValue, keyValue, () =>
                         {
-
                             CopySnippet(snp);
-
                         }));
                     }
-
-
                     if (snippetsModel == null || snippetsModel.Count == 0)
                         snippetsModel = new List<SnippetModel>();
-
-
                 }
                 catch (Exception ex)
                 {

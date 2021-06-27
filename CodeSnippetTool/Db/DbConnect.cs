@@ -21,9 +21,7 @@ namespace CodeSnippetTool.Db
             {
                 throw ex;
             }
-
         }
-
         public void testSelect()
         {
             string query = "SELECT * FROM snippets";
@@ -71,6 +69,5 @@ namespace CodeSnippetTool.Db
         {
             return this.databaseConnection;
         }
-
     }
 }

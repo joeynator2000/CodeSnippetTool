@@ -4,9 +4,6 @@ using System.Windows.Input;
 
 namespace CodeSnippetTool.Hotkeys
 {
-    /// <summary>
-    /// A hotkey containing a mod key, normal key and a callback method.
-    /// </summary>
     public class HotkeyListener
     {
         public ModifierKeys Modifier { get; set; }

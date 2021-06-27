@@ -89,21 +89,6 @@ namespace CodeSnippetTool.ViewModels
             }
         }
 
-        private string _keyWords;
-        public string KeyWords
-        {
-            get
-            {
-                return _keyWords;
-            }
-
-            set
-            {
-                _keyWords = value;
-                OnPropertyChanged(nameof(KeyWords));
-            }
-        }
-
         private string _description;
         public string Description
         {
@@ -120,7 +105,6 @@ namespace CodeSnippetTool.ViewModels
         }
 
         private bool _favourite = false;
-
         public bool Favourite
         {
             get
@@ -154,14 +138,6 @@ namespace CodeSnippetTool.ViewModels
             }
 
             inserter.InsertSnippet(_name, _codeSnippet, _language, fav, _hotKey, _modefier, _description, DateString);
-            
-            //select id based on dateSting
-            var id = idSelecter.selectAddDate(DateString).id;
-
-            //insert into keywords (id word)
-            string trimedKeyWords = Regex.Replace(_keyWords, @"s", "");
-            Array keyWords = trimedKeyWords.Split(',');
-            inserter.InsertKeywords(id, keyWords);
         }
 
         public AddingViewModel(NavigationStore navigationStore) 

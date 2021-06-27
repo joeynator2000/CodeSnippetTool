@@ -16,7 +16,6 @@ namespace CodeSnippetTool.Db
             this.db = db;
             this.dbSelect = new DbSelect(db.databaseConnection);
         }
-
         public void UpdateSnippet(int id, String name, String lang, int favourite, string hotKey)
         {
             string updateQuery = "UPDATE snippets SET name=@name, lang=@language, favourite=@favourite, HotKey=@hotKey WHERE id=@id";
@@ -30,7 +29,6 @@ namespace CodeSnippetTool.Db
             cmd.ExecuteNonQuery();
             db.getConnection().Close();
         }
-
         public void UpdateSnippetLastCopiedDate(int id)
         {
             string updateQuery = "UPDATE snippets SET last_copied=@lastCopied WHERE id=@id";
@@ -42,7 +40,5 @@ namespace CodeSnippetTool.Db
             cmd.ExecuteNonQuery();
             db.databaseConnection.Close();
         }
-
-
     }
 }

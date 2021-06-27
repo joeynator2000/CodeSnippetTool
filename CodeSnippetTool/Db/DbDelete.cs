@@ -10,8 +10,6 @@ namespace CodeSnippetTool.Db
         public DbDelete()
         {
         }
-
-        //TODO Implement button click listener. Wrap function in a try catch block
         public void DeleteSnippet(MySqlConnection mySqlConnection, int id)
         {
             string deleteQuery = "DELETE FROM snippets WHERE id='" + id + "';";

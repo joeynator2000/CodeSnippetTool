@@ -14,10 +14,8 @@ namespace CodeSnippetTool.Db
             Db = dbConnection;
         }
 
-        //TODO: Button action listener and assign values
         public void InsertSnippet(string Name, string snippet_text, string language, int favourite, string HotKey, string Modefier, string description, string dateAdded)
         {
-            //check if name is taken
             DbSelect selecter = new DbSelect(Db.databaseConnection);
             
             if (HotKey != null && Modefier != null)
@@ -56,20 +54,6 @@ namespace CodeSnippetTool.Db
             if (i != 0)
             {
                 MessageBox.Show("Data saved");
-            }
-        }
-
-        public void InsertKeywords(int id, Array keywords)
-        {
-            foreach (string keyword in keywords)
-            {
-                string queryString = "INSERT INTO key_words (snippet_id, word) VALUES (@snippet_id, @word)";
-                MySqlCommand command = new MySqlCommand(queryString, Db.databaseConnection);
-                command.Parameters.AddWithValue("@snippet_id", id);
-                command.Parameters.AddWithValue("@word", keyword);
-                Db.databaseConnection.Open();
-                int i = command.ExecuteNonQuery();
-                Db.databaseConnection.Close();
             }
         }
     }

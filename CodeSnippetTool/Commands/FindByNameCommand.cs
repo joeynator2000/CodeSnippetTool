@@ -9,7 +9,6 @@ namespace CodeSnippetTool.Commands
 {
     public class FindByNameCommand : CommandBase
     {
-
         private readonly DisplayViewModel _viewModel;
         private readonly NavigationService<DisplayViewModel> _navigationService;
         public static bool alreadyCreated;
@@ -17,7 +16,6 @@ namespace CodeSnippetTool.Commands
 
         public FindByNameCommand(DisplayViewModel viewModel, NavigationService<DisplayViewModel> navigationService)
         {
-
             _viewModel = viewModel;
             if (alreadyCreated == true)
             {
@@ -28,8 +26,6 @@ namespace CodeSnippetTool.Commands
 
         public override void Execute(object parameter)
         {
-            //if(_viewModel.I)
-            //_viewModel.FillList();
             if (parameter != null)
             {
                 try
