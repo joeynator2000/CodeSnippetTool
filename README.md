@@ -1,7 +1,7 @@
 # CodeSnippetTool
 The following document is to provide an overview of all the features and correct usage of the application to maximise the user experience.
 
-##Basic instructions
+## Basic instructions
 
 ### Requirements:
 The following section will give an overview of the minimum requirements for the application to run properly
