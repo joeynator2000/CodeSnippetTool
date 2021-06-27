@@ -13,3 +13,4 @@ The following section will give an overview of the minimum requirements for the 
 * A snippet can be copied via the copy button or a hotkey combintion.
 * The show snippet preview checkbox will allow a user to check what they have copied if they wish, and disable notifications when copying from the application when working on something else. 
 * A user can simply sort the table by clicking on table headers. 
+* The searching for snippets works by entering a name into the name field without a snippet selected and pressing the find button.
