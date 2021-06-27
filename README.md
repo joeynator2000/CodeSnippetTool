@@ -13,7 +13,11 @@ The following document is to provide an overview of all the features and correct
 
 ## Description
 
-Code Snippet Tool is an WPF application, developed by programmers for programmers. The main purpose of the application is to allow user to save his/her snippets and have an easy access to use them either by using HotKey combination assigned to snippet or by directly coping snippet from the application. The application was developed in MVVM manner using Visual Studio, WPF , .NET Core , MySql, GitHub and Teams Environment. 
+Code Snippet Tool is an WPF application, developed by programmers for programmers. The main purpose of the application is to allow user to save his/her snippets and have an easy access to use them either by using HotKey combination assigned to snippet or by directly coping snippet from the application. The application was developed in MVVM manner using Visual Studio, WPF , .NET Core , MySql, GitHub and Teams Environment.
+
+## Class Diagram
+
+![CodeSnippetTollClassDiagram](CodeSnippetTollClassDiagram.png)
 
 ## Basic instructions
 
