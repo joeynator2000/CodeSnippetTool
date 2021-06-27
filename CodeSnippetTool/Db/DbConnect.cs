@@ -22,48 +22,6 @@ namespace CodeSnippetTool.Db
                 throw ex;
             }
         }
-        public void testSelect()
-        {
-            string query = "SELECT * FROM snippets";
-
-            MySqlCommand check = new MySqlCommand(query);
-
-            MySqlDataReader dr = check.ExecuteReader();
-
-            MySqlCommand commandDatabase = new MySqlCommand(query);
-            
-            MySqlDataReader reader;
-            try
-            {
-                reader = commandDatabase.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        Console.WriteLine(  reader.GetString(0));
-                        Console.WriteLine(   reader.GetString(1));
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("No rows found");
-                }
-            }catch(Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        public void testInsert()
-        {
-            databaseConnection.Open();
-            string query = "INSERT INTO snippets (snippet_text, lang) VALUES ('I am a test snippet text', 'Java')";
-            MySqlCommand cmd = new MySqlCommand(query, databaseConnection);
-            cmd.ExecuteNonQuery();
-            Console.WriteLine("insert complete");
-            databaseConnection.Close();
-        }
 
         public MySqlConnection getConnection()
         {
