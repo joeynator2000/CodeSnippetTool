@@ -37,17 +37,20 @@ namespace CodeSnippetTool.Views
 
         private void BlackMode_Checked(object sender, RoutedEventArgs e)
         {
-            if (Convert.ToBoolean(BlackMode.IsChecked))
-            {
+            RadioButton rb = sender as RadioButton;
+            rb.IsChecked = true;
+            if (rb != null)
+            {                
                 Properties.Settings.Default.ColorMode = "Black";
-
                 Properties.Settings.Default.Save();
             }
         }
 
         private void DarkMode_Checked(object sender, RoutedEventArgs e)
         {
-            if (Convert.ToBoolean(DarkMode.IsChecked))
+            RadioButton rb = sender as RadioButton;
+            rb.IsChecked = true;
+            if (rb != null)
             {
                 Properties.Settings.Default.ColorMode = "Dark";
                 Properties.Settings.Default.Save();
@@ -56,23 +59,26 @@ namespace CodeSnippetTool.Views
 
         private void LightMode_Checked(object sender, RoutedEventArgs e)
         {
-            if (Convert.ToBoolean(LightMode.IsChecked))
-            {
+            RadioButton rb = sender as RadioButton;
+            rb.IsChecked = true;
+            if (rb != null)
+            {                
                 Properties.Settings.Default.ColorMode = "Light";
-
                 Properties.Settings.Default.Save();
             }
         }
 
         private void WhiteMode_Checked(object sender, RoutedEventArgs e)
         {
-            if (Convert.ToBoolean(WhiteMode.IsChecked))
+            RadioButton rb = sender as RadioButton;
+            rb.IsChecked = true;
+            if (rb != null)            
             {
                 Properties.Settings.Default.ColorMode = "White";
-
                 Properties.Settings.Default.Save();
             }
         }
+
 
         private void SnippetsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

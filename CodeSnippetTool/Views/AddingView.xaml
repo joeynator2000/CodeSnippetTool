@@ -26,15 +26,15 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Label Grid.Column="0" Grid.ColumnSpan="2" Margin="0,9,711,369" Grid.Row="2">Name:</Label>
-        <TextBox Grid.Row="2" Margin="82,10,22,376" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
+        <Label Grid.Column="0" Margin="0,51,34,327" Grid.Row="2">Name:</Label>
+        <TextBox Grid.Row="2" Margin="82,55,22,331" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
 
-        <Label Margin="-3,50,8,322" Grid.Row="2">Code:</Label>
-        <TextBox Margin="0,50,22,235"  MaxHeight="125" MaxWidth="690" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Text="{Binding CodeSnippet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="2"/>
+        <Label Margin="-1,90,6,282" Grid.Row="2">Code:</Label>
+        <TextBox Margin="83,90,22,195"  MaxHeight="125" MaxWidth="690" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Text="{Binding CodeSnippet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.ColumnSpan="2"/>
 
-        <Label Grid.Row="2" Margin="0,190,711,182" Grid.ColumnSpan="2">Language:</Label>
+        <Label Grid.Row="2" Margin="0,219,19,153">Language:</Label>
 
-        <ComboBox Margin="0,192,23,192" Grid.Row="2" SelectedValuePath="Content" SelectedItem="{Binding Language, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ComboBox_SelectionChanged" Grid.Column="1">
+        <ComboBox Margin="83,225,23,159" Grid.Row="2" SelectedValuePath="Content" SelectedItem="{Binding Language, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ComboBox_SelectionChanged" Grid.ColumnSpan="2">
             <ComboBoxItem>Java</ComboBoxItem>
             <ComboBoxItem>JavaScript</ComboBoxItem>
             <ComboBoxItem>Python</ComboBoxItem>
@@ -47,23 +47,23 @@
             <ComboBoxItem>C#</ComboBoxItem>
         </ComboBox>
 
-        <Label Grid.Row="2" Margin="-6,230,10,18" Grid.RowSpan="3">Description:</Label>
-        <TextBox Grid.Row="2" VerticalScrollBarVisibility="Auto" MaxHeight="25" AcceptsReturn="True" Margin="82,230,23,152" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged" Grid.ColumnSpan="2"/>
+        <Label Grid.Row="2" Margin="0,250,4,-2" Grid.RowSpan="5">Description:</Label>
+        <TextBox Grid.Row="2" VerticalScrollBarVisibility="Auto" MaxHeight="25" AcceptsReturn="True" Margin="83,255,21,128" Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged" Grid.ColumnSpan="2"/>
 
-        <Label Grid.Row="2" Margin="-6,260,23,40">Hotkey:</Label>
-        <TextBox MaxLength="1" Grid.Row="2" Text="{Binding HotKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="82,261,660,121" Grid.ColumnSpan="2"/>
+        <Label Grid.Row="2" Margin="-1,285,18,15">Hotkey:</Label>
+        <TextBox MaxLength="1" Grid.Row="2" Text="{Binding HotKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="82,285,660,97" Grid.ColumnSpan="2"/>
 
-        <Label Grid.Row="2" Margin="-6,314,10,58">Favourite:</Label>
-        <CheckBox Grid.ColumnSpan="7" IsChecked="{Binding Favourite}" Margin="82,325,-71,47" Grid.Row="2">Save as favourite</CheckBox>
+        <Label Grid.Row="2" Margin="0,340,4,32">Favourite:</Label>
+        <CheckBox Grid.ColumnSpan="7" IsChecked="{Binding Favourite}" Margin="78,347,-67,25" Grid.Row="2">Save as favourite</CheckBox>
 
-        <Label Content="Modefier:" Grid.Row="2" Margin="-6,292,6,90"/>
+        <Label Content="Modefier:" Grid.Row="2" Margin="0,315,0,67"/>
 
-        <ComboBox Margin="82,294,23,90" Grid.Row="2" SelectedValuePath="Content" SelectedItem="{Binding Modefier, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ComboBox_SelectionChanged" Grid.ColumnSpan="2">
+        <ComboBox Margin="82,316,23,68" Grid.Row="2" SelectedValuePath="Content" SelectedItem="{Binding Modefier, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ComboBox_SelectionChanged" Grid.ColumnSpan="2">
             <ComboBoxItem Content="Alt"/>
             <ComboBoxItem Content="Shift"/>
         </ComboBox>
 
-        <Button Content="submit" Command="{Binding AddToDbCommand}" Grid.Column="1" Margin="290,357,346,23" Grid.Row="2"></Button>
-        <Button Content="Navigte to DisplayPage" Command="{Binding NavigateDisplayCommand}" Grid.Column="1" Margin="523,364,23,2" Grid.Row="2"></Button>
+        <Button Content="submit" Command="{Binding AddToDbCommand}" Grid.Column="1" Margin="289,370,347,10" Grid.Row="2"></Button>
+        <Button Content="Back to Home" Command="{Binding NavigateDisplayCommand}" Margin="0,4,23,362" Grid.Row="2"/>
     </Grid>
 </UserControl>

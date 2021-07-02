@@ -37,10 +37,10 @@
                 <Label Content="Themes"></Label>
             </GroupBox.Header>
             <UniformGrid Columns="4" HorizontalAlignment="Center">
-                <RadioButton x:Name="BlackMode" Content="Black Mode" HorizontalAlignment="Center" Height="20" GroupName="modesSelection" Checked="BlackMode_Checked"/>
-                <RadioButton x:Name="DarkMode" Content="Dark Mode" HorizontalAlignment="Center" Height="20" GroupName="modesSelection" Checked="DarkMode_Checked"/>
-                <RadioButton x:Name="LightMode" Content="Light Mode" HorizontalAlignment="Center" Height="20" GroupName="modesSelection" Checked="LightMode_Checked"/>
-                <RadioButton x:Name="WhiteMode" Content="White Mode" HorizontalAlignment="Center" Height="20" GroupName="modesSelection" Checked="WhiteMode_Checked"/>
+                <RadioButton x:Name="BlackMode" Content="Black Mode" HorizontalAlignment="Center" Height="20" GroupName="modesSelection" Click="BlackMode_Checked"/>
+                <RadioButton x:Name="DarkMode" Content="Dark Mode" HorizontalAlignment="Center" Height="20" GroupName="modesSelection"  Click="DarkMode_Checked"/>
+                <RadioButton x:Name="LightMode" Content="Light Mode" HorizontalAlignment="Center" Height="20" GroupName="modesSelection"  Click="LightMode_Checked"/>
+                <RadioButton x:Name="WhiteMode" Content="White Mode" HorizontalAlignment="Center" Height="20" GroupName="modesSelection"  Click="WhiteMode_Checked"/>
             </UniformGrid>
         </GroupBox>
         <CheckBox Name="McCheckBox"  

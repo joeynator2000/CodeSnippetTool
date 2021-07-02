@@ -29,6 +29,7 @@ namespace CodeSnippetTool.ViewModels
         public ICommand NavigateAddingCommand { get; set; }
         public bool tableAlreadyCreated { get; set; }
         public FindByNameCommand FindByNameCommand { get; set; }
+        
 
         public IList<SnippetModel> snippetsModel;
         public DisplayViewModel(NavigationStore navigationStore)
@@ -39,6 +40,7 @@ namespace CodeSnippetTool.ViewModels
             NavigateAddingCommand = new NavigateCommand<AddingViewModel>(new NavigationService<AddingViewModel>(navigationStore, () => new AddingViewModel(navigationStore)));
             FillList();
         }
+
 
         public bool IsSelected
         {
