@@ -10,9 +10,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using WindowsInput;
+using WindowsInput.Native;
 
 namespace CodeSnippetTool.ViewModels
 {
@@ -128,6 +131,9 @@ namespace CodeSnippetTool.ViewModels
             }
             Clipboard.SetText(snp.SnippetText);
             update.UpdateSnippetLastCopiedDate(snp.Id);
+
+            //This timer is so that ctrl+V can execute
+            Thread.Sleep(1000);
 
         }
 
