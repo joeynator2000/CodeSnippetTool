@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
+using CodeSnippetTool.classes;
 using MySql.Data.MySqlClient;
 
 
@@ -11,10 +12,8 @@ namespace CodeSnippetTool.Db
     {
         public DbConnect db { get; set; }
         public DbSelect dbSelect;
-        public DbUpdate(DbConnect db)
+        public DbUpdate()
         {
-            this.db = db;
-            this.dbSelect = new DbSelect(db.databaseConnection);
         }
         public void UpdateSnippet(int id, String name, String lang, int favourite, string hotKey)
         {
@@ -31,14 +30,23 @@ namespace CodeSnippetTool.Db
         }
         public void UpdateSnippetLastCopiedDate(int id)
         {
-            string updateQuery = "UPDATE snippets SET last_copied=@lastCopied WHERE id=@id";
-            MySqlCommand cmd = new MySqlCommand(updateQuery,db.databaseConnection);
-            cmd.CommandText = updateQuery;
-            cmd.Parameters.AddWithValue("@id", id);
-            cmd.Parameters.AddWithValue("@lastCopied",DateTime.Now);
-            db.databaseConnection.Open();
-            cmd.ExecuteNonQuery();
-            db.databaseConnection.Close();
+            //string updateQuery = "UPDATE snippets SET last_copied=@lastCopied WHERE id=@id";
+            //MySqlCommand cmd = new MySqlCommand(updateQuery,db.databaseConnection);
+            //cmd.CommandText = updateQuery;
+            //cmd.Parameters.AddWithValue("@id", id);
+            //cmd.Parameters.AddWithValue("@lastCopied",DateTime.Now);
+            //db.databaseConnection.Open();
+            //cmd.ExecuteNonQuery();
+            //db.databaseConnection.Close();
+
+            DateTime theDate = DateTime.Now;
+            string DateString = theDate.ToString("yyyy-MM-dd H:mm:ss");
+
+            using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.dtabasePath))
+            {
+                string Query = "UPDATE snippets SET last_copied = ? WHERE id = ?";
+                var result = conn.Query<Snippets>(Query, DateString, id);
+            }
         }
     }
 }

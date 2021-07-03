@@ -12,11 +12,11 @@ namespace CodeSnippetTool.Db
     class DbInsert
     {
         public DbConnect Db { get; set; }
-        public DbInsert(DbConnect dbConnection)
+        public DbInsert()
         {
-            Db = dbConnection;
         }
 
+        // make method for trimming process of user view data
         public void InsertSnippet(AddingViewModel _viewModel)
         {
             DateTime theDate = DateTime.Now;
@@ -34,7 +34,7 @@ namespace CodeSnippetTool.Db
 
                 _viewModel.HotKey += $"+{mod}";
 
-                DbSelect dataSelecter = new DbSelect(Db.databaseConnection);
+                DbSelect dataSelecter = new DbSelect();
                 if (dataSelecter.hotKeyIsTaken(_viewModel.HotKey))
                 {
                     _viewModel.HotKey = "";
@@ -60,7 +60,7 @@ namespace CodeSnippetTool.Db
                 connection.Insert(snippet);
             }
 
-            DbSelect selecter = new DbSelect(Db.databaseConnection);
+            //DbSelect selecter = new DbSelect(Db.databaseConnection);
 
             //string queryString = "INSERT INTO snippets (name, snippet_text, lang, favourite, description, HotKey, date_added, last_copied) VALUES (@name, @snippet_text, @lang, @favourite, @description, @HotKey, @date_added, @last_copied)";
             //MySqlCommand command = new MySqlCommand(queryString, Db.databaseConnection);

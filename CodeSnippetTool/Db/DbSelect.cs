@@ -10,87 +10,92 @@ namespace CodeSnippetTool.Db
     public class DbSelect
     {
         public MySqlConnection connection;
-        public DbSelect(MySqlConnection connection)
+        public DbSelect()
         {
-            this.connection = connection;
         }                                            
-        public SnippetModel selectSnippetId(int id)
+        public List<Snippets> selectSnippetId(int id)
         {
-            SnippetModel snpt = new SnippetModel();
-            this.connection.Open();
-            string query = "SELECT * FROM snippets WHERE id=@id";
-            using (var cmd = new MySqlCommand(query, this.connection))
+            //SnippetModel snpt = new SnippetModel();
+            //this.connection.Open();
+            //string query = "SELECT * FROM snippets WHERE id=@id";
+            //using (var cmd = new MySqlCommand(query, this.connection))
+            //{
+            //    cmd.Parameters.AddWithValue("@id", id);
+
+            //    using (var reader = cmd.ExecuteReader())
+            //    {
+            //        if (reader.HasRows)
+            //        {
+            //            while (reader.Read())
+            //            {
+            //                var snippetId = reader.GetInt32(0);
+            //                var snippetName = "";
+            //                var snippetNameTmp = reader[1] as String;
+            //                if (!String.IsNullOrEmpty(snippetNameTmp))
+            //                {
+            //                    snippetName = reader.GetString(1);
+            //                }
+
+            //                var snippetText = "";
+            //                var snippetTextTmp = reader[2] as String;
+            //                if (!String.IsNullOrEmpty(snippetTextTmp))
+            //                {
+            //                    snippetText = reader.GetString(2);
+            //                }
+
+            //                var snippetLang = "";
+            //                var snippetLangTmp = reader[3] as String;
+            //                if (!String.IsNullOrEmpty(snippetLangTmp))
+            //                {
+            //                    snippetLang = reader.GetString(3);
+            //                }
+
+            //                var snippetFavourite = reader.GetInt32(4);
+
+            //                var snippetDescription = "";
+            //                var snippetDescriptionTmp = reader[5] as String;
+            //                if (!String.IsNullOrEmpty(snippetDescriptionTmp))
+            //                {
+            //                    snippetDescription = reader.GetString(5);
+            //                }
+
+            //                var snippetHotKey = "";
+            //                var snippetHotKeyTmp = reader[6] as String;
+            //                if (!String.IsNullOrEmpty(snippetHotKeyTmp))
+            //                {
+            //                    snippetHotKey = reader.GetString(6);
+            //                }
+
+            //                var snippetDateAdded = "";
+            //                var snippetDateDateAddedTmp = reader[7].ToString();
+            //                if (!String.IsNullOrEmpty(snippetDateDateAddedTmp))
+            //                {
+            //                    snippetDateAdded = reader.GetString(7);
+            //                }
+
+            //                var snippetDateLastCopied = "Not yet copied";
+            //                var snippetDateLastCopiedTmp = reader[8].ToString();
+            //                if (!String.IsNullOrEmpty(snippetDateLastCopiedTmp))
+            //                {
+            //                    snippetDateLastCopied = reader.GetString(8);
+            //                }
+            //                SnippetModel snp = new SnippetModel(snippetId, snippetName, snippetText, snippetLang, snippetFavourite, snippetDescription, snippetHotKey, snippetDateAdded, snippetDateLastCopied);
+
+            //                snpt = snp;
+            //            }
+            //        }
+
+            //    }
+            //}
+            //Console.WriteLine("select complete");
+            //this.connection.Close();
+
+            using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.dtabasePath))
             {
-                cmd.Parameters.AddWithValue("@id", id);
-
-                using (var reader = cmd.ExecuteReader())
-                {
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            var snippetId = reader.GetInt32(0);
-                            var snippetName = "";
-                            var snippetNameTmp = reader[1] as String;
-                            if (!String.IsNullOrEmpty(snippetNameTmp))
-                            {
-                                snippetName = reader.GetString(1);
-                            }
-
-                            var snippetText = "";
-                            var snippetTextTmp = reader[2] as String;
-                            if (!String.IsNullOrEmpty(snippetTextTmp))
-                            {
-                                snippetText = reader.GetString(2);
-                            }
-
-                            var snippetLang = "";
-                            var snippetLangTmp = reader[3] as String;
-                            if (!String.IsNullOrEmpty(snippetLangTmp))
-                            {
-                                snippetLang = reader.GetString(3);
-                            }
-
-                            var snippetFavourite = reader.GetInt32(4);
-
-                            var snippetDescription = "";
-                            var snippetDescriptionTmp = reader[5] as String;
-                            if (!String.IsNullOrEmpty(snippetDescriptionTmp))
-                            {
-                                snippetDescription = reader.GetString(5);
-                            }
-
-                            var snippetHotKey = "";
-                            var snippetHotKeyTmp = reader[6] as String;
-                            if (!String.IsNullOrEmpty(snippetHotKeyTmp))
-                            {
-                                snippetHotKey = reader.GetString(6);
-                            }
-
-                            var snippetDateAdded = "";
-                            var snippetDateDateAddedTmp = reader[7].ToString();
-                            if (!String.IsNullOrEmpty(snippetDateDateAddedTmp))
-                            {
-                                snippetDateAdded = reader.GetString(7);
-                            }
-
-                            var snippetDateLastCopied = "Not yet copied";
-                            var snippetDateLastCopiedTmp = reader[8].ToString();
-                            if (!String.IsNullOrEmpty(snippetDateLastCopiedTmp))
-                            {
-                                snippetDateLastCopied = reader.GetString(8);
-                            }
-                            SnippetModel snp = new SnippetModel(snippetId, snippetName, snippetText, snippetLang, snippetFavourite, snippetDescription, snippetHotKey, snippetDateAdded, snippetDateLastCopied);
-
-                            snpt = snp;
-                        }
-                    }
-
-                }
+                string Query = "SELECT * FROM snippets WHERE id = ?";
+                var result = conn.Query<Snippets>(Query, id);
+                return result;
             }
-            Console.WriteLine("select complete");
-            this.connection.Close();
-            return snpt;
         }
         public SnippetModel selectSnippetName(string name)
         {

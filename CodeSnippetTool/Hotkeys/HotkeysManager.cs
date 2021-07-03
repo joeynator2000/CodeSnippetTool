@@ -112,7 +112,7 @@ namespace CodeSnippetTool.Hotkeys
                                 hotkey.Callback?.Invoke();
                                 Console.WriteLine(hotkey.Key);
                                 DbConnect conn = new DbConnect();
-                                DbUpdate dvb = new DbUpdate(conn);
+                                DbUpdate dvb = new DbUpdate();
                                 
                                 //Update query where we pass key
                                 HotkeyFired?.Invoke(hotkey);

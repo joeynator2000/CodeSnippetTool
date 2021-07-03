@@ -1,4 +1,5 @@
 ﻿using CodeSnippetTool.classes;
+using CodeSnippetTool.Db;
 using CodeSnippetTool.Service;
 using CodeSnippetTool.ViewModels;
 using System;
@@ -22,9 +23,11 @@ namespace CodeSnippetTool.Commands
         {
             if (parameter != null)
             {
+                DbDelete deleter = new DbDelete();
                 var param = parameter.ToString();
-                this._viewModel.DeleteMethod(param);
+                deleter.DeleteSnippet(param);
                 _navigationService.Navigate();
+                MessageBox.Show("Snippet deleted");
             } else
             {
                 MessageBox.Show("Please select a snippet");

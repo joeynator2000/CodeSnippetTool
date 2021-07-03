@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using MySql.Data.MySqlClient;
+using SQLite;
 
 namespace CodeSnippetTool.Db
 {
@@ -10,16 +11,12 @@ namespace CodeSnippetTool.Db
         public DbDelete()
         {
         }
-        public void DeleteSnippet(MySqlConnection mySqlConnection, int id)
+        public void DeleteSnippet(string id)
         {
-            string deleteQuery = "DELETE FROM snippets WHERE id='" + id + "';";
-            MySqlCommand delete = new MySqlCommand(deleteQuery, mySqlConnection);
-            MySqlDataReader reader;
-            reader = delete.ExecuteReader();
-            while(reader.Read())
+            using (SQLiteConnection connection = new SQLiteConnection(App.dtabasePath))
             {
+                connection.Execute("Delete from Snippets where id = ?", id);
             }
-            mySqlConnection.Close();
         }
     }
 }

@@ -5,6 +5,7 @@ using CodeSnippetTool.Hotkeys;
 using CodeSnippetTool.Service;
 using CodeSnippetTool.Stores;
 using MySql.Data.MySqlClient;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -18,11 +19,11 @@ namespace CodeSnippetTool.ViewModels
 {
     public class DisplayViewModel : ViewModelBase
     {
-        static String connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=snippet_db;Allow User Variables=True";
-        MySqlConnection con;
-        MySqlCommand cmd;
-        MySqlDataAdapter adapter;
-        DataSet ds;
+        //static String connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=snippet_db;Allow User Variables=True";
+        //MySqlConnection con;
+        //MySqlCommand cmd;
+        //MySqlDataAdapter adapter;
+        //DataSet ds;
         public bool isSelected { get; set; }
         public DeleteCommand DeleteCommand { get; set; }
         public CopyCommand CopyCommand { get; set; }
@@ -40,7 +41,7 @@ namespace CodeSnippetTool.ViewModels
             this.DeleteCommand = new DeleteCommand(this, new NavigationService<DisplayViewModel>(navigationStore, () => new DisplayViewModel(navigationStore)));
             this.FindByNameCommand = new FindByNameCommand(this, new NavigationService<DisplayViewModel>(navigationStore, () => new DisplayViewModel(navigationStore)));
             NavigateAddingCommand = new NavigateCommand<AddingViewModel>(new NavigationService<AddingViewModel>(navigationStore, () => new AddingViewModel(navigationStore)));
-            FillList();
+            //FillList();
             FillSqliteList();
         }
 
@@ -80,7 +81,7 @@ namespace CodeSnippetTool.ViewModels
         public void FillList()
         {
             DbConnect con = new DbConnect();
-            DbSelect dbSelect = new DbSelect(con.databaseConnection);
+            DbSelect dbSelect = new DbSelect();
             if (tableAlreadyCreated != true)
             {
                 try
@@ -96,7 +97,7 @@ namespace CodeSnippetTool.ViewModels
                         ModifierKeys modifierValue = (ModifierKeys)Enum.Parse(typeof(ModifierKeys), modifier, true);
                         HotkeysManager.AddHotkey(new GlobalHotkey(modifierValue, keyValue, () =>
                         {
-                            CopySnippet(snp);
+                            //CopySnippet(snp);
                         }));
                     }
                     if (snippetsModel == null || snippetsModel.Count == 0)
@@ -137,26 +138,32 @@ namespace CodeSnippetTool.ViewModels
             }
         }
 
-        public void CopySnippet(SnippetModel snp)
-        {
-            DbConnect conn = new DbConnect();
-            DbUpdate update = new DbUpdate(conn);
-            if (IsSelected)
-            {
-                MessageBox.Show(snp.SnippetText, $"{snp.HotKey}");
-            }
-            Clipboard.SetText(snp.SnippetText);
-            update.UpdateSnippetLastCopiedDate(snp.Id);
+        //public void DeleteMethod(String deleteId)
+        //{
+        //    MessageBox.Show("Hello");
+        //    using (SQLiteConnection connection = new SQLiteConnection(App.dtabasePath))
+        //    {
+        //        int idInt = Convert.ToInt32(deleteId);
+        //        var query = connection.Table<Snippets>().Where(v => v.name.StartsWith("a"));
+        //        connection.Delete(query);
+        //        connection.Execute("Delete from Snippets where id = ?", deleteId);
 
-        }
+        //        foreach (var stock in query)
+        //            MessageBox.Show("Stock: " + stock.name);
 
-        public void DeleteMethod(String id)
-        {
-            con = new MySqlConnection(connectionString);
-            con.Open();
-            int Id = Convert.ToInt32(id.ToString());
-            DbDelete dbDeleter = new DbDelete();
-            dbDeleter.DeleteSnippet(con, Id);
-        }
+        //        var query = connection.Table<Snippets>().Where(id => id.Equals(deleteId));
+
+        //        var toRemove = connection.Table<Snippets>().Where(x => x.id == Convert.ToInt32(deleteId));
+        //        connection.Table<Snippets>().Delete(toRemove);
+        //        connection.SaveChanges();
+
+        //        foreach (var tmp in query)
+        //            Console.WriteLine("deleted id: " + tmp.id.ToString());
+
+
+        //        connection.CreateTable<Snippets>();
+        //        connection.Insert(snippet);
+        //    }
+        //}
     }
 }

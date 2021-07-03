@@ -40,7 +40,7 @@ namespace CodeSnippetTool.classes
             }
             set
             {
-                DbSelect selecter = new DbSelect(dbConnect.databaseConnection);
+                DbSelect selecter = new DbSelect();
                 if (!selecter.NameIsTaken(value))
                 {
                     name = value;
@@ -111,7 +111,7 @@ namespace CodeSnippetTool.classes
             {
                 var inputCheck = value;
                 int number;
-                DbSelect selecter = new DbSelect(dbConnect.databaseConnection);
+                DbSelect selecter = new DbSelect();
                 
                 HotKey.ToLower();
                 inputCheck.ToLower();
@@ -223,7 +223,7 @@ namespace CodeSnippetTool.classes
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string propertyName)
         {
-            DbUpdate dbUpdater = new DbUpdate(dbConnect);
+            DbUpdate dbUpdater = new DbUpdate();
             if (PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));

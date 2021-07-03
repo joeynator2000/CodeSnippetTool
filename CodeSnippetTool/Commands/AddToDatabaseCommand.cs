@@ -22,9 +22,8 @@ namespace CodeSnippetTool.Commands
             if (_viewModel.CodeSnippet != null && _viewModel.Description != null && _viewModel.Language != null && _viewModel.Name != null && 
                 ((_viewModel.HotKey != null && _viewModel.Modefier != null) || (_viewModel.HotKey == null && _viewModel.Modefier == null)))
             {
-                DbConnect con = new DbConnect();
-                DbSelect selecter = new DbSelect(con.databaseConnection);
-                DbInsert inserter = new DbInsert(con);
+                DbSelect selecter = new DbSelect();
+                DbInsert inserter = new DbInsert();
                 if (!selecter.NameIsTaken(_viewModel.Name))
                 {
                     inserter.InsertSnippet(_viewModel);
