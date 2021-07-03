@@ -15,8 +15,14 @@ namespace CodeSnippetTool
     /// </summary>
     public partial class App : Application
     {
+        static string databaseName = "snippet_db";
+        static string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        public static string dtabasePath = System.IO.Path.Combine(folderPath, databaseName);
+
         protected override void OnStartup(StartupEventArgs e)
         {
+            //run table creation here
+
             NavigationStore navigationStore = new NavigationStore();
 
             navigationStore.CurrentViewModel = new DisplayViewModel(navigationStore);

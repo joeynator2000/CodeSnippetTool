@@ -31,7 +31,9 @@ namespace CodeSnippetTool.ViewModels
         public FindByNameCommand FindByNameCommand { get; set; }
         
 
-        public IList<SnippetModel> snippetsModel;
+        public List<SnippetModel> snippetsModel;
+
+
         public DisplayViewModel(NavigationStore navigationStore)
         {
             this.CopyCommand = new CopyCommand(this);
@@ -39,6 +41,7 @@ namespace CodeSnippetTool.ViewModels
             this.FindByNameCommand = new FindByNameCommand(this, new NavigationService<DisplayViewModel>(navigationStore, () => new DisplayViewModel(navigationStore)));
             NavigateAddingCommand = new NavigateCommand<AddingViewModel>(new NavigationService<AddingViewModel>(navigationStore, () => new AddingViewModel(navigationStore)));
             FillList();
+            FillSqliteList();
         }
 
 
@@ -52,10 +55,26 @@ namespace CodeSnippetTool.ViewModels
                 isSelected = value;
             }
         }
-        public IList<SnippetModel> Snippets
+        public List<SnippetModel> Snippets
         {
             get { return snippetsModel; }
             set { snippetsModel = value; }
+        }
+
+        public List<Snippets> _sqliteSnippets { get; set; }
+        public List<Snippets> SQLiteSnippets
+        {
+            get { return _sqliteSnippets; }
+            set { _sqliteSnippets = value; }
+        }
+
+        public void FillSqliteList()
+        {
+            using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.dtabasePath))
+            {
+                conn.CreateTable<Snippets>();
+                SQLiteSnippets = conn.Table<Snippets>().ToList();
+            }
         }
 
         public void FillList()

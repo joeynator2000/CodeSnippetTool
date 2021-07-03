@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using SQLite;
 
 namespace CodeSnippetTool.Db
 {
@@ -368,22 +369,34 @@ namespace CodeSnippetTool.Db
         public bool hotKeyIsTaken(string hotKeyToCheck)
         {
             bool IsTaken = false;
-            this.connection.Open();
-            string query = "SELECT * FROM snippets WHERE HotKey=@hotKeyToCheck";
 
-            using (var cmd = new MySqlCommand(query, this.connection))
+            using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.dtabasePath))
             {
-                cmd.Parameters.AddWithValue("@hotKeyToCheck", hotKeyToCheck);
-
-                using (var reader = cmd.ExecuteReader())
+                string Query = "SELECT * FROM snippets WHERE HotKey = ?";
+                var result = conn.Query<Snippets>(Query, hotKeyToCheck);
+                if (result.Count > 0)
                 {
-                    if (reader.HasRows)
-                    {
-                        IsTaken = true;
-                    }
+                    IsTaken = true;
                 }
             }
-            this.connection.Close();
+
+            return IsTaken;
+            //this.connection.Open();
+            //string query = "SELECT * FROM snippets WHERE HotKey=@hotKeyToCheck";
+
+            //using (var cmd = new MySqlCommand(query, this.connection))
+            //{
+            //    cmd.Parameters.AddWithValue("@hotKeyToCheck", hotKeyToCheck);
+
+            //    using (var reader = cmd.ExecuteReader())
+            //    {
+            //        if (reader.HasRows)
+            //        {
+            //            IsTaken = true;
+            //        }
+            //    }
+            //}
+            //this.connection.Close();
 
             return IsTaken;
         }
@@ -391,22 +404,16 @@ namespace CodeSnippetTool.Db
         public bool NameIsTaken(string nameToCheck)
         {
             bool IsTaken = false;
-            this.connection.Open();
-            string query = "SELECT * FROM snippets WHERE name=@nameToCheck";
 
-            using (var cmd = new MySqlCommand(query, this.connection))
+            using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.dtabasePath))
             {
-                cmd.Parameters.AddWithValue("@nameToCheck", nameToCheck);
-
-                using (var reader = cmd.ExecuteReader())
+                string Query = "SELECT * FROM snippets WHERE name = ?";
+                var result = conn.Query<Snippets>(Query, nameToCheck);
+                if (result.Count > 0)
                 {
-                    if (reader.HasRows)
-                    {
-                        IsTaken = true;
-                    }
+                    IsTaken = true;
                 }
             }
-            this.connection.Close();
 
             return IsTaken;
         }

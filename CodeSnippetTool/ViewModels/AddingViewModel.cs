@@ -5,10 +5,12 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
+using CodeSnippetTool.classes;
 using CodeSnippetTool.Commands;
 using CodeSnippetTool.Db;
 using CodeSnippetTool.Service;
 using CodeSnippetTool.Stores;
+using SQLite;
 
 namespace CodeSnippetTool.ViewModels
 {
@@ -125,19 +127,21 @@ namespace CodeSnippetTool.ViewModels
 
         public void AddToDbdMethod()
         {
-            DbConnect con = new DbConnect();
-            DbInsert inserter = new DbInsert(con);
-            DbSelect idSelecter = new DbSelect(con.getConnection());
+            /* DbConnect con = new DbConnect();
+             DbInsert inserter = new DbInsert(con);
+             DbSelect idSelecter = new DbSelect(con.getConnection());
 
-            DateTime theDate = DateTime.Now;
-            string DateString = theDate.ToString("yyyy-MM-dd H:mm:ss");
-            int fav = 0;
-            if (_favourite)
-            {
-                fav = 1;
-            }
+             DateTime theDate = DateTime.Now;
+             string DateString = theDate.ToString("yyyy-MM-dd H:mm:ss");
+             int fav = 0;
+             if (_favourite)
+             {
+                 fav = 1;
+             }
 
-            inserter.InsertSnippet(_name, _codeSnippet, _language, fav, _hotKey, _modefier, _description, DateString);
+             inserter.InsertSnippet(_name, _codeSnippet, _language, fav, _hotKey, _modefier, _description, DateString);
+ */
+            
         }
 
         public AddingViewModel(NavigationStore navigationStore) 

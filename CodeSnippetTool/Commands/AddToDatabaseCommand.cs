@@ -24,9 +24,10 @@ namespace CodeSnippetTool.Commands
             {
                 DbConnect con = new DbConnect();
                 DbSelect selecter = new DbSelect(con.databaseConnection);
+                DbInsert inserter = new DbInsert(con);
                 if (!selecter.NameIsTaken(_viewModel.Name))
                 {
-                    _viewModel.AddToDbdMethod();
+                    inserter.InsertSnippet(_viewModel);
                     _navigationService.Navigate();
                 } else {
                     MessageBox.Show("The name is already taken");

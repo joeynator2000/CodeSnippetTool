@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <PackageReference Include="MySql.Data" Version="8.0.25" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.7.335" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +33,10 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="SQLite\" />
   </ItemGroup>
 
 </Project>
