@@ -27,13 +27,17 @@ namespace CodeSnippetTool.Service
 
         public bool isValidInput()
         {
-            //make first upper rest to lower of modefier string
-            newHotKey[1] = newHotKey[1].First().ToString().ToUpper() + newHotKey[1].Substring(1);
-            if (newHotKey.Length == 2 && newHotKey[0].Length == 1 && modefierValidation() && hotKeyValidation())
+            //Check if there is hot key assigned to snippet
+            if (newHotKey.Length>1 && !String.IsNullOrEmpty(newHotKey[1]))
             {
-                return true;
+                //make first upper rest to lower of modefier string
+                newHotKey[1] = newHotKey[1].First().ToString().ToUpper() + newHotKey[1].Substring(1);
+                if (newHotKey.Length == 2 && newHotKey[0].Length == 1 && modefierValidation() && hotKeyValidation())
+                {
+                    return true;
+                }
+                MessageBox.Show("The hotkey is invalid");
             }
-            MessageBox.Show("The hotkey is invalid");
             return false;
         }
 

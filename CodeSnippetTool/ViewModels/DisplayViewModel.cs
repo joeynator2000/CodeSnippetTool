@@ -1,9 +1,12 @@
 ﻿using CodeSnippetTool.classes;
 using CodeSnippetTool.Commands;
 using CodeSnippetTool.Db;
+using CodeSnippetTool.Hotkeys;
 using CodeSnippetTool.Service;
 using CodeSnippetTool.Stores;
+using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 
@@ -113,7 +116,7 @@ namespace CodeSnippetTool.ViewModels
             set
             {
                 var inputCheck = value;
-                if (inputCheck != null)
+                if (!String.IsNullOrEmpty(inputCheck))
                 {
                     HotKeyUpdateService updateService = new HotKeyUpdateService(_HotKey, inputCheck, SelectedItem.id);
                     if (updateService.isValidInput())
@@ -241,6 +244,14 @@ namespace CodeSnippetTool.ViewModels
                 {
                     conn.CreateTable<Snippets>();
                     SQLiteSnippets = conn.Table<Snippets>().ToList();
+
+                    if (SQLiteSnippets.Count > 0)
+                    {
+                        foreach (Snippets elem in SQLiteSnippets)
+                        {
+                            addHotKeyToSystem(elem);
+                        }
+                    }
                 }
             } else
             {
@@ -250,5 +261,30 @@ namespace CodeSnippetTool.ViewModels
             
         }
 
+        public void addHotKeyToSystem(Snippets elem)
+        {
+            if (!String.IsNullOrEmpty(elem.HotKey))
+            {
+                string hotKey = elem.HotKey;
+                String[] arr = elem.HotKey.Split("+");
+                var key = arr[0];
+                Key keyValue = (Key)Enum.Parse(typeof(Key), key, true);
+                var modifier = arr[1];
+                ModifierKeys modifierValue = (ModifierKeys)Enum.Parse(typeof(ModifierKeys), modifier, true);
+                HotkeysManager.AddHotkey(new GlobalHotkey(modifierValue, keyValue, () =>
+                {
+                    //CopySnippet(snp);
+                    if (IsSelected)
+                    {
+                        MessageBox.Show(elem.snippet_text, $"{elem.HotKey}");
+                    }
+                    Clipboard.SetText(elem.snippet_text);
+
+                    //This timer is so that ctrl+V can execute
+                    Thread.Sleep(1000);
+                }));
+                Console.WriteLine(elem.HotKey);
+            }
+        }
     }
 }
