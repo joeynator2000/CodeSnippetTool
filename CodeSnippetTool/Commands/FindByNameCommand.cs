@@ -1,8 +1,8 @@
-﻿using CodeSnippetTool.Service;
+﻿using CodeSnippetTool.Db;
+using CodeSnippetTool.Service;
+using CodeSnippetTool.Stores;
 using CodeSnippetTool.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 
 namespace CodeSnippetTool.Commands
@@ -11,16 +11,10 @@ namespace CodeSnippetTool.Commands
     {
         private readonly DisplayViewModel _viewModel;
         private readonly NavigationService<DisplayViewModel> _navigationService;
-        public static bool alreadyCreated;
-        public static string snippetName;
 
         public FindByNameCommand(DisplayViewModel viewModel, NavigationService<DisplayViewModel> navigationService)
         {
             _viewModel = viewModel;
-            if (alreadyCreated == true)
-            {
-                _viewModel.tableAlreadyCreated = true;
-            }
             _navigationService = navigationService;
         }
 
@@ -32,25 +26,19 @@ namespace CodeSnippetTool.Commands
                 {
                     var param = parameter.ToString();
                     String[] arr = param.Split(":");
-                    if (arr.Length < 2)
+                    DbSelect selecter = new DbSelect();
+                    var FoundList = selecter.SelectByName(arr[1].Trim());
+                    if (FoundList.Count > 0)
                     {
-                        alreadyCreated = false;
-                    }
-                    else
+                        FindByNameStore.FindByNameList = FoundList;
+                    } else
                     {
-                        snippetName = arr[1].Trim();
-                        alreadyCreated = true;
+                        MessageBox.Show("There are no results found with under the name: " + arr[1].Trim());
                     }
-
                 }catch(Exception ex)
                 {
                     throw ex; 
-
                 }
-            }
-            else
-            {
-                alreadyCreated = false;
             }
             _navigationService.Navigate();
 

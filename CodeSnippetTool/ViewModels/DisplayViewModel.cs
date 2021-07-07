@@ -1,50 +1,169 @@
 ﻿using CodeSnippetTool.classes;
 using CodeSnippetTool.Commands;
 using CodeSnippetTool.Db;
-using CodeSnippetTool.Hotkeys;
 using CodeSnippetTool.Service;
 using CodeSnippetTool.Stores;
-using MySql.Data.MySqlClient;
-using SQLite;
-using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace CodeSnippetTool.ViewModels
 {
     public class DisplayViewModel : ViewModelBase
     {
-        //static String connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=snippet_db;Allow User Variables=True";
-        //MySqlConnection con;
-        //MySqlCommand cmd;
-        //MySqlDataAdapter adapter;
-        //DataSet ds;
         public bool isSelected { get; set; }
         public DeleteCommand DeleteCommand { get; set; }
         public CopyCommand CopyCommand { get; set; }
         public ICommand NavigateAddingCommand { get; set; }
         public bool tableAlreadyCreated { get; set; }
         public FindByNameCommand FindByNameCommand { get; set; }
-        
+
+        public bool FindCommandTriggered = false;
+
+        private int _Id;
+    public int Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                _Id = value;
+            }
+        }
+
+        private string _Name;
+        public string Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                DbSelect selecter = new DbSelect();
+                if (!selecter.NameIsTaken(value, SelectedItem.id))
+                {
+                    _Name = value;
+                }
+                else
+                {
+                    MessageBox.Show("This name is already taken");
+                }
+            }
+        }
+        private string _Snippet_text;
+        public string Snippet_text
+        {
+            get
+            {
+                return _Snippet_text;
+            }
+            set
+            {
+                _Snippet_text = value;
+            }
+        }
+
+        private string _Lang;
+        public string Lang
+        {
+            get
+            {
+                return _Lang;
+            }
+            set
+            {
+                _Lang = value;
+            }
+        }
+        private bool _Favourite;
+        public bool Favourite
+        {
+            get
+            {
+                return _Favourite;
+            }
+            set
+            {
+                _Favourite = value;
+            }
+        }
+        private string _Description;
+        public string Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                _Description = value;
+            }
+        }
+
+        private string _HotKey;
+        public string HotKey
+        {
+            get
+            {
+                return _HotKey;
+            }
+            set
+            {
+                var inputCheck = value;
+                if (inputCheck != null)
+                {
+                    HotKeyUpdateService updateService = new HotKeyUpdateService(_HotKey, inputCheck, SelectedItem.id);
+                    if (updateService.isValidInput())
+                    {
+                        updateService.removeOldHotKey();
+                        _HotKey = updateService.getNewHotKey();
+                        _HotKey = value;
+                    }
+                    else
+                    {
+                        MessageBox.Show("The hotkey is either not available or invalid");
+                    }
+                }
+            }
+        }
+        private string _Date_added;
+        public string Date_added
+        {
+            get
+            {
+                return _Date_added;
+            }
+            set
+            {
+                _Date_added = value;
+            }
+        }
+        private string _last_copied;
+        public string last_copied
+        {
+            get
+            {
+                return _last_copied;
+            }
+            set
+            {
+                _last_copied = value;
+            }
+        }
 
         public List<SnippetModel> snippetsModel;
-
-
+        
         public DisplayViewModel(NavigationStore navigationStore)
         {
             this.CopyCommand = new CopyCommand(this);
             this.DeleteCommand = new DeleteCommand(this, new NavigationService<DisplayViewModel>(navigationStore, () => new DisplayViewModel(navigationStore)));
             this.FindByNameCommand = new FindByNameCommand(this, new NavigationService<DisplayViewModel>(navigationStore, () => new DisplayViewModel(navigationStore)));
             NavigateAddingCommand = new NavigateCommand<AddingViewModel>(new NavigationService<AddingViewModel>(navigationStore, () => new AddingViewModel(navigationStore)));
-            //FillList();
             FillSqliteList();
         }
-
 
         public bool IsSelected
         {
@@ -69,101 +188,67 @@ namespace CodeSnippetTool.ViewModels
             set { _sqliteSnippets = value; }
         }
 
-        public void FillSqliteList()
-        {
-            using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.dtabasePath))
-            {
-                conn.CreateTable<Snippets>();
-                SQLiteSnippets = conn.Table<Snippets>().ToList();
-            }
-        }
+        Snippets PrevSelectedItem { get; set; }
 
-        public void FillList()
+        Snippets _SelectedItem;
+        public Snippets SelectedItem
         {
-            DbConnect con = new DbConnect();
-            DbSelect dbSelect = new DbSelect();
-            if (tableAlreadyCreated != true)
+            get
             {
-                try
-                {
-                    snippetsModel = dbSelect.selectAll();
-                    foreach (SnippetModel snp in snippetsModel)
-                    {
-                        string hotKey = snp.HotKey;
-                        String[] arr = snp.hotKey.Split("+");
-                        var key = arr[0];
-                        Key keyValue = (Key)Enum.Parse(typeof(Key), key, true);
-                        var modifier = arr[1];
-                        ModifierKeys modifierValue = (ModifierKeys)Enum.Parse(typeof(ModifierKeys), modifier, true);
-                        HotkeysManager.AddHotkey(new GlobalHotkey(modifierValue, keyValue, () =>
-                        {
-                            //CopySnippet(snp);
-                        }));
-                    }
-                    if (snippetsModel == null || snippetsModel.Count == 0)
-                        snippetsModel = new List<SnippetModel>();
-                }
-                catch (Exception ex)
-                {
-                    ex.Message.ToString();
-                }
+                return _SelectedItem;
             }
-            else
+            set
             {
-                try
+                PrevSelectedItem = _SelectedItem;
+                _SelectedItem = value;
+                if (PrevSelectedItem != null)
                 {
-                    var name = FindByNameCommand.snippetName;
-                    SnippetModel snp = new SnippetModel();
-                    snp = dbSelect.selectSnippetName(name);
-                    if (snp.Name != null)
+                    if (value == null || PrevSelectedItem.id != value.id)
                     {
-                        if (snippetsModel == null || snippetsModel.Count == 0)
-                            snippetsModel = new List<SnippetModel>();
-                        if (snp != null)
+                        DbUpdate updater = new DbUpdate();
+                        DbSelect selecter = new DbSelect();
+                        if (!selecter.NameIsTaken(PrevSelectedItem.name, PrevSelectedItem.id) && !selecter.hotKeyIsTaken(PrevSelectedItem.HotKey, PrevSelectedItem.id))
                         {
-                            snippetsModel.Add(snp);
+                            updater.UpdateSnippet(PrevSelectedItem.id, PrevSelectedItem.name, PrevSelectedItem.lang, PrevSelectedItem.favourite, PrevSelectedItem.HotKey);
                         }
                     }
-                    else
-                    {
-                        MessageBox.Show($"Snippet with name:{name} does not exist", "Find Snippet");
-                    }
-
                 }
-                catch (Exception ex)
-                {
-                    ex.Message.ToString();
-
-                }
+                updateSelectedFields(_SelectedItem);
+                OnPropertyChanged("SelectedItem");
             }
         }
 
-        //public void DeleteMethod(String deleteId)
-        //{
-        //    MessageBox.Show("Hello");
-        //    using (SQLiteConnection connection = new SQLiteConnection(App.dtabasePath))
-        //    {
-        //        int idInt = Convert.ToInt32(deleteId);
-        //        var query = connection.Table<Snippets>().Where(v => v.name.StartsWith("a"));
-        //        connection.Delete(query);
-        //        connection.Execute("Delete from Snippets where id = ?", deleteId);
+        public void updateSelectedFields(Snippets snippet)
+        {
+            //update values to current if not null
+            //if null run update method and make possible changes
+            if (snippet != null)
+            {
+                Id = snippet.id;
+                Name = snippet.name;
+                Snippet_text = snippet.snippet_text;
+                Lang = snippet.lang;
+                HotKey = snippet.HotKey;
+                Favourite = snippet.favourite;
+            }
+        }
 
-        //        foreach (var stock in query)
-        //            MessageBox.Show("Stock: " + stock.name);
+        public void FillSqliteList()
+        {
+            if (FindByNameStore.FindByNameList == null)
+            {
+                using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.dtabasePath))
+                {
+                    conn.CreateTable<Snippets>();
+                    SQLiteSnippets = conn.Table<Snippets>().ToList();
+                }
+            } else
+            {
+                SQLiteSnippets = FindByNameStore.FindByNameList;
+                FindByNameStore.FindByNameList = null;
+            }
+            
+        }
 
-        //        var query = connection.Table<Snippets>().Where(id => id.Equals(deleteId));
-
-        //        var toRemove = connection.Table<Snippets>().Where(x => x.id == Convert.ToInt32(deleteId));
-        //        connection.Table<Snippets>().Delete(toRemove);
-        //        connection.SaveChanges();
-
-        //        foreach (var tmp in query)
-        //            Console.WriteLine("deleted id: " + tmp.id.ToString());
-
-
-        //        connection.CreateTable<Snippets>();
-        //        connection.Insert(snippet);
-        //    }
-        //}
     }
 }

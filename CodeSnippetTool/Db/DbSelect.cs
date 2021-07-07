@@ -2,8 +2,6 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using SQLite;
 
 namespace CodeSnippetTool.Db
 {
@@ -15,81 +13,6 @@ namespace CodeSnippetTool.Db
         }                                            
         public List<Snippets> selectSnippetId(int id)
         {
-            //SnippetModel snpt = new SnippetModel();
-            //this.connection.Open();
-            //string query = "SELECT * FROM snippets WHERE id=@id";
-            //using (var cmd = new MySqlCommand(query, this.connection))
-            //{
-            //    cmd.Parameters.AddWithValue("@id", id);
-
-            //    using (var reader = cmd.ExecuteReader())
-            //    {
-            //        if (reader.HasRows)
-            //        {
-            //            while (reader.Read())
-            //            {
-            //                var snippetId = reader.GetInt32(0);
-            //                var snippetName = "";
-            //                var snippetNameTmp = reader[1] as String;
-            //                if (!String.IsNullOrEmpty(snippetNameTmp))
-            //                {
-            //                    snippetName = reader.GetString(1);
-            //                }
-
-            //                var snippetText = "";
-            //                var snippetTextTmp = reader[2] as String;
-            //                if (!String.IsNullOrEmpty(snippetTextTmp))
-            //                {
-            //                    snippetText = reader.GetString(2);
-            //                }
-
-            //                var snippetLang = "";
-            //                var snippetLangTmp = reader[3] as String;
-            //                if (!String.IsNullOrEmpty(snippetLangTmp))
-            //                {
-            //                    snippetLang = reader.GetString(3);
-            //                }
-
-            //                var snippetFavourite = reader.GetInt32(4);
-
-            //                var snippetDescription = "";
-            //                var snippetDescriptionTmp = reader[5] as String;
-            //                if (!String.IsNullOrEmpty(snippetDescriptionTmp))
-            //                {
-            //                    snippetDescription = reader.GetString(5);
-            //                }
-
-            //                var snippetHotKey = "";
-            //                var snippetHotKeyTmp = reader[6] as String;
-            //                if (!String.IsNullOrEmpty(snippetHotKeyTmp))
-            //                {
-            //                    snippetHotKey = reader.GetString(6);
-            //                }
-
-            //                var snippetDateAdded = "";
-            //                var snippetDateDateAddedTmp = reader[7].ToString();
-            //                if (!String.IsNullOrEmpty(snippetDateDateAddedTmp))
-            //                {
-            //                    snippetDateAdded = reader.GetString(7);
-            //                }
-
-            //                var snippetDateLastCopied = "Not yet copied";
-            //                var snippetDateLastCopiedTmp = reader[8].ToString();
-            //                if (!String.IsNullOrEmpty(snippetDateLastCopiedTmp))
-            //                {
-            //                    snippetDateLastCopied = reader.GetString(8);
-            //                }
-            //                SnippetModel snp = new SnippetModel(snippetId, snippetName, snippetText, snippetLang, snippetFavourite, snippetDescription, snippetHotKey, snippetDateAdded, snippetDateLastCopied);
-
-            //                snpt = snp;
-            //            }
-            //        }
-
-            //    }
-            //}
-            //Console.WriteLine("select complete");
-            //this.connection.Close();
-
             using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.dtabasePath))
             {
                 string Query = "SELECT * FROM snippets WHERE id = ?";
@@ -163,7 +86,7 @@ namespace CodeSnippetTool.Db
                             {
                                 snippetDateLastCopied = reader.GetString(8);
                             }
-                            SnippetModel snp = new SnippetModel(snippetId, snippetName, snippetText, snippetLang, snippetFavourite, snippetDescription, snippetHotKey, snippetDateAdded, snippetDateLastCopied);
+                            SnippetModel snp = new SnippetModel(snippetId, snippetName, snippetText, snippetLang, true, snippetDescription, snippetHotKey, snippetDateAdded, snippetDateLastCopied);
 
                             snpt = snp;
                         }
@@ -285,7 +208,7 @@ namespace CodeSnippetTool.Db
                         {
                             snippetDateLastCopied = reader.GetString(8);
                         }
-                        SnippetModel snp = new SnippetModel(snippetId, snippetName, snippetText, snippetLang, snippetFavourite, snippetDescription, snippetHotKey, snippetDateAdded, snippetDateLastCopied);
+                        SnippetModel snp = new SnippetModel(snippetId, snippetName, snippetText, snippetLang, true, snippetDescription, snippetHotKey, snippetDateAdded, snippetDateLastCopied);
 
                         snippet = snp;
                         Console.WriteLine($"{snippetText}");
@@ -360,7 +283,7 @@ namespace CodeSnippetTool.Db
                         {
                             snippetDateLastCopied = reader.GetString(8);
                         }
-                        SnippetModel snp = new SnippetModel(snippetId, snippetName, snippetText, snippetLang, snippetFavourite,snippetDescription, snippetHotKey, snippetDateAdded, snippetDateLastCopied);
+                        SnippetModel snp = new SnippetModel(snippetId, snippetName, snippetText, snippetLang, true,snippetDescription, snippetHotKey, snippetDateAdded, snippetDateLastCopied);
                         snippets.Add(snp);
                         Console.WriteLine($"{snippetText}");
                     }
@@ -386,22 +309,21 @@ namespace CodeSnippetTool.Db
             }
 
             return IsTaken;
-            //this.connection.Open();
-            //string query = "SELECT * FROM snippets WHERE HotKey=@hotKeyToCheck";
+        }
 
-            //using (var cmd = new MySqlCommand(query, this.connection))
-            //{
-            //    cmd.Parameters.AddWithValue("@hotKeyToCheck", hotKeyToCheck);
+        public bool hotKeyIsTaken(string hotKeyToCheck, int id)
+        {
+            bool IsTaken = false;
 
-            //    using (var reader = cmd.ExecuteReader())
-            //    {
-            //        if (reader.HasRows)
-            //        {
-            //            IsTaken = true;
-            //        }
-            //    }
-            //}
-            //this.connection.Close();
+            using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.dtabasePath))
+            {
+                string Query = "SELECT * FROM snippets WHERE HotKey = ? and id <> ?";
+                var result = conn.Query<Snippets>(Query, hotKeyToCheck, id);
+                if (result.Count > 0)
+                {
+                    IsTaken = true;
+                }
+            }
 
             return IsTaken;
         }
@@ -421,6 +343,33 @@ namespace CodeSnippetTool.Db
             }
 
             return IsTaken;
+        }
+
+        public bool NameIsTaken(string nameToCheck, int id)
+        {
+            bool IsTaken = false;
+
+            using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.dtabasePath))
+            {
+                string Query = "SELECT * FROM snippets WHERE name = ? and id <> ?";
+                var result = conn.Query<Snippets>(Query, nameToCheck, id);
+                if (result.Count > 0)
+                {
+                    IsTaken = true;
+                }
+            }
+
+            return IsTaken;
+        }
+
+        public List<Snippets> SelectByName(string name)
+        {
+            using (SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection(App.dtabasePath))
+            {
+                string Query = "SELECT * FROM snippets WHERE name = ?";
+                var result = conn.Query<Snippets>(Query, name);
+                return result;
+            }
         }
     }
 }

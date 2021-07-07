@@ -20,7 +20,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <DataGrid Name="SnippetsGrid" CanUserResizeRows="False" CanUserResizeColumns="False" IsReadOnly="True" CanUserAddRows="False" AutoGenerateColumns="False" Margin="0,-5,0,101"  ItemsSource="{Binding SQLiteSnippets}" Grid.ColumnSpan="3" SelectionChanged="SnippetsGrid_SelectionChanged" Grid.RowSpan="3"  >
+        <DataGrid Name="SnippetsGrid" CanUserResizeRows="False" CanUserResizeColumns="False" IsReadOnly="True" CanUserAddRows="False" AutoGenerateColumns="False" Margin="0,-5,0,101"  ItemsSource="{Binding SQLiteSnippets}" Grid.ColumnSpan="3" SelectedItem="{Binding SelectedItem,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="SnippetsGrid_SelectionChanged" Grid.RowSpan="3"  >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding name}"  Width="50"/>
                 <DataGridTextColumn Header="HotKey" Binding="{Binding HotKey}"  Width="50"/>
@@ -48,15 +48,25 @@
         Content="Preview Snippet"
         IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="618,199,6,68" Grid.Row="2" Grid.ColumnSpan="2"/>
         <TextBox Grid.Row="2" Visibility="Hidden" Height="23" HorizontalAlignment="Left" Margin="16,243,0,0" Name="txtId" VerticalAlignment="Top" Width="29" Text="{Binding ElementName=SnippetsGrid,  Path=SelectedItem.id}" />
+        <!--<TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="55,243,0,0" Name="txtName" VerticalAlignment="Top" Width="121" 
+            Text="{Binding ElementName=SnippetsGrid,Path=SelectedItem.name}" Grid.Column="1" />-->
         <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="55,243,0,0" Name="txtName" VerticalAlignment="Top" Width="121" 
-Text="{Binding ElementName=SnippetsGrid,Path=SelectedItem.name}" Grid.Column="1" />
-        <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="240,243,0,0" Name="txtLanguage" VerticalAlignment="Top" Width="119" Text="{Binding ElementName=SnippetsGrid,Path=SelectedItem.lang}" Grid.Column="1" />
+            Text="{Binding SelectedItem.name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" Grid.Column="1" />
+        <!--<TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="240,243,0,0" Name="txtLanguage" VerticalAlignment="Top" Width="119" Text="{Binding ElementName=SnippetsGrid,Path=SelectedItem.lang}" Grid.Column="1" />-->
+        <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="240,243,0,0" Name="txtLanguage" VerticalAlignment="Top" Width="119" Text="{Binding SelectedItem.lang, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" Grid.Column="1" />
+        <!--<CheckBox Name="FavouriteCheckBox"  
+        Canvas.Left="10" Canvas.Top="10"
+        Content="Favourite"
+        IsChecked="{Binding ElementName=SnippetsGrid, Path=SelectedItem.favourite, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="592,241,10,26" Grid.Row="2"/>-->
+
         <CheckBox Name="FavouriteCheckBox"  
         Canvas.Left="10" Canvas.Top="10"
         Content="Favourite"
         IsChecked="{Binding ElementName=SnippetsGrid, Path=SelectedItem.favourite, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Margin="592,241,10,26" Grid.Row="2"/>
-        <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="429,243,0,0" x:Name="txtDescription" VerticalAlignment="Top" Width="124" Text="{Binding ElementName=SnippetsGrid, Path=SelectedItem.HotKey}" Grid.Column="1" />
 
+        <!--<TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="429,243,0,0" x:Name="txtDescription" VerticalAlignment="Top" Width="124" Text="{Binding ElementName=SnippetsGrid, Path=SelectedItem.HotKey}" Grid.Column="1" />-->
+        <TextBox Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="429,243,0,0" x:Name="txtDescription" VerticalAlignment="Top" Width="124" Text="{Binding SelectedItem.HotKey, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged }" Grid.Column="1" />
+        
         <Label Content="Name" Grid.Row="2" Height="28" HorizontalAlignment="Left" Margin="50,241,0,0" Name="label2" VerticalAlignment="Top" Grid.ColumnSpan="2" />
         <Label Content="Language" Grid.Row="2" Height="28" HorizontalAlignment="Left" Margin="178,240,0,0" Name="label3" VerticalAlignment="Top" Grid.Column="1" />
         <Label Content="HotKey" Grid.Row="2" Height="26" HorizontalAlignment="Left" Margin="360,241,0,0" x:Name="label2_Copy1" VerticalAlignment="Top" Grid.Column="1" />

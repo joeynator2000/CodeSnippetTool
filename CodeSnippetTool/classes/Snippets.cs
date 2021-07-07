@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SQLite;
+﻿using SQLite;
 
 namespace CodeSnippetTool.classes
 {
-    public class Snippets
+    public class Snippets 
     {
         [PrimaryKey, AutoIncrement]
         public int id { get; set; }

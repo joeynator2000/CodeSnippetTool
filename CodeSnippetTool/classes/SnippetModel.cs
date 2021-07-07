@@ -13,7 +13,7 @@ namespace CodeSnippetTool.classes
         public string name;
         public string snippetText;
         public string language;
-        public int favourite;
+        public bool favourite;
         public string description;
         public string hotKey;
         public string dateAdded;
@@ -76,7 +76,7 @@ namespace CodeSnippetTool.classes
                 OnPropertyChanged("Language");
             }
         }
-        public int Favourite
+        public bool Favourite
         {
             get
             {
@@ -202,7 +202,7 @@ namespace CodeSnippetTool.classes
                 OnPropertyChanged("LastCopied");
             }
         }
-        public SnippetModel(int id, string name, string text, string language, int favourite, string description, string hotKey, string dateAdded, string lastCopied)
+        public SnippetModel(int id, string name, string text, string language, bool favourite, string description, string hotKey, string dateAdded, string lastCopied)
         {
             this.id = id;
             this.name = name;

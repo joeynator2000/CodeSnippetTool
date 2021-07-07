@@ -1,8 +1,6 @@
 ﻿using CodeSnippetTool.Stores;
 using CodeSnippetTool.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CodeSnippetTool.Service
 {
