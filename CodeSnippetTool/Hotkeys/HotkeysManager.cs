@@ -4,11 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using WindowsInput;
-using WindowsInput.Native;
 
 namespace CodeSnippetTool.Hotkeys
 {
@@ -54,8 +50,6 @@ namespace CodeSnippetTool.Hotkeys
         /// </para>
         /// </summary>
         public static bool RequiresModifierKey { get; set; }
-
-        public static bool pasteInCommand { get; set; }
 
         static HotkeysManager()
         {
@@ -119,21 +113,9 @@ namespace CodeSnippetTool.Hotkeys
                                 Console.WriteLine(hotkey.Key);
                                 DbConnect conn = new DbConnect();
                                 DbUpdate dvb = new DbUpdate(conn);
-
-
+                                
                                 //Update query where we pass key
                                 HotkeyFired?.Invoke(hotkey);
-
-
-                                HotkeysManager.pasteInCommand = true;
-                                InputSimulator pasteIn = new InputSimulator();
-                                //When this method executes, the method HookCaallBack exectues. HookVallBack executes every time we send information to System that the key was pressed.
-                                //We might not have pressed actual ctrl+V but we simulated pressing those buttons and that is why the HookCallBack is being executed.
-
-                                //I tried using async/await but 
-                                pasteIn.Keyboard.ModifiedKeyStroke(VirtualKeyCode.CONTROL, VirtualKeyCode.VK_V);
-                                HotkeysManager.pasteInCommand = false;
-
                             }
                         }
                     }
@@ -242,29 +224,21 @@ namespace CodeSnippetTool.Hotkeys
         /// <returns>LRESULT</returns>
         private static IntPtr HookCallback(int nCode, IntPtr wParam, IntPtr lParam)
         {
-            if (pasteInCommand != true)
+            // Checks if this is called from keydown only because key ups aren't used.
+            if (nCode >= 0)
             {
-                // Checks if this is called from keydown only because key ups aren't used.
-                if (nCode >= 0)
-                {
-                    CheckHotkeys();
+                CheckHotkeys();
 
-                    // Cannot use System.Windows' keys because
-                    // they dont use the same values as windows
-                    //int vkCode = Marshal.ReadInt32(lParam);
-                    //System.Windows.Forms.Keys key = (System.Windows.Forms.Keys)vkCode;
-                    //Debug.WriteLine(key);
-                }
-
-                // I think this tells windows that this app has successfully
-                // handled the key events and now other apps can handle it next.
-                return CallNextHookEx(HookID, nCode, wParam, lParam);
-            }
-            else
-            {
-                return IntPtr.Zero;
+                // Cannot use System.Windows' keys because
+                // they dont use the same values as windows
+                //int vkCode = Marshal.ReadInt32(lParam);
+                //System.Windows.Forms.Keys key = (System.Windows.Forms.Keys)vkCode;
+                //Debug.WriteLine(key);
             }
 
+            // I think this tells windows that this app has successfully
+            // handled the key events and now other apps can handle it next.
+            return CallNextHookEx(HookID, nCode, wParam, lParam);
         }
 
         #region Native Methods
