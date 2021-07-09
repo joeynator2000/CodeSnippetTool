@@ -23,5 +23,9 @@ namespace CodeSnippetTool.Db
             }
         }
 
+        public MySqlConnection getConnection()
+        {
+            return this.databaseConnection;
+        }
     }
 }

@@ -6,6 +6,7 @@ namespace CodeSnippetTool.Db
 {
     public class DbUpdate
     {
+        public DbConnect db { get; set; }
         public DbSelect dbSelect;
         public DbUpdate()
         {
