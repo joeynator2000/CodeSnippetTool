@@ -2,6 +2,7 @@
 using CodeSnippetTool.Db;
 using CodeSnippetTool.Service;
 using CodeSnippetTool.ViewModels;
+using Microsoft.Toolkit.Uwp.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -27,6 +28,9 @@ namespace CodeSnippetTool.Commands
                 int id=Int32.Parse(param);
                 List<Snippets> snippet = dbSelect.selectSnippetId(id);
                 ClipboardCopyService.copyToClipBoard(snippet, _viewModel);
+                new ToastContentBuilder()
+                .AddText("Copied to clipboard")
+                .Show();
             }
             else
             {

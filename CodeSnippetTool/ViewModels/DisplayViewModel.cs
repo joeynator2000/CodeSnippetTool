@@ -4,6 +4,7 @@ using CodeSnippetTool.Db;
 using CodeSnippetTool.Hotkeys;
 using CodeSnippetTool.Service;
 using CodeSnippetTool.Stores;
+using Microsoft.Toolkit.Uwp.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -279,7 +280,6 @@ namespace CodeSnippetTool.ViewModels
                         MessageBox.Show(elem.snippet_text, $"{elem.HotKey}");
                     }
                     Clipboard.SetText(elem.snippet_text);
-
                     //This timer is so that ctrl+V can execute
                     Thread.Sleep(1000);
                 }));
