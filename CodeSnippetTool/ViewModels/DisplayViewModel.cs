@@ -274,14 +274,12 @@ namespace CodeSnippetTool.ViewModels
                 ModifierKeys modifierValue = (ModifierKeys)Enum.Parse(typeof(ModifierKeys), modifier, true);
                 HotkeysManager.AddHotkey(new GlobalHotkey(modifierValue, keyValue, () =>
                 {
-                    //CopySnippet(snp);
+                    DbUpdate update = new DbUpdate();
                     if (IsSelected)
                     {
                         MessageBox.Show(elem.snippet_text, $"{elem.HotKey}");
                     }
                     Clipboard.SetText(elem.snippet_text);
-                    //This timer is so that ctrl+V can execute
-                    Thread.Sleep(1000);
                 }));
                 Console.WriteLine(elem.HotKey);
             }
